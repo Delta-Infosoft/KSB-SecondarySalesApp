@@ -19,6 +19,10 @@ class Dashboard extends GetView<DashboardController> {
           const Profile()
         ][controller.selectedItemIndex.value];
       },),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: (){},child: Icon(Icons.add),),
       bottomNavigationBar: const DashboardBottomBar(),
     );
   }

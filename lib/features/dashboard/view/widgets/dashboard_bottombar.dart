@@ -7,6 +7,19 @@ class DashboardBottomBar extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    return Obx(() {
+      return BottomAppBar(
+        shape: CircularNotchedRectangle(),notchMargin: 15,
+
+        child: Row(
+          children: [
+        InkWell(
+          onTap: (){},
+            child: Expanded(child: Center(child: IconButton(onPressed: (){}, icon: Icon(Icons.home_filled))))),
+
+            Expanded(child: Center(child: IconButton(onPressed: (){}, icon: Icon(Icons.person_rounded)))),
+      ],),);
+    },);
     return Obx(
             () {
         return NavigationBar(
@@ -15,6 +28,7 @@ class DashboardBottomBar extends GetView<DashboardController> {
             },
             destinations: const [
           NavigationDestination(icon: Icon(Icons.home_filled), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.home_filled,color: Colors.transparent,), label: '',enabled: false,),
           NavigationDestination(icon: Icon(Icons.person_rounded), label: 'Profile'),
         ], selectedIndex: controller.selectedItemIndex.value);
       }
