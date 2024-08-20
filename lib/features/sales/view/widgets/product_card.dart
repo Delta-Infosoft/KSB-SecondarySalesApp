@@ -18,17 +18,26 @@ class ProductCard extends GetView<SalesInsertController> {
         return ListTile(
           selected: isSelected,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          selectedTileColor: isSelected ? theme.primaryColor.withOpacity(0.1) : Colors.transparent,
+          selectedTileColor: isSelected ? context.colorScheme.primary: Colors.transparent,
+
           leading: CachedNetworkImage(
-            imageUrl: "https://t3.ftcdn.net/jpg/00/77/77/16/360_F_77771611_BCUZR6NW73NVdiLgmOeIzzSh4RP2U3aV.jpg",
-            height: 50, width: 50,
+            // color: Colors.black,
+            imageUrl: product.imgUrl,
+            height: 45, width: 45,
+            imageBuilder: (context, imageProvider) => Container(
+              clipBehavior: Clip.hardEdge,
+                height: 20,width: 20,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Image(image: imageProvider,fit: BoxFit.cover,)),
             placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
-          title: Text(product.name),
-          subtitle: Text(product.description),
-          trailing: Text(product.mrp, style: const TextStyle(fontWeight: FontWeight.bold)),
-          tileColor: isSelected ? theme.primaryColor.withOpacity(0.1) : Colors.transparent,
+          title: Text(product.name,style: TextStyle(color:isSelected?Colors.white:null ),),
+          subtitle: Text(product.description,style: TextStyle(color:isSelected?Colors.white:null )),
+          trailing: Text(product.mrp, style:  TextStyle(fontWeight: FontWeight.bold,color:isSelected? Colors.white:null)),
+          tileColor:  context.colorScheme.secondary.withOpacity(.1),
           onTap: () {
             controller.isProductSelected[index].value = !controller.isProductSelected[index].value;
           },

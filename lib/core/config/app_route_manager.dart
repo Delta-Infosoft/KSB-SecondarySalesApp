@@ -5,6 +5,7 @@ import 'package:ksb_secondary_sales/features/dashboard/view/dashboard.dart';
 import 'package:ksb_secondary_sales/features/dashboard/view_model/dashboard_controller.dart';
 import 'package:ksb_secondary_sales/features/home/view_model/home_controller.dart';
 import 'package:ksb_secondary_sales/features/profile/view_model/profile_controller.dart';
+import 'package:ksb_secondary_sales/features/sales/view/sales_insert.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 import 'package:ksb_secondary_sales/features/splash/view/splash.dart';
 
@@ -28,14 +29,16 @@ class AppRouteManager {
           () {
             Get.lazyPut(() => LoginController());
           },
-        )),
+        )), GetPage(
+        name: AppRoute.salesInsertRoute,
+        page: () => const SalesInsert(),
+    ),
     GetPage(
         name: AppRoute.dashboard,
         page: () => const Dashboard(),
         binding: BindingsBuilder(
               () {
             Get.lazyPut(() => DashboardController());
-            Get.lazyPut(() => SalesInsertController());
             Get.lazyPut(() => ProfileController());
             Get.lazyPut(() => HomeController());
           },

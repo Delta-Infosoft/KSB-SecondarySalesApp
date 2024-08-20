@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
@@ -5,9 +7,58 @@ import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart'
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpVerificationDialog extends GetView<LoginController> {
-  const OtpVerificationDialog(this.actualOtp, {super.key});
-  final String actualOtp;
+class OtpVerificationController extends GetxController {
+  Timer? timer;
+  RxDouble resendSecondTimer = 60.0.obs;
+  RxBool resendEnable = false.obs;
+  RxBool isOtpResending = false.obs;
+
+  startTimer() {
+    resendEnable.value = false;
+    resendSecondTimer.value = 60.0;
+    timer = Timer.periodic(
+      1.seconds,
+      (_) {
+        if (resendSecondTimer.value > 1) {
+          resendSecondTimer.value--;
+        } else {
+          resendEnable.value = true;
+          timer?.cancel();
+        }
+      },
+    );
+  }
+
+  resendOtp() {}
+}
+
+class OtpVerificationDialog extends StatefulWidget {
+  const OtpVerificationDialog(this.mobileNo,
+      {super.key, required this.onOtpVerifyTrigger, required this.onResendOtp});
+  final String mobileNo;
+  final Function(String) onOtpVerifyTrigger;
+  final Future<String> Function() onResendOtp;
+
+  @override
+  State<OtpVerificationDialog> createState() => _OtpVerificationDialogState();
+}
+
+class _OtpVerificationDialogState extends State<OtpVerificationDialog> {
+  late OtpVerificationController controller;
+  TextEditingController otpCtrl = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.put(OtpVerificationController());
+    controller.startTimer();
+  }
+
+  @override
+  void dispose() {
+    otpCtrl.dispose();
+    Get.delete<OtpVerificationController>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +85,19 @@ class OtpVerificationDialog extends GetView<LoginController> {
                 'We have sent verification code to',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              const Text(
-                '+91 9712268926',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              Text(
+                '${widget.mobileNo}',
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               20.heightGap,
-               Center(
+              Center(
                 child: Pinput(
                   autofocus: true,
-                  controller: controller.otpCtrl,
+                  controller: otpCtrl,
                   hapticFeedbackType: HapticFeedbackType.lightImpact,
                   onCompleted: (value) {
-                    controller.verifyOtp(actualOtp  );
-
+                    widget.onOtpVerifyTrigger(value);
                   },
                   cursor: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
@@ -56,36 +107,38 @@ class OtpVerificationDialog extends GetView<LoginController> {
                 ),
               ),
               10.heightGap,
-              TextButton(
-                  onPressed: controller.resendEnable.value
-                      ? () {
-                          controller.startTimer();
-                        }
-                      : null,
-                  child: Text(
+              TextButton.icon(
+                  icon: controller.isOtpResending.value
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const SizedBox(),
+                  onPressed: () async {
+                    controller.isOtpResending.value=true;
+                 String otp=  await widget.onResendOtp.call();
+                 if(otp.isNotEmpty){
+                    controller.startTimer();
+                 }
+                    controller.isOtpResending.value=false;
+
+                  },
+                  label: Text(
                       'Resend Code ${controller.resendEnable.value ? '' : '(${controller.resendSecondTimer.value.round()})'}')),
               16.heightGap,
               Center(
-                  child: ElevatedButton.icon(
+                  child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: context.primaryColor,
                           foregroundColor: context.colorScheme.onPrimary),
                       onPressed: () {
-controller.verifyOtp(actualOtp  );
+                        widget.onOtpVerifyTrigger(otpCtrl.text);
                       },
-                      icon: controller.isOtpVerifying.value
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2,
-                              ),
-                            )
-                          : const SizedBox(),
-                      label: Text(controller.isOtpVerifying.value
-                          ? 'OTP Verifying'
-                          : 'Verify OTP')))
+                      child: const Text('Verify OTP')))
             ],
           ),
         );

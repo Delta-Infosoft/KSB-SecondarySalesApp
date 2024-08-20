@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 
 class CommonTextInput extends StatelessWidget {
@@ -19,13 +19,18 @@ class CommonTextInput extends StatelessWidget {
         this.customBorder,
         this.onTap,
         this.focusNode,
+        this.labelStyle,
         this.filled,
         this.filledColor,
         this.hintStyle,
         this.readOnly,
+        this.inputFormatters,
         this.textInputAction,
+        this.style,
         this.maxLength,
         this.enabled,
+        this.lableWidget,
+        this.autoValidateNull=false,
         this.controller,this.initialValue, this.focusBorder});
 
   final String? label;
@@ -40,10 +45,10 @@ class CommonTextInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final EdgeInsets? padding;
   final TextEditingController? controller;
-  String? Function(String?)? onChange;
+  final void Function(String?)? onChange;
   final void Function()? onTap;
-  final OutlineInputBorder? customBorder;
-  final OutlineInputBorder? focusBorder;
+  final InputBorder? customBorder;
+  final InputBorder? focusBorder;
   final FocusNode? focusNode;
   String? Function(String?)? validator;
   final TextInputAction? textInputAction;
@@ -51,7 +56,12 @@ class CommonTextInput extends StatelessWidget {
   final bool? enabled;
   final int? maxLength;
   final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
+  final TextStyle? style;
   final String? initialValue;
+  final bool autoValidateNull;
+  final List<TextInputFormatter>? inputFormatters;
+  final Widget? lableWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +69,20 @@ class CommonTextInput extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: keyboardType,
+      textCapitalization: TextCapitalization.words,
       obscureText: obscureText,
-      autovalidateMode: autoValidateMode??AutovalidateMode.onUserInteraction,
-      textInputAction: textInputAction,
+
+      autovalidateMode:autoValidateNull?null:( autoValidateMode??AutovalidateMode.onUserInteraction),
+      textInputAction: textInputAction??TextInputAction.next,
       enabled: enabled,
+      inputFormatters:inputFormatters ,
       maxLength: maxLength,
       // style:
-      //     TextStyle(fontSize: 16.sp, color: context.colorScheme.onBackground),
+      //     GoogleFonts.montserrat(fontSize: 16.sp, color: context.colorScheme.onBackground),
       cursorColor:context.primaryColor,
       textAlignVertical: TextAlignVertical.bottom,
       onTap: onTap,
-
+      style: style,
       readOnly: readOnly ?? false,
       initialValue: initialValue,
       decoration: InputDecoration(
@@ -79,9 +92,9 @@ class CommonTextInput extends StatelessWidget {
         filled: filled,
         fillColor: filledColor,
         labelStyle: TextStyle(fontSize: 16, color:context.primaryColor),
-        label: label != null ? Text(label!) : null,
+        label: lableWidget?? (label != null ? Text(label!,style: labelStyle,) : null),
         hintText: hintText,
-        hintStyle: hintStyle ?? const TextStyle(fontSize: 14, color: Colors.grey),
+        hintStyle: hintStyle ??  TextStyle(fontSize: 14, color: Colors.grey),
         counterText: '',
         border: customBorder,
         disabledBorder: customBorder,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_theme.dart';
+import 'package:ksb_secondary_sales/core/config/initial_binding.dart';
 
 import 'core/config/app_route.dart';
 import 'core/config/app_route_manager.dart';
@@ -22,6 +23,7 @@ class FlutterMvvmCopilotApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       initialRoute: AppRoute.splash,
+      initialBinding:InitialBinding() ,
       getPages: AppRouteManager.pages,
     );
   }

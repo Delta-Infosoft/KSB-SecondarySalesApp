@@ -10,13 +10,16 @@ class CommonButton extends StatelessWidget {
       this.width,
       this.padding = EdgeInsets.zero,
       this.isLoading = false,
+      this.borderRadius = 15,
       this.backgroundColor});
   final Widget child;
   final void Function()? onPressed;
   final double? height;
   final double? width;
+  final double borderRadius;
   final EdgeInsets padding;
   final bool isLoading;
+
   final Color? backgroundColor;
 
   @override
@@ -25,7 +28,7 @@ class CommonButton extends StatelessWidget {
       width: width ?? context.screenWidth,
       height: height,
       child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: backgroundColor),
+          style: ElevatedButton.styleFrom(backgroundColor: backgroundColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius))),
           onPressed: isLoading ? null : onPressed,
           child: Padding(
             padding: padding,
