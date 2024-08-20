@@ -11,7 +11,8 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter MVVM'),
+        title: const Text('KSB Sales'),
+
       ),
       body: Obx(() {
         return Column(

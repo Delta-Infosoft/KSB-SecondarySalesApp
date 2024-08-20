@@ -25,7 +25,7 @@ class LoginRepository {
       };
       if (data['status'] == '200') {
         final UserModel userModel = UserModel.fromJson(data['result']);
-        Fluttertoast.showToast(msg: 'Login Successfully');
+        Fluttertoast.showToast(msg: 'OTP send to your register mobile number');
         return userModel;
       }
       return null;
@@ -37,4 +37,5 @@ class LoginRepository {
       return null;
     }
   }
+
 }

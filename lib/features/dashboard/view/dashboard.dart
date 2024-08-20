@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:ksb_secondary_sales/features/dashboard/view/widgets/add_Fab.dart';
 import 'package:ksb_secondary_sales/features/dashboard/view/widgets/dashboard_bottombar.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 import 'package:ksb_secondary_sales/features/profile/view/screens/profile.dart';
@@ -20,9 +21,7 @@ class Dashboard extends GetView<DashboardController> {
         ][controller.selectedItemIndex.value];
       },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
-        onPressed: (){},child: Icon(Icons.add),),
+      floatingActionButton: AddFab(),
       bottomNavigationBar: const DashboardBottomBar(),
     );
   }
