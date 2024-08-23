@@ -35,7 +35,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                     filledColor: context.primaryColor.withOpacity(.1),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
-                      vertical: 13,
+                      vertical: 13
                     ),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -59,6 +59,55 @@ class SalesInsert extends GetView<SalesInsertController> {
                     ),
                   ),
                   15.heightGap,
+                  DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding:  const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 13,
+                      ),
+                      label: RichText(
+                        text: TextSpan(
+                            text: 'Select Customer',
+                            style: TextStyle(
+                                color: context.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15),
+                            children: const [
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15))
+                            ]),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    items: [
+                      const DropdownMenuItem(value: '1',child: Text('User 1'),)
+                    ],
+                    onChanged: (name) {
+                      // final selectedAddress = controller.addressList
+                      //     .firstWhere((address) => address['Name'] == name);
+                      // // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
+                      // // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
+                      // // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
+                      // controller.cityCtrl.text = selectedAddress['District'] ?? '';
+                      // controller.stateCtrl.text = selectedAddress['State'] ?? '';
+                      // controller.districtCtrl.text = selectedAddress['District'] ?? '';
+
+                    },
+                  ),
+                  if(false)
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),

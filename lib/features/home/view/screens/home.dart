@@ -5,6 +5,7 @@ import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart'
 import 'package:ksb_secondary_sales/features/customers/view/add_customers.dart';
 import 'package:ksb_secondary_sales/features/sales/view/product_selection.dart';
 
+import '../../../customers/view/customer_view.dart';
 import '../../view_model/home_controller.dart';
 
 class Home extends GetView<HomeController> {
@@ -56,7 +57,7 @@ class Home extends GetView<HomeController> {
             10.heightGap,
             Row(children: [
                CommonCard(onTap: (){
-                 Get.to()\
+                 Get.to(CustomerListScreen(customers: dummyCustomers,));
                },title: 'Customer View',icon: const Icon(Icons.groups,size: 35,)),
               10.widthGap,
                CommonCard(onTap: (){},title: 'Sales View',icon: const Stack(
@@ -111,5 +112,127 @@ class CommonCard extends StatelessWidget {
       ),
     ));
   }
+}
+
+
+List<Customer> dummyCustomers = [
+  Customer(
+    name: 'Customer A',
+    pinCode: '123456',
+    area: 'Area A',
+    lane: 'Lane A',
+    street: 'Street A',
+    landmark: 'Landmark A',
+    city: 'City A',
+    state: 'State A',
+    district: 'District A',
+    gstNo: 'GST123456789012',
+    companyType: 'Company Type A',
+    customerType: 'Customer Type A',
+    industryType: 'Industry Type A',
+    contacts: [
+      Contact(
+        name: 'Contact A',
+        department: 'Department A',
+        phone: '123-456-7890',
+        email: 'mailto:contacta@example.com',
+      ),
+    ],
+  ),
+  Customer(
+    name: 'Customer B',
+    pinCode: '654321',
+    area: 'Area B',
+    lane: 'Lane B',
+    street: 'Street B',
+    landmark: 'Landmark B',
+    city: 'City B',
+    state: 'State B',
+    district: 'District B',
+    gstNo: 'GST987654321098',
+    companyType: 'Company Type B',
+    customerType: 'Customer Type B',
+    industryType: 'Industry Type B',
+    contacts: [
+      Contact(
+        name: 'Contact B',
+        department: 'Department B',
+        phone: '098-765-4321',
+        email: 'mailto:contactb@example.com',
+      ),
+    ],
+  ),
+  Customer(
+    name: 'Customer C',
+    pinCode: '112233',
+    area: 'Area C',
+    lane: 'Lane C',
+    street: 'Street C',
+    landmark: 'Landmark C',
+    city: 'City C',
+    state: 'State C',
+    district: 'District C',
+    gstNo: 'GST112233445566',
+    companyType: 'Company Type C',
+    customerType: 'Customer Type C',
+    industryType: 'Industry Type C',
+    contacts: [
+      Contact(
+        name: 'Contact C',
+        department: 'Department C',
+        phone: '321-654-9870',
+        email: 'mailto:contactc@example.com',
+      ),
+    ],
+  ),
+];
+
+
+class Customer {
+  final String name;
+  final String pinCode;
+  final String area;
+  final String lane;
+  final String street;
+  final String landmark;
+  final String city;
+  final String state;
+  final String district;
+  final String gstNo;
+  final String companyType;
+  final String customerType;
+  final String industryType;
+  final List<Contact> contacts;
+
+  Customer({
+    required this.name,
+    required this.pinCode,
+    required this.area,
+    required this.lane,
+    required this.street,
+    required this.landmark,
+    required this.city,
+    required this.state,
+    required this.district,
+    required this.gstNo,
+    required this.companyType,
+    required this.customerType,
+    required this.industryType,
+    required this.contacts,
+  });
+}
+
+class Contact {
+  final String name;
+  final String department;
+  final String phone;
+  final String email;
+
+  Contact({
+    required this.name,
+    required this.department,
+    required this.phone,
+    required this.email,
+  });
 }
 
