@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 
@@ -16,6 +18,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   ProfileController controller = Get.find();
+
   @override
   void initState() {
     super.initState();
@@ -41,23 +44,28 @@ class _ProfileState extends State<Profile> {
             }
             return Column(
               children: [
-                const Center(
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(AppAssets.personImage),
-                  ),
-                ),
-                30.heightGap,
+                // 15.heightGap,
+                // const Center(
+                //   child: CircleAvatar(
+                //     radius: 50,
+                //     backgroundImage: NetworkImage(AppAssets.personImage),
+                //   ),
+                // ),
+                // 30.heightGap,
                 ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      if(controller.userModel?.id.isEmpty??true)return;
+                      Clipboard.setData(ClipboardData(text: controller.userModel?.id??''));
+                      Fluttertoast.showToast(msg: 'Copied to Clipboard ${controller.userModel?.id}');
+                    },
                     title: const Text('User ID'),
                     subtitle: Text(controller.userModel?.id ?? ''),
-                    trailing: const Icon(Icons.keyboard_arrow_right_rounded)),
+                    trailing: const Icon(Icons.copy)),
                 ListTile(
                     onTap: () {},
                     title: const Text('User Name'),
                     subtitle: Text(controller.userModel?.name ?? ''),
-                    trailing: const Icon(Icons.keyboard_arrow_right_rounded)),
+                    trailing: const Icon(Icons.person)),
                 ListTile(
                     onTap: () {
                       Get.dialog(const LogoutDialog());

@@ -395,7 +395,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                     filledColor: context.primaryColor.withOpacity(.1),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
-                      vertical: 13,
+                      vertical: 13
                     ),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),

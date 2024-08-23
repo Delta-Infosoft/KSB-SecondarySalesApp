@@ -14,64 +14,18 @@ class Home extends GetView<HomeController> {
         title: const Text('KSB Sales'),
 
       ),
-      body: Obx(() {
-        return Column(
-          children: [
-            const Divider(
-              height: 0,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      controller.selectedTypeIndex.value = 0;
-                    },
-                    child: AnimatedContainer(
-                      duration: 300.milliseconds,
-                      height: 45,
-                      alignment: Alignment.center,
-                      color: controller.selectedTypeIndex.value == 0
-                          ? context.colorScheme.primaryContainer
-                          : null,
-                      child: const Text(
-                        'Insert Data',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 15),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      controller.selectedTypeIndex.value = 1;
-                      controller.getRecords();
-                    },
-                    child: AnimatedContainer(
-                      duration: 300.milliseconds,
-                      height: 45,
-                      alignment: Alignment.center,
-                      color: controller.selectedTypeIndex.value == 1
-                          ? context.colorScheme.primaryContainer
-                          : null,
-                      child: const Text(
-                        'Records',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 15),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const Divider(
-              height: 0,
-            ),
-            const Expanded(child: FlutterLogo())
-          ],
-        );
-      }),
+      body: Column(
+        children: [
+          const Divider(
+            height: 0,
+          ),
+
+          const Divider(
+            height: 0,
+          ),
+
+        ],
+      ),
     );
   }
 }
