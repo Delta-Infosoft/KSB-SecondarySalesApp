@@ -6,7 +6,6 @@ import 'package:ksb_secondary_sales/features/dashboard/view_model/dashboard_cont
 import 'package:ksb_secondary_sales/features/home/view_model/home_controller.dart';
 import 'package:ksb_secondary_sales/features/profile/view_model/profile_controller.dart';
 import 'package:ksb_secondary_sales/features/sales/view/sales_insert.dart';
-import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 import 'package:ksb_secondary_sales/features/splash/view/splash.dart';
 
 import '../../features/auth/view/screens/login.dart';

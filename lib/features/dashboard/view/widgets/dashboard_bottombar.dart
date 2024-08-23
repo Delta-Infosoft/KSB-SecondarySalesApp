@@ -8,82 +8,28 @@ class DashboardBottomBar extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 15,
-          child: Row(
-            children: [
-              SizedBox(
-                width: context.screenWidth * 0.3,
-                height: kToolbarHeight,
-                child: GestureDetector(
-                  onTap: () {
-                    controller.selectedItemIndex.value = 0;
-                  },
-                  // borderRadius: BorderRadius.circular(15),
-                  child: Center(
-                      child: CircleAvatar(
-                    backgroundColor: controller.selectedItemIndex.value == 0
-                        ? null
-                        : Colors.transparent,
-                    child: Icon(
-                      Icons.home_filled,
-                      color: controller.selectedItemIndex.value == 0
-                          ? context.primaryColor
-                          : context.colorScheme.secondary,
-                    ),
-                  )),
-                ),
-              ),
-              const Spacer(),
-              SizedBox(
-                width: context.screenWidth * 0.3,
-                height: kToolbarHeight,
-                child: GestureDetector(
-                  onTap: () {
-                    controller.selectedItemIndex.value = 1;
-                  },
-                  // borderRadius: BorderRadius.circular(15),
-                  child: Center(
-                      child: CircleAvatar(
-                        backgroundColor: controller.selectedItemIndex.value == 1
-                            ? null
-                            : Colors.transparent,
-                        child: Icon(
-                          Icons.person_rounded,
-                          color: controller.selectedItemIndex.value == 1
-                              ? context.primaryColor
-                              : context.colorScheme.secondary,
-                        ),
-                      )),
-                ),
-              )
-            ],
-          ),
-        );
-      },
-    );
     return Obx(() {
       return NavigationBar(
+          indicatorColor: context.primaryColor,
           onDestinationSelected: (value) {
             controller.selectedItemIndex.value = value;
           },
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home_filled), label: 'Home'),
-            NavigationDestination(
-              icon: Icon(
-                Icons.home_filled,
-                color: Colors.transparent,
-              ),
-              label: '',
-              enabled: false,
+        selectedIndex: controller.selectedItemIndex.value,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          destinations: [
+             NavigationDestination(
+              icon: Icon(Icons.home_rounded,color: controller.selectedItemIndex.value==0?Colors.white:null,),
+              label: 'Home',
+              tooltip: 'Home',
             ),
-            NavigationDestination(
-                icon: Icon(Icons.person_rounded), label: 'Profile'),
+
+             NavigationDestination(
+                icon: Icon(Icons.person_rounded,color: controller.selectedItemIndex.value==1?Colors.white:null),
+                label: 'Profile',
+                tooltip: 'Profile'),
           ],
-          selectedIndex: controller.selectedItemIndex.value);
+          );
     });
+
   }
 }

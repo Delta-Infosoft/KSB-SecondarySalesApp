@@ -8,8 +8,8 @@ class SplashController extends GetxController {
     Future.delayed(
       const Duration(seconds: 1),
       () {
-          Get.offAllNamed(AppRoute.dashboard);return;
         if (LocalDb.getBool(AppConstants.isLoggedInKey)) {
+          Get.offAllNamed(AppRoute.dashboard);return;
         } else {
           Get.offAllNamed(AppRoute.login);
         }

@@ -10,11 +10,11 @@ import 'core/utils/common_services/local_db.dart';
 
 Future<void> main() async{
   await initializeApp();
-  runApp(const FlutterMvvmCopilotApp());
+  runApp(const KSBSecondarySales());
 }
 
-class FlutterMvvmCopilotApp extends StatelessWidget {
-  const FlutterMvvmCopilotApp({super.key});
+class KSBSecondarySales extends StatelessWidget {
+  const KSBSecondarySales({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,5 +39,4 @@ Future<void> initializeApp()async{
   //   return true;
   // };
   await LocalDb.initialize();
-
 }
