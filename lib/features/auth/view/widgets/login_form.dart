@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ksb_secondary_sales/core/utils/constants/app_assets.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 
@@ -53,6 +54,33 @@ class LoginForm extends GetView<LoginController> {
               // Checkbox(value: controller.isRememberMe.value, onChanged: (value) {
               //   controller.isRememberMe.value=!controller.isRememberMe.value;
               // },),
+              Row(children: [
+                GestureDetector(
+                  onTap: () {
+                    controller.isRememberMe.value=! controller.isRememberMe.value;
+                  },
+                  child: Container(
+                    width: 23,height: 23,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color:  controller.isRememberMe.value ? context.primaryColor : Colors.grey,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: FittedBox(
+                      child: Text(
+                        controller.isRememberMe.value ? '✓' : '', // Use check icon or empty string based on value
+                        style: TextStyle(
+                          color: context.primaryColor, // Change icon color based on value
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Text('  Remember Me',style: TextStyle(fontWeight: FontWeight.w600),)
+              ],),
+              if(false)
               Align(
                   alignment: Alignment.bottomLeft,
                   child: TextButton.icon(

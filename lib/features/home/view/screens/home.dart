@@ -6,6 +6,7 @@ import 'package:ksb_secondary_sales/features/customers/view/add_customers.dart';
 import 'package:ksb_secondary_sales/features/sales/view/product_selection.dart';
 
 import '../../../customers/view/customer_view.dart';
+import '../../../sales/view/sales_view.dart';
 import '../../view_model/home_controller.dart';
 
 class Home extends GetView<HomeController> {
@@ -23,7 +24,7 @@ class Home extends GetView<HomeController> {
           children: [
             Row(children: [
                CommonCard(onTap: (){
-                 Get.to(const CustomerFormScreen());
+                 Get.to(const AddCustomer());
                },title: 'Customer Entry',icon: const Stack(
                 children: [
                   Padding(
@@ -50,7 +51,6 @@ class Home extends GetView<HomeController> {
                       top: 0,
                       right: 0,
                       child: Icon(Icons.add,size: 20,)),
-
                 ],
               )),
             ],),
@@ -60,7 +60,9 @@ class Home extends GetView<HomeController> {
                  Get.to(CustomerListScreen(customers: dummyCustomers,));
                },title: 'Customer View',icon: const Icon(Icons.groups,size: 35,)),
               10.widthGap,
-               CommonCard(onTap: (){},title: 'Sales View',icon: const Stack(
+               CommonCard(onTap: (){
+                 Get.to(SalesListView());
+               },title: 'Sales View',icon: const Stack(
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
@@ -134,8 +136,23 @@ List<Customer> dummyCustomers = [
       Contact(
         name: 'Contact A',
         department: 'Department A',
+        designation: 'Flutter Devloper',
         phone: '123-456-7890',
         email: 'mailto:contacta@example.com',
+      ),   Contact(
+        name: 'Contact A',
+        department: 'Department A',
+        designation: 'Flutter Devloper',
+        phone: '123-456-7890',
+        email: 'mailto:contacta@example.com',
+      ),
+      Contact(
+        name: 'Contact B',
+        department: 'Department B',
+        phone: '098-765-4321',
+        designation: 'Back',
+
+        email: 'mailto:contactb@example.com',
       ),
     ],
   ),
@@ -158,6 +175,8 @@ List<Customer> dummyCustomers = [
         name: 'Contact B',
         department: 'Department B',
         phone: '098-765-4321',
+        designation: 'Back',
+
         email: 'mailto:contactb@example.com',
       ),
     ],
@@ -179,7 +198,7 @@ List<Customer> dummyCustomers = [
     contacts: [
       Contact(
         name: 'Contact C',
-        department: 'Department C',
+        department: 'Department C',designation: 'Full stack devloper',
         phone: '321-654-9870',
         email: 'mailto:contactc@example.com',
       ),
@@ -225,12 +244,14 @@ class Customer {
 class Contact {
   final String name;
   final String department;
+  final String designation;
   final String phone;
   final String email;
 
   Contact({
     required this.name,
     required this.department,
+    required this.designation,
     required this.phone,
     required this.email,
   });

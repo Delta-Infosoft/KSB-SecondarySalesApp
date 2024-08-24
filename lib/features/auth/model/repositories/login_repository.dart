@@ -11,19 +11,12 @@ import '../models/user_model.dart';
 class LoginRepository {
   static Future<UserModel?> loginWithUserNameAndPass(String userName,String pass) async {
     try {
-      // final response = await http.post((Uri.parse(ApiUrl.loginUrl)),body: {
-      //   'UserName':userName,
-      //   'Password':pass
-      // });
+      final response = await http.post((Uri.parse(ApiUrl.loginUrl)),body: {
+        'UserName':userName,
+        'Password':pass
+      }).timeout(1.seconds);
 
-      // Wait function for two second for loading
-      await Future.delayed(const Duration(seconds: 2));
-      // Map<String, dynamic> data = jsonDecode(response.body);
-      Map<String, dynamic> data = {
-        'status': '200',
-        'message': 'data get',
-        'result': {'id': '123', 'name': 'Devang'}
-      };
+     final data = jsonDecode(response.body);
       if (data['status'] == '200') {
         final UserModel userModel = UserModel.fromJson(data['result']);
         Fluttertoast.showToast(msg: 'OTP send to your register mobile number');
@@ -32,12 +25,10 @@ class LoginRepository {
       return null;
     } catch (e) {
       Fluttertoast.showToast(msg: 'Opps something went wrong $e');
-      //used k print because when we relase the application then normal print
-      //functions are also print there value in application background.. so used  if(kDebugMode)
-      kPrint(e);
       return null;
     }
   }
+
   static Future<String?> senOtpToMobil(String mobileNumber) async {
     try {
       final response = await http.post((Uri.parse('ApiUrl.sendOtpURL')), body: {

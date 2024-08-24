@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
 
 import 'login_form.dart';
@@ -69,17 +70,17 @@ class _OnboardContentState extends State<OnboardContent> {
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        stops: [0.4, 0.8],
-                        colors: [
-                          Color(0xFF4A90E2), // Soft Blue
-                          Color(0xFF50E3C2), // Aqua Green
-                        ],
-                      ),
+                    decoration:  BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                 gradient: LinearGradient(
+                   colors: [
+                     Color(0xFF2B5984), // Darker shade of primary color
+                     Color(0xFF4090C2)
+                   ],
+                   begin: Alignment.topLeft,
+                   end: Alignment.centerRight,
+                 )
+
                     ),
                     child: DefaultTextStyle(
                       style: const TextStyle(

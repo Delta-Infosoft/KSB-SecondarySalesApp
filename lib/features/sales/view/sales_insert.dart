@@ -20,7 +20,9 @@ class SalesInsert extends GetView<SalesInsertController> {
     return TapToRemoveKeyboardWidget(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Customer Details'),
+          title: RichText(text: const TextSpan(text: 'Sales Insert',style: TextStyle(fontSize: 18),children: [
+            TextSpan(text: '(Customer Details)')
+          ])),
         ),
         body: Obx(() {
           return SingleChildScrollView(
@@ -300,66 +302,8 @@ class SalesInsert extends GetView<SalesInsertController> {
                         fontWeight: FontWeight.w700,
                         color: context.primaryColor),
                   ),
-                  15.heightGap,
-                  CommonTextInput(
-                    filled: true,
-                    filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 13),
-                    customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.transparent),
-                    ),
-                    controller: controller.houseAndCityNameCtrl,
-                    lableWidget: RichText(
-                      text: TextSpan(
-                          text: 'House Name, Building Name',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-                    validator: (p0) =>
-                        nonEmptyValidator(p0, 'Please enter customer address'),
-                  ),
-                  15.heightGap,
-                  CommonTextInput(
-                    filled: true,
-                    filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 13),
-                    customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.transparent),
-                    ),
-                    controller: controller.areaStreetCtrl,
-                    lableWidget: RichText(
-                      text: TextSpan(
-                          text: 'Area, Street Name',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-                    validator: (p0) =>
-                        nonEmptyValidator(p0, 'Please enter area or street name'),
-                  ),
+
+
                   15.heightGap,
                   CommonTextInput(
                     filled: true,
@@ -439,6 +383,89 @@ class SalesInsert extends GetView<SalesInsertController> {
                         fontSize: 15),
                   ),
                   15.heightGap,
+                  DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding:  const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 13,
+                      ),
+                      label: RichText(
+                        text: TextSpan(
+                            text: 'Select Area',
+                            style: TextStyle(
+                                color: context.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15),
+                            children: const [
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15))
+                            ]),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    items: controller.addressList.map(
+                          (e) {
+                        return DropdownMenuItem(
+                            value: e['Name'], child: Text(e['Name'] ?? ''));
+                      },
+                    ).toList(),
+                    onChanged: (name) {
+                      final selectedAddress = controller.addressList
+                          .firstWhere((address) => address['Name'] == name);
+                      // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
+                      // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
+                      // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
+                      controller.talukaCtrl.text = selectedAddress['District'] ?? '';
+                      controller.stateCtrl.text = selectedAddress['State'] ?? '';
+                      controller.districtCtrl.text = selectedAddress['District'] ?? '';
+
+                    },
+                  ),
+                  15.heightGap,
+                  CommonTextInput(
+                    filled: true,
+                    filledColor: context.primaryColor.withOpacity(.1),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
+                    customBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.transparent),
+                    ),
+                    controller: controller.houseAndCityNameCtrl,
+                    lableWidget: RichText(
+                      text: TextSpan(
+                          text: 'House Name, Building Name',
+                          style: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                          children: const [
+                            TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ]),
+                    ),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, 'Please enter customer address'),
+                  ),
+                  15.heightGap,
+
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),

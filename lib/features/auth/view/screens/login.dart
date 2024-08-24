@@ -18,8 +18,10 @@ class Login extends GetView<LoginController> {
     return TapToRemoveKeyboardWidget(
       child: Scaffold(
         bottomSheet:Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
+
+          decoration:  BoxDecoration(
+            color: Theme.of(context).bottomSheetTheme.backgroundColor ?? Colors.white,
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
           ),
           child: const OnboardContent(),) ,
         body:Container(
@@ -28,30 +30,25 @@ class Login extends GetView<LoginController> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.blueAccent,
-                Colors.lightBlueAccent,
-                Colors.cyanAccent,
+                Color(0xFF2B5984), // Darker shade of primary color
+                Color(0xFF4090C2)
               ],
               begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+              end: Alignment.centerRight,
+            )
           ),
           alignment: Alignment.topCenter,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20),
+            clipBehavior: Clip.hardEdge,
+            margin: const EdgeInsets.only(top: 55,right: 25,left: 25),
+            padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(15)
             ),
-            margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 50),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                    AppAssets.ksbLogo,
-                    height: 90,
-                    width: 90 ,
-                ),
-              ],
+            child: Image.asset(
+                AppAssets.logoImage,
+                fit: BoxFit.fill,
             ),
           ),
           // Y

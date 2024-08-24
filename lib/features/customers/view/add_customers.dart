@@ -10,14 +10,14 @@ import 'package:ksb_secondary_sales/features/customers/view_model/customer_contr
 
 import '../../../core/utils/common_services/validator.dart';
 
-class CustomerFormScreen extends StatefulWidget {
-  const CustomerFormScreen({super.key});
+class AddCustomer extends StatefulWidget {
+  const AddCustomer({super.key});
 
   @override
-  State<CustomerFormScreen> createState() => _CustomerFormScreenState();
+  State<AddCustomer> createState() => _AddCustomerState();
 }
 
-class _CustomerFormScreenState extends State<CustomerFormScreen> {
+class _AddCustomerState extends State<AddCustomer> {
   @override
   void initState() {
     super.initState();
@@ -45,6 +45,7 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
             child: Form(
               child: ListView(
                 children: [
+                  5.heightGap,
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
@@ -147,10 +148,10 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   DropdownButtonFormField(
                     decoration: InputDecoration(
                       filled: true,
-                      contentPadding:  const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 13,
-                    ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 13,
+                      ),
                       label: RichText(
                         text: TextSpan(
                             text: 'Select Area',
@@ -189,10 +190,12 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                       // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
                       // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
                       // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
-                      controller.cityCtrl.text = selectedAddress['District'] ?? '';
-                      controller.stateCtrl.text = selectedAddress['State'] ?? '';
-                      controller.districtCtrl.text = selectedAddress['District'] ?? '';
-
+                      controller.cityCtrl.text =
+                          selectedAddress['District'] ?? '';
+                      controller.stateCtrl.text =
+                          selectedAddress['State'] ?? '';
+                      controller.districtCtrl.text =
+                          selectedAddress['District'] ?? '';
                     },
                   ),
                   15.heightGap,
@@ -201,13 +204,15 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     controller: controller.laneCtrl,
-                    validator: (p0) => nonEmptyValidator(p0, "Please enter lane"),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter lane"),
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'Lane',
@@ -233,13 +238,15 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     controller: controller.streetCtrl,
-                    validator: (p0) => nonEmptyValidator(p0, "Please enter street"),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter street"),
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'Street',
@@ -265,13 +272,15 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     controller: controller.landmarkCtrl,
-                    validator: (p0) => nonEmptyValidator(p0, "Please enter landmark"),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter landmark"),
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'Landmark',
@@ -297,13 +306,15 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     controller: controller.cityCtrl,
-                    validator: (p0) => nonEmptyValidator(p0, "Please enter city"),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter city"),
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'City',
@@ -329,13 +340,15 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     controller: controller.stateCtrl,
-                    validator: (p0) => nonEmptyValidator(p0, "Please enter state"),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter state"),
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'State',
@@ -361,13 +374,15 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     controller: controller.districtCtrl,
-                    validator: (p0) => nonEmptyValidator(p0, "Please enter district"),
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter district"),
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'District',
@@ -393,7 +408,8 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
@@ -428,149 +444,155 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                   ),
                   15.heightGap,
                   Obx(() => DropdownButtonFormField<String>(
-                    value: controller.selectedCompanyType.value.isEmpty
-                        ? null
-                        : controller.selectedCompanyType.value,
-                    items: controller.companyTypes
-                        .map((type) => DropdownMenuItem(
-                      value: type,
-                      child: Text(type),
-                    ))
-                        .toList(),
-                    onChanged: (value) {
-                      controller.selectedCompanyType.value = value!;
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding:  const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13,
-                      ),
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Select Company Type',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                  )),
+                        value: controller.selectedCompanyType.value.isEmpty
+                            ? null
+                            : controller.selectedCompanyType.value,
+                        items: controller.companyTypes
+                            .map((type) => DropdownMenuItem(
+                                  value: type,
+                                  child: Text(type),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          controller.selectedCompanyType.value = value!;
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 13,
+                          ),
+                          label: RichText(
+                            text: TextSpan(
+                                text: 'Select Company Type',
+                                style: TextStyle(
+                                    color: context.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15),
+                                children: const [
+                                  TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15))
+                                ]),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          fillColor: context.primaryColor.withOpacity(.1),
+                        ),
+                      )),
                   const SizedBox(height: 16),
 
                   // Customer Type Dropdown
                   Obx(() => DropdownButtonFormField<String>(
-                    value: controller.selectedCustomerType.value.isEmpty
-                        ? null
-                        : controller.selectedCustomerType.value,
-                    items: controller.customerTypes
-                        .map((type) => DropdownMenuItem(
-                      value: type,
-                      child: Text(type),
-                    ))
-                        .toList(),
-                    onChanged: (value) {
-                      controller.selectedCustomerType.value = value!;
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding:  const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13,
-                      ),
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Select Customer Type',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                  )),
+                        value: controller.selectedCustomerType.value.isEmpty
+                            ? null
+                            : controller.selectedCustomerType.value,
+                        items: controller.customerTypes
+                            .map((type) => DropdownMenuItem(
+                                  value: type,
+                                  child: Text(type),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          controller.selectedCustomerType.value = value!;
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 13,
+                          ),
+                          label: RichText(
+                            text: TextSpan(
+                                text: 'Select Customer Type',
+                                style: TextStyle(
+                                    color: context.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15),
+                                children: const [
+                                  TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15))
+                                ]),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          fillColor: context.primaryColor.withOpacity(.1),
+                        ),
+                      )),
                   const SizedBox(height: 16),
 
                   // Industry Type Dropdown
                   Obx(() => DropdownButtonFormField<String>(
-                    value: controller.selectedIndustryType.value.isEmpty
-                        ? null
-                        : controller.selectedIndustryType.value,
-                    items: controller.industryTypes
-                        .map((type) => DropdownMenuItem(
-                      value: type,
-                      child: Text(type),
-                    ))
-                        .toList(),
-                    onChanged: (value) {
-                      controller.selectedIndustryType.value = value!;
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding:  const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13,
-                      ),
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Industry Type',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                  )),
+                        value: controller.selectedIndustryType.value.isEmpty
+                            ? null
+                            : controller.selectedIndustryType.value,
+                        items: controller.industryTypes
+                            .map((type) => DropdownMenuItem(
+                                  value: type,
+                                  child: Text(type),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          controller.selectedIndustryType.value = value!;
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 13,
+                          ),
+                          label: RichText(
+                            text: TextSpan(
+                                text: 'Industry Type',
+                                style: TextStyle(
+                                    color: context.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15),
+                                children: const [
+                                  TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15))
+                                ]),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          fillColor: context.primaryColor.withOpacity(.1),
+                        ),
+                      )),
                   15.heightGap,
 
                   Text(
@@ -580,122 +602,180 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
                         fontWeight: FontWeight.w700,
                         color: context.primaryColor),
                   ),
-                  ExpansionTile(
-                    backgroundColor:  context.primaryColor.withOpacity(.1),
-                    childrenPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                    shape: RoundedRectangleBorder(side: const BorderSide(color: Colors.transparent),borderRadius: BorderRadius.circular(15)),
-                    collapsedShape: RoundedRectangleBorder(side: const BorderSide(color: Colors.transparent),borderRadius: BorderRadius.circular(15)),
-                    collapsedBackgroundColor: context.primaryColor.withOpacity(.1),
+                  15.heightGap,
+                 ...List.generate(
+                   controller.contactCount.value,
+                       (index) {
+                     return Padding(
+                       padding: const EdgeInsets.only(bottom: 15),
+                       child: ExpansionTile(
+                         backgroundColor: Colors.transparent,
+                         childrenPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                         shape: RoundedRectangleBorder(
+                           side: const BorderSide(color: Colors.grey),
+                           borderRadius: BorderRadius.circular(15),
+                         ),
+                         collapsedShape: RoundedRectangleBorder(
+                           side: const BorderSide(color: Colors.transparent),
+                           borderRadius: BorderRadius.circular(15),
+                         ),
+                         collapsedBackgroundColor: context.primaryColor.withOpacity(.1),
+                         title: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Text('Contact ${index + 1}'),
+                             if (controller.contactCount.value == index + 1 && controller.contactCount.value < 5)
+                               InkWell(
+                                 onTap: () {
+                                   if (controller.contactCount.value < 5) {
+                                     controller.addNewContact();
+                                   }
+                                 },
+                                 borderRadius: BorderRadius.circular(10),
+                                 child: const Icon(Icons.add, color: Colors.grey,),
+                               )
+                             else
+                               InkWell(
+                                 onTap: () {
+                                   if (controller.contactCount.value > 1) {
+                                     controller.removeContact(index);
+                                   }
+                                 },
+                                 borderRadius: BorderRadius.circular(10),
+                                 child: const Icon(Icons.remove, color: Colors.grey,),
+                               )
+                           ],
+                         ),
+                         children: [
+                           Column(
+                             children: [
+                               CommonTextInput(
+                                 filled: true,
+                                 filledColor: context.primaryColor.withOpacity(.1),
+                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                                 customBorder: OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.transparent),
+                                 ),
+                                 controller: controller.nameControllers[index],
+                                 lableWidget: RichText(
+                                   text: TextSpan(
+                                     text: 'Name',
+                                     style: TextStyle(
+                                       color: context.primaryColor,
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 15,
+                                     ),
+                                   ),
+                                 ),
+                               ),
+                               const SizedBox(height: 16),
+                               CommonTextInput(
+                                 filled: true,
+                                 filledColor: context.primaryColor.withOpacity(.1),
+                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                                 customBorder: OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.transparent),
+                                 ),
+                                 controller: controller.departmentControllers[index],
+                                 lableWidget: RichText(
+                                   text: TextSpan(
+                                     text: 'Department',
+                                     style: TextStyle(
+                                       color: context.primaryColor,
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 15,
+                                     ),
+                                   ),
+                                 ),
+                               ),
+                               const SizedBox(height: 16),
+                               CommonTextInput(
+                                 filled: true,
+                                 filledColor: context.primaryColor.withOpacity(.1),
+                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                                 customBorder: OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.transparent),
+                                 ),
+                                 controller: controller.designationControllers[index],
+                                 lableWidget: RichText(
+                                   text: TextSpan(
+                                     text: 'Designation',
+                                     style: TextStyle(
+                                       color: context.primaryColor,
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 15,
+                                     ),
+                                   ),
+                                 ),
+                               ),
+                               const SizedBox(height: 16),
+                               CommonTextInput(
+                                 filled: true,
+                                 filledColor: context.primaryColor.withOpacity(.1),
+                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                                 customBorder: OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.transparent),
+                                 ),
+                                 controller: controller.phoneControllers[index],
+                                 maxLength: 10,
+                                 validator:(value)=> validateMobileNumber(value),
+                                 lableWidget: RichText(
+                                   text: TextSpan(
+                                     text: 'Phone',
+                                     style: TextStyle(
+                                       color: context.primaryColor,
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 15,
+                                     ),
+                                   ),
+                                 ),
+                                 keyboardType: TextInputType.phone,
+                               ),
+                               const SizedBox(height: 16),
+                               CommonTextInput(
+                                 filled: true,
+                                 filledColor: context.primaryColor.withOpacity(.1),
+                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                                 customBorder: OutlineInputBorder(
+                                   borderRadius: BorderRadius.circular(10),
+                                   borderSide: const BorderSide(color: Colors.transparent),
+                                 ),
+                                 validator: (value)=>validateEmail(value),
+                                 controller: controller.emailControllers[index],
+                                 lableWidget: RichText(
+                                   text: TextSpan(
+                                     text: 'Email',
+                                     style: TextStyle(
+                                       color: context.primaryColor,
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 15,
+                                     ),
+                                   ),
+                                 ),
+                                 keyboardType: TextInputType.emailAddress,
+                               ),
+                             ],
+                           )
+                         ],
+                       ),
+                     );
+                   },
+                 ),
 
-                    title: const Text('Contact 1'),trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),children: [
-                    Column(children: [
-                      CommonTextInput(
-                        filled: true,
-                        filledColor: context.primaryColor.withOpacity(.1),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 13,
-                        ),
-                        customBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.transparent),
-                        ),
-                        controller: controller.nameController,
-                        lableWidget: RichText(
-                          text: TextSpan(
-                            text: 'Name',
-                            style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Department Field
-                      CommonTextInput(
-                        filled: true,
-                        filledColor: context.primaryColor.withOpacity(.1),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 13,
-                        ),
-                        customBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.transparent),
-                        ),
-                        controller: controller.departmentController,
-                        lableWidget: RichText(
-                          text: TextSpan(
-                            text: 'Department',
-                            style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Phone Field
-                      CommonTextInput(
-                        filled: true,
-                        filledColor: context.primaryColor.withOpacity(.1),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 13,
-                        ),
-                        customBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.transparent),
-                        ),
-                        controller: controller.phoneController,
-                        lableWidget: RichText(
-                          text: TextSpan(
-                            text: 'Phone',
-                            style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        keyboardType: TextInputType.phone,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Email Field
-                      CommonTextInput(
-                        filled: true,
-                        filledColor: context.primaryColor.withOpacity(.1),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 13,
-                        ),
-                        customBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.transparent),
-                        ),
-                        controller: controller.emailController,
-                        lableWidget: RichText(
-                          text: TextSpan(
-                            text: 'Email',
-                            style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ],)
-                  ],),
                   20.heightGap,
-                  CommonButton(onPressed: (){},backgroundColor: context.primaryColor,borderRadius: 15,child: const Text(style: TextStyle(color: Colors.white),'Submit',),)
+                  CommonButton(
+                    onPressed: () {},
+                    backgroundColor: context.primaryColor,
+                    borderRadius: 15,
+                    child: const Text(
+                      style: TextStyle(color: Colors.white),
+                      'Submit',
+                    ),
+                  )
                 ],
               ),
             ),
