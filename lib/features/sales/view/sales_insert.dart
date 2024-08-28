@@ -8,6 +8,7 @@ import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart'
 import 'package:ksb_secondary_sales/core/utils/widgets/common_button.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/tap_to_remove_keyboard_widget.dart';
+import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 
 import '../../../core/utils/common_services/validator.dart';
@@ -20,9 +21,11 @@ class SalesInsert extends GetView<SalesInsertController> {
     return TapToRemoveKeyboardWidget(
       child: Scaffold(
         appBar: AppBar(
-          title: RichText(text: const TextSpan(text: 'Sales Insert',style: TextStyle(fontSize: 18),children: [
-            TextSpan(text: '(Customer Details)')
-          ])),
+          title: RichText(
+              text: const TextSpan(
+                  text: 'Sales Insert',
+                  style: TextStyle(fontSize: 18),
+                  children: [TextSpan(text: '(Customer Details)')])),
         ),
         body: Obx(() {
           return SingleChildScrollView(
@@ -36,9 +39,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 13
-                    ),
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
@@ -62,11 +63,12 @@ class SalesInsert extends GetView<SalesInsertController> {
                   ),
                   15.heightGap,
                   DropdownButtonFormField(
+                    // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
                     decoration: InputDecoration(
                       filled: true,
-                      contentPadding:  const EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                         horizontal: 15,
-                        vertical: 13,
+                        vertical: 13
                       ),
                       label: RichText(
                         text: TextSpan(
@@ -94,37 +96,50 @@ class SalesInsert extends GetView<SalesInsertController> {
                       ),
                       fillColor: context.primaryColor.withOpacity(.1),
                     ),
-                    items: [
-                      const DropdownMenuItem(value: '1',child: Text('User 1'),)
-                    ],
-                    onChanged: (name) {
-                      // final selectedAddress = controller.addressList
-                      //     .firstWhere((address) => address['Name'] == name);
-                      // // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
-                      // // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
-                      // // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
-                      // controller.cityCtrl.text = selectedAddress['District'] ?? '';
-                      // controller.stateCtrl.text = selectedAddress['State'] ?? '';
-                      // controller.districtCtrl.text = selectedAddress['District'] ?? '';
-
+                    items: controller.customersList.map(
+                      (e) {
+                        return DropdownMenuItem(
+                          value: e.customerId,
+                          child: Text(e.customerName),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (cId) {
+                      if (cId != null && cId.isNotEmpty) {
+                        Customer c = controller.customersList
+                            .firstWhere((c) => c.customerId == cId);
+                        controller.contactList = c.contacts;
+                        controller.nameCtrl.text = c.addressName;
+                        controller.pinCodeCtrl.text = c.pinCode;
+                        controller.streetCtrl.text = c.street;
+                        controller.cityCtrl.text = c.city;
+                        controller.districtCtrl.text = c.district;
+                        controller.stateCtrl.text = c.state;
+                        controller.countryCtrl.text = c.country;
+                      }
                     },
                   ),
-                  if(false)
+                  15.heightGap,
+                  // if(false)
                   CommonTextInput(
                     filled: true,
                     filledColor: context.primaryColor.withOpacity(.1),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 13,
-                    ),
+                        horizontal: 15, vertical: 13),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
-                    controller: controller.nameCtrl,
+                    controller: controller.gstNoController,
+                    maxLength: 15,
+                    validator: (p0) => lengthValidator(
+                        p0,
+                        15,
+                        'Please enter GST number',
+                        'GST number must be 15-digit alphanumeric code'),
                     lableWidget: RichText(
                       text: TextSpan(
-                          text: 'Name',
+                          text: 'GST Number',
                           style: TextStyle(
                               color: context.primaryColor,
                               fontWeight: FontWeight.w500,
@@ -138,8 +153,59 @@ class SalesInsert extends GetView<SalesInsertController> {
                                     fontSize: 15))
                           ]),
                     ),
-                    validator: (p0) =>
-                        nonEmptyValidator(p0, 'Please enter customer name'),
+                    labelStyle: TextStyle(
+                        color: context.primaryColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                  ),
+
+                  15.heightGap,
+                  DropdownButtonFormField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 13,
+                      ),
+                      label: RichText(
+                        text: TextSpan(
+                            text: 'Select Customer Contact',
+                            style: TextStyle(
+                                color: context.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15),
+                            children: const [
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15))
+                            ]),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    items: controller.contactList
+                        .map((e) => DropdownMenuItem(
+                              value: e.name,
+                              child: Text(e.name),
+                            ))
+                        .toList(),
+                    onChanged: (name) {
+                      if (name == null && (name?.isEmpty ?? false)) return;
+                      final contact = controller.contactList.firstWhere((n) => n.name==name);
+                    controller.  selectedContactName = name;
+                      controller.mobileNoCtrl.text = contact.phone;
+                      controller.emailCtrl.text = contact.email;
+                    }
                   ),
                   15.heightGap,
                   Form(
@@ -150,7 +216,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                       filledColor: context.primaryColor.withOpacity(.1),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 15,
-                        vertical: 13,
+                        vertical: 13
                       ),
                       customBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -164,8 +230,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                                   child: Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: CircularProgressIndicator(
-                                  strokeWidth: 3,
-                                ),
+                                  strokeWidth: 3),
                               )))
                           : Stack(
                               children: [
@@ -227,7 +292,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                       filledColor: context.primaryColor.withOpacity(.1),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 15,
-                        vertical: 13,
+                        vertical: 13
                       ),
                       customBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -254,8 +319,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                                 Positioned(
                                     top: 7,
                                     right: 7,
-                                    child:
-                                        controller.isEmailAddressApprove.value
+                                    child: controller.isEmailAddressApprove.value
                                             ? Container(
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
@@ -269,8 +333,8 @@ class SalesInsert extends GetView<SalesInsertController> {
                                             : Icon(
                                                 Icons.access_time_filled,
                                                 color: context.primaryColor,
-                                                size: 15,
-                                              )),
+                                                size: 15
+                                    ))
                               ],
                             ),
                       keyboardType: TextInputType.emailAddress,
@@ -296,14 +360,46 @@ class SalesInsert extends GetView<SalesInsertController> {
                   ),
                   15.heightGap,
                   Text(
-                    'Customer Address',
+                    'Customer Address Address',
                     style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
                         color: context.primaryColor),
                   ),
-
-
+                  15.heightGap,
+                  CommonTextInput(
+                    filled: true,
+                    filledColor: context.primaryColor.withOpacity(.1),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
+                    customBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.transparent),
+                    ),
+                    controller: controller.nameCtrl,
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter name"),
+                    lableWidget: RichText(
+                      text: TextSpan(
+                          text: 'Name',
+                          style: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                          children: const [
+                            TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ]),
+                    ),
+                    labelStyle: TextStyle(
+                        color: context.primaryColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                  ),
                   15.heightGap,
                   CommonTextInput(
                     filled: true,
@@ -314,8 +410,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                     ),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                      const BorderSide(color: Colors.transparent),
+                      borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     label: "Pin Code*",
                     lableWidget: RichText(
@@ -341,33 +436,32 @@ class SalesInsert extends GetView<SalesInsertController> {
                       }
                     },
                     inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^[0-9]*$')),
+                      FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$')),
                     ],
                     controller: controller.pinCodeCtrl,
                     suffixIcon: controller.isPinCodeDataLoading.value
                         ? SizedBox(
-                      height: 10,
-                      width: 10,
-                      child: Stack(
-                        children: [
-                          const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
+                            height: 10,
+                            width: 10,
+                            child: Stack(
+                              children: [
+                                const Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                                Center(
+                                    child: Icon(
+                                  Icons.pin_drop,
+                                  color: context.primaryColor,
+                                )),
+                              ],
                             ),
-                          ),
-                          Center(
-                              child: Icon(
-                                Icons.pin_drop,
-                                color: context.primaryColor,
-                              )),
-                        ],
-                      ),
-                    )
+                          )
                         : Icon(
-                      Icons.pin_drop,
-                      color: context.primaryColor,
-                    ),
+                            Icons.pin_drop,
+                            color: context.primaryColor,
+                          ),
                     validator: (p0) {
                       if (p0 == null || p0.isEmpty) {
                         return 'Please enter pin code';
@@ -384,15 +478,16 @@ class SalesInsert extends GetView<SalesInsertController> {
                   ),
                   15.heightGap,
                   DropdownButtonFormField(
+                    menuMaxHeight: 300,
                     decoration: InputDecoration(
                       filled: true,
-                      contentPadding:  const EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                         horizontal: 15,
                         vertical: 13,
                       ),
                       label: RichText(
                         text: TextSpan(
-                            text: 'Select Area',
+                            text: 'Select LandMark',
                             style: TextStyle(
                                 color: context.primaryColor,
                                 fontWeight: FontWeight.w500,
@@ -417,22 +512,136 @@ class SalesInsert extends GetView<SalesInsertController> {
                       fillColor: context.primaryColor.withOpacity(.1),
                     ),
                     items: controller.addressList.map(
-                          (e) {
+                      (e) {
                         return DropdownMenuItem(
-                            value: e['Name'], child: Text(e['Name'] ?? ''));
+                            value: e['Name'].toString(),
+                            child: Text(e['Name'] ?? ''));
                       },
                     ).toList(),
                     onChanged: (name) {
                       final selectedAddress = controller.addressList
                           .firstWhere((address) => address['Name'] == name);
+                      controller.selectedLandMark.value = name ?? '';
                       // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
                       // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
                       // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
-                      controller.talukaCtrl.text = selectedAddress['District'] ?? '';
-                      controller.stateCtrl.text = selectedAddress['State'] ?? '';
-                      controller.districtCtrl.text = selectedAddress['District'] ?? '';
-
+                      controller.cityCtrl.text =
+                          selectedAddress['District'] ?? '';
+                      controller.stateCtrl.text =
+                          selectedAddress['State'] ?? '';
+                      controller.districtCtrl.text =
+                          selectedAddress['District'] ?? '';
+                      controller.countryCtrl.text =
+                          selectedAddress['Country'] ?? '';
                     },
+                  ),
+                  15.heightGap,
+                  // 378
+                  //
+
+                  CommonTextInput(
+                    filled: true,
+                    filledColor: context.primaryColor.withOpacity(.1),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
+                    customBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.transparent),
+                    ),
+                    controller: controller.streetCtrl,
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter street"),
+                    lableWidget: RichText(
+                      text: TextSpan(
+                          text: 'Street',
+                          style: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                          children: const [
+                            TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ]),
+                    ),
+                    labelStyle: TextStyle(
+                        color: context.primaryColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                  ),
+                  // if(false)
+                  //   ...[
+                  //     15.heightGap,
+                  //     CommonTextInput(
+                  //       filled: true,
+                  //       filledColor: context.primaryColor.withOpacity(.1),
+                  //       padding: const EdgeInsets.symmetric(
+                  //           horizontal: 15, vertical: 13),
+                  //       customBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         borderSide: const BorderSide(color: Colors.transparent),
+                  //       ),
+                  //       controller: controller.landmarkCtrl,
+                  //       validator: (p0) =>
+                  //           nonEmptyValidator(p0, "Please enter landmark"),
+                  //       lableWidget: RichText(
+                  //         text: TextSpan(
+                  //             text: 'Landmark',
+                  //             style: TextStyle(
+                  //                 color: context.primaryColor,
+                  //                 fontWeight: FontWeight.w500,
+                  //                 fontSize: 15),
+                  //             children: const [
+                  //               TextSpan(
+                  //                   text: '*',
+                  //                   style: TextStyle(
+                  //                       color: Colors.red,
+                  //                       fontWeight: FontWeight.w500,
+                  //                       fontSize: 15))
+                  //             ]),
+                  //       ),
+                  //       labelStyle: TextStyle(
+                  //           color: context.primaryColor,
+                  //           fontWeight: FontWeight.w500,
+                  //           fontSize: 15),
+                  //     ),
+                  //   ],
+                  15.heightGap,
+                  CommonTextInput(
+                    filled: true,
+                    filledColor: context.primaryColor.withOpacity(.1),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 13),
+                    customBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.transparent),
+                    ),
+                    controller: controller.cityCtrl,
+                    validator: (p0) =>
+                        nonEmptyValidator(p0, "Please enter city"),
+                    lableWidget: RichText(
+                      text: TextSpan(
+                          text: 'City',
+                          style: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                          children: const [
+                            TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ]),
+                    ),
+                    labelStyle: TextStyle(
+                        color: context.primaryColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
                   ),
                   15.heightGap,
                   CommonTextInput(
@@ -444,120 +653,9 @@ class SalesInsert extends GetView<SalesInsertController> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.transparent),
                     ),
-                    controller: controller.houseAndCityNameCtrl,
-                    lableWidget: RichText(
-                      text: TextSpan(
-                          text: 'House Name, Building Name',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-                    validator: (p0) =>
-                        nonEmptyValidator(p0, 'Please enter customer address'),
-                  ),
-                  15.heightGap,
-
-                  CommonTextInput(
-                    filled: true,
-                    filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 13
-                    ),
-                    customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                      const BorderSide(color: Colors.transparent),
-                    ),
-                    controller: controller.stateCtrl,
-                    validator: (p0) =>
-                        nonEmptyValidator(p0, "Please enter state"),
-                    label: "State*",
-                    lableWidget: RichText(
-                      text: TextSpan(
-                          text: 'State',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-                    labelStyle: TextStyle(
-                        color: context.primaryColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                  ),
-                  15.heightGap,
-                  CommonTextInput(
-                    filled: true,
-                    filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 13,
-                    ),
-                    customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                      const BorderSide(color: Colors.transparent),
-                    ),
-                    controller: controller.talukaCtrl,
-                    validator: (p0) =>
-                        nonEmptyValidator(p0, "Please enter taluka"),
-                    lableWidget: RichText(
-                      text: TextSpan(
-                          text: 'Taluka',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-                    labelStyle: TextStyle(
-                        color: context.primaryColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                  ),
-
-                  15.heightGap,
-                  CommonTextInput(
-                    filled: true,
-                    filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 13,
-                    ),
-                    customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                      const BorderSide(color: Colors.transparent),
-                    ),
                     controller: controller.districtCtrl,
                     validator: (p0) =>
                         nonEmptyValidator(p0, "Please enter district"),
-                    label: "District*",
                     lableWidget: RichText(
                       text: TextSpan(
                           text: 'District',
@@ -579,8 +677,100 @@ class SalesInsert extends GetView<SalesInsertController> {
                         fontWeight: FontWeight.w500,
                         fontSize: 15),
                   ),
+
                   15.heightGap,
-                  CommonButton(child: Text('Submit',style: TextStyle(color: context.colorScheme.onPrimary,fontSize: 16),), onPressed: (){},borderRadius: 10,backgroundColor: context.primaryColor,)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CommonTextInput(
+                          filled: true,
+                          filledColor: context.primaryColor.withOpacity(.1),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 13),
+                          customBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          controller: controller.stateCtrl,
+                          validator: (p0) =>
+                              nonEmptyValidator(p0, "Please enter state"),
+                          lableWidget: RichText(
+                            text: TextSpan(
+                                text: 'State',
+                                style: TextStyle(
+                                    color: context.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15),
+                                children: const [
+                                  TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15))
+                                ]),
+                          ),
+                          labelStyle: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                        ),
+                      ),
+                      15.widthGap,
+                      Expanded(
+                        child: CommonTextInput(
+                          filled: true,
+                          filledColor: context.primaryColor.withOpacity(.1),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 13),
+                          customBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                          ),
+                          controller: controller.countryCtrl,
+                          validator: (p0) =>
+                              nonEmptyValidator(p0, "Please enter country"),
+                          lableWidget: RichText(
+                            text: TextSpan(
+                                text: 'Country',
+                                style: TextStyle(
+                                    color: context.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15),
+                                children: const [
+                                  TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15))
+                                ]),
+                          ),
+                          labelStyle: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                        ),
+                      ),
+                    ],
+                  ),
+                  15.heightGap,
+                  15.heightGap,
+                  CommonButton(
+                    isLoading: controller.isSubmitLoading.value,
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(
+                          color: context.colorScheme.onPrimary, fontSize: 16),
+                    ),
+                    onPressed: () {
+                      controller.submitSalesEntry();
+                    },
+                    borderRadius: 10,
+                    backgroundColor: context.primaryColor,
+                  )
                 ],
               ),
             ),

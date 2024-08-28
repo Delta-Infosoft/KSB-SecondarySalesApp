@@ -7,6 +7,8 @@ import 'package:ksb_secondary_sales/core/utils/common_services/local_db.dart';
 import 'package:ksb_secondary_sales/core/utils/constants/app_constants.dart';
 import 'package:ksb_secondary_sales/features/auth/model/repositories/login_repository.dart';
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
+import 'package:ksb_secondary_sales/features/customers/model/customer_repository.dart';
+import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_insert_reposiotory.dart';
 
 import '../../auth/view/widgets/otp_verification_dialog.dart';
@@ -29,49 +31,97 @@ class SalesInsertController extends GetxController {
   RxBool isOtpSendToEmailIsLoading = false.obs;
   RxBool isMobileNumberApproved = false.obs;
   RxBool isEmailAddressApprove = false.obs;
+  RxBool isCustomerLoading = false.obs;
 
-  Future<void> getProductList() async {
-    isProductLoading.value = true;
-
-    products.addAll([
-      ProductModel(
-        imgUrl:
-            'https://t3.ftcdn.net/jpg/00/77/77/16/360_F_77771611_BCUZR6NW73NVdiLgmOeIzzSh4RP2U3aV.jpg',
-        name: 'Product 1',
-        description: 'Description of Product 1',
-        mrp: '₹100',
-      ),
-      ProductModel(
-        imgUrl:
-            'https://acszigalen.cloudimg.io/v7/https%3A%2F%2Flive-resources-e2e-sales.ksb.com%2Fresource%2Fimage%2F2018638%2Flandscape_ratio16x9%2F3300%2F1856%2Faf4f5e56a75b209f16ea37115d15880c%2FECB4CE14572AF1A9469E970534082D9C%2Fpic-sisto-cm1300.jpg?ci_url_encoded=1&optipress=3&height=844&width=1500',
-        name: 'Product 2',
-        description: 'Description of Product 2',
-        mrp: '₹150',
-      ),
-      // Add more products as needed
-    ]);
-    isProductSelected = List.generate(
-      products.length,
-      (index) => false.obs,
-    );
-    isProductLoading.value = false;
-  }
+  RxBool isSubmitLoading = false.obs;
 
   TextEditingController salesDateCtrl = TextEditingController();
+  TextEditingController gstNoController = TextEditingController();
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController mobileNoCtrl = TextEditingController();
   TextEditingController emailCtrl = TextEditingController();
-  TextEditingController houseAndCityNameCtrl = TextEditingController();
-  TextEditingController areaStreetCtrl = TextEditingController();
+  TextEditingController cityCtrl = TextEditingController();
+  TextEditingController streetCtrl = TextEditingController();
   TextEditingController pinCodeCtrl = TextEditingController();
-  TextEditingController talukaCtrl = TextEditingController();
+  TextEditingController countryCtrl = TextEditingController();
   TextEditingController districtCtrl = TextEditingController();
   TextEditingController stateCtrl = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> mobileNoKey = GlobalKey<FormState>();
   GlobalKey<FormState> emailKey = GlobalKey<FormState>();
+  String? selectedContactName = '';
 
-  submitSalesEntry() {}
+  RxString selectedLandMark = ''.obs;
+  List<Customer> customersList = [];
+  List<Contact> contactList = [];
+
+  Future<void> getProductList() async {
+    isProductLoading.value = true;
+    products = await SalesInsertRepository.getProductList();
+    products = dummyProductData;
+    isProductSelected = List.generate(products.length, (index) => false.obs);
+    isProductLoading.value = false;
+  }
+
+  Future<void> getCustomerList() async {
+    isCustomerLoading.value = true;
+    customersList = await CustomerRepository.getCustomerById();
+    isCustomerLoading.value = false;
+  }
+
+  String get selectedProductIds {
+    return products
+        .asMap()
+        .entries
+        .where((e) => isProductSelected[e.key].value)
+        .map((e) => e.value.id)
+        .join(',');
+  }
+
+  Future<void> submitSalesEntry() async {
+    if (formKey.currentState!.validate()) {
+      // Create the sales data map
+      Map<String, dynamic> salesData = {
+        "salesEntryId":
+            "3fa85f64-5717-4562-b3fc-2c963f66afa6", // Generate or use existing ID
+        "ksbSalesInvoiceId": selectedProductIds,
+        "salesDate": DateTime.now().toIso8601String(),
+        "customerId":
+            "3fa85f64-5717-4562-b3fc-2c963f66afa6", // Replace with actual customer ID
+        "gstNo": gstNoController.text,
+        "customerContactName": selectedContactName,
+        "customerMobileNo": mobileNoCtrl.text,
+        "customerEmailId": emailCtrl.text,
+        "customerAddress": streetCtrl.text,
+        "pincode": pinCodeCtrl.text,
+        "landMark": selectedLandMark.value,
+        "street": streetCtrl.text,
+        "city": cityCtrl.text,
+        "state": stateCtrl.text,
+        "country": countryCtrl.text,
+        "district": districtCtrl.text,
+        "insertedOn": DateTime.now().toIso8601String(),
+        "lastUpdatedOn": DateTime.now().toIso8601String(),
+        "insertedByUserId":
+            "C313B57A-5BC3-4FB9-8F23-2028343FB16F", // Replace with actual user ID
+        "lastUpdatedByUserId":
+            "C313B57A-5BC3-4FB9-8F23-2028343FB16F", // Replace with actual user ID
+      };
+
+      // Call the repository method
+      bool isInserted =
+          await SalesInsertRepository.insertSalesRecord(salesData);
+
+      if (isInserted) {
+        Fluttertoast.showToast(msg: 'Sales record inserted successfully');
+        Get.offAllNamed(AppRoute.dashboard);
+      } else {
+        Fluttertoast.showToast(msg: 'Failed to insert sales record');
+      }
+    } else {
+      Fluttertoast.showToast(msg: 'Please fill all required fields');
+    }
+  }
 
   Future<String> resendOtp() async {
     Fluttertoast.showToast(msg: 'Otp Resend to register mobile no');
@@ -116,10 +166,7 @@ class SalesInsertController extends GetxController {
         barrierLabel: '',
         barrierDismissible: false,
         transitionBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
+          return FadeTransition(opacity: animation, child: child);
         },
       );
     }
@@ -182,16 +229,58 @@ class SalesInsertController extends GetxController {
   }
 }
 
+List<ProductModel> dummyProductData = [
+  ProductModel(
+    id: '1',
+    invoiceNo: 'INV001',
+    materialNo: 'MAT12345',
+    materialDescreption: 'High-quality steel rods',
+    serialNumber: 'SN1001',
+  ),
+  ProductModel(
+    id: '2',
+    invoiceNo: 'INV002',
+    materialNo: 'MAT67890',
+    materialDescreption: 'Durable plastic sheets',
+    serialNumber: 'SN1002',
+  ),
+  ProductModel(
+    id: '3',
+    invoiceNo: 'INV003',
+    materialNo: 'MAT54321',
+    materialDescreption: 'Aluminum alloy plates',
+    serialNumber: 'SN1003',
+  ),
+  ProductModel(
+    id: '4',
+    invoiceNo: 'INV004',
+    materialNo: 'MAT98765',
+    materialDescreption: 'Copper wire spools',
+    serialNumber: 'SN1004',
+  ),
+];
+
 class ProductModel {
-  String imgUrl;
-  String name;
-  String description;
-  String mrp;
+  String id;
+  String invoiceNo;
+  String materialNo;
+  String materialDescreption;
+  String serialNumber;
 
   ProductModel({
-    required this.imgUrl,
-    required this.name,
-    required this.description,
-    required this.mrp,
+    required this.id,
+    required this.invoiceNo,
+    required this.materialDescreption,
+    required this.materialNo,
+    required this.serialNumber,
   });
+
+  factory ProductModel.fromJson(dynamic json) {
+    return ProductModel(
+        id: json['productId'],
+        invoiceNo: json['invoiceNo'],
+        materialDescreption: json['materialDescreption'],
+        materialNo: json['materialNo'],
+        serialNumber: json['serialNumber']);
+  }
 }

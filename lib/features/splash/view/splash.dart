@@ -27,12 +27,12 @@ class _SplashState extends State<Splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),),
                 clipBehavior: Clip.hardEdge,
-                child: FlutterLogo(size: 150,).animate().scale().fadeIn()),
+                child: const FlutterLogo(size: 150,).animate().scale().fadeIn()),
           ],
         ),
       ),

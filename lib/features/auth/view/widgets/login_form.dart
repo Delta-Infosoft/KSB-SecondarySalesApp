@@ -21,7 +21,10 @@ class LoginForm extends GetView<LoginController> {
           key: controller.loginFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
+              if(MediaQuery.of(context).viewInsets.bottom > 0)
+              30.heightGap,
               const Text(
                 'Login With Credential',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -72,7 +75,8 @@ class LoginForm extends GetView<LoginController> {
                       child: Text(
                         controller.isRememberMe.value ? '✓' : '', // Use check icon or empty string based on value
                         style: TextStyle(
-                          color: context.primaryColor, // Change icon color based on value
+                          fontSize: 20,
+                          color: context.primaryColor// Change icon color based on value
                         ),
                       ),
                     ),

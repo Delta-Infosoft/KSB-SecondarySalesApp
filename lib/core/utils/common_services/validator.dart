@@ -1,4 +1,5 @@
 String? nonEmptyValidator(String? val,String message){
+  val = val?.trim();
   if(val==null || val.isEmpty){
     return message;
   }

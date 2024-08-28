@@ -1,11 +1,15 @@
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
+import 'package:ksb_secondary_sales/features/customers/view/customer_view.dart';
+import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
 import 'package:ksb_secondary_sales/features/dashboard/view/dashboard.dart';
 import 'package:ksb_secondary_sales/features/dashboard/view_model/dashboard_controller.dart';
 import 'package:ksb_secondary_sales/features/home/view_model/home_controller.dart';
 import 'package:ksb_secondary_sales/features/profile/view_model/profile_controller.dart';
 import 'package:ksb_secondary_sales/features/sales/view/sales_insert.dart';
+import 'package:ksb_secondary_sales/features/sales/view/sales_view.dart';
+import 'package:ksb_secondary_sales/features/sales/view_model/sales_view_controller.dart';
 import 'package:ksb_secondary_sales/features/splash/view/splash.dart';
 
 import '../../features/auth/view/screens/login.dart';
@@ -19,6 +23,21 @@ class AppRouteManager {
         binding: BindingsBuilder(
           () {
             Get.lazyPut(() => SplashController());
+          },
+        )),
+    GetPage(
+        name: AppRoute.customerView,
+        page: () => const CustomerListScreen(),
+        binding: BindingsBuilder(
+          () {
+            Get.lazyPut(() => CustomerViewController());
+          },
+        )),    GetPage(
+        name: AppRoute.salesView,
+        page: () => const SalesListView(),
+        binding: BindingsBuilder(
+          () {
+            Get.lazyPut(() => SalesViewController());
           },
         )),
     GetPage(

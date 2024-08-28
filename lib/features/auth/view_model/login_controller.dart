@@ -33,24 +33,25 @@ class LoginController extends GetxController {
     }
   }
 
-
   Future<String> resendOtp() async {
     Fluttertoast.showToast(msg: 'Otp Resend to register mobile no');
     await LoginRepository.senOtpToMobil('9712268926');
     return '1234';
   }
 
-
-
   onSubmitPress(BuildContext context) async {
     if (loginFormKey.currentState!.validate()) {
       isLoading.value = true;
-      UserModel? user = await LoginRepository.loginWithUserNameAndPass(
+      String? userId = await LoginRepository.loginWithUserNameAndPass(
           userNameCtrl.text, passCtrl.text);
-      if (user != null) {
-        LocalDb.setString(AppConstants.userIdKey, user.id);
+      if (userId != null) {
+        print('get. off');
+        
+        LocalDb.setString(AppConstants.userIdKey, userId);
         LocalDb.setBool(AppConstants.isLoggedInKey, true);
         LocalDb.setString(AppConstants.userNameKey, userNameCtrl.text);
+        // Get.offAllNamed(AppRoute.dashboard);
+        // return;
         await showGeneralDialog(
           context: context,
           pageBuilder: (context, animation, secondaryAnimation) {

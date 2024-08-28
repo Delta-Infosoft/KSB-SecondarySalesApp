@@ -9,19 +9,21 @@ import '../../../../core/utils/constants/api_url.dart';
 import '../models/user_model.dart';
 
 class LoginRepository {
-  static Future<UserModel?> loginWithUserNameAndPass(String userName,String pass) async {
+  static Future<String?> loginWithUserNameAndPass(String userName,String pass) async {
     try {
       final response = await http.post((Uri.parse(ApiUrl.loginUrl)),body: {
         'UserName':userName,
-        'Password':pass
+        'Password':pass,
+        'FCMId':'jksdf6s8df67'
       }).timeout(1.seconds);
 
      final data = jsonDecode(response.body);
-      if (data['status'] == '200') {
-        final UserModel userModel = UserModel.fromJson(data['result']);
-        Fluttertoast.showToast(msg: 'OTP send to your register mobile number');
-        return userModel;
+      if (data['isSuccessful'] == 200) {
+        // Fluttertoast.showToast(msg: 'OTP send to your register mobile number');
+        // Fluttertoast.showToast(msg:'Welcome ${(data['data'][0]['FirstName'])??''} ${(data['data'][0]['LastName'])??''}');
+        return data['data'][0]['UserId'];
       }
+      Fluttertoast.showToast(msg: data['message']??'');
       return null;
     } catch (e) {
       Fluttertoast.showToast(msg: 'Opps something went wrong $e');

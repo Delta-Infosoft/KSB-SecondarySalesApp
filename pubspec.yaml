@@ -49,6 +49,7 @@ dependencies:
   firebase_messaging:
   flutter_svg:
   pinput:
+  dio:
 
 
 dev_dependencies:

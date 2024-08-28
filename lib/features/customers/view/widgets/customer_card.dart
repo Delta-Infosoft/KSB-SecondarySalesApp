@@ -1,6 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
+import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -9,20 +11,33 @@ class CustomerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  return   OpenContainer(
-
-      transitionType: ContainerTransitionType.fadeThrough,
+    return OpenContainer(
+      openColor: context.colorScheme.primaryContainer,
+      closedColor: context.primaryColor.withOpacity(.1),
       closedElevation: 0,
       openElevation: 0,
-      closedColor: Colors.transparent,
-      openColor: Colors.transparent,
+      closedShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      middleColor: Colors.transparent,
       closedBuilder: (context, openContainer) => ListTile(
-        tileColor: context.primaryColor.withOpacity(.2),
-        title: Column(children: [
-          Text(customer.name)
-        ],),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        leading: CircleAvatar(
+          child: Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
+          backgroundColor: context.primaryColor,
+        ),
+        title: Text(customer.customerName),
+        trailing: const Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 15,
+        ),
+        subtitle: Text(customer.customerTypeId),
       ),
-      openBuilder: (context, closeContainer) => CustomerDetailsScreen(customer: customer),
+      openBuilder: (context, closeContainer) =>
+          CustomerDetailsScreen(customer: customer),
     );
   }
 
@@ -52,28 +67,22 @@ class CustomerCard extends StatelessWidget {
   }
 }
 
-
-
-
-class CustomerDetailsScreen extends StatelessWidget {
+class CustomerDetailsScreen extends GetView<CustomerViewController> {
   const CustomerDetailsScreen({super.key, required this.customer});
   final Customer customer;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(customer.name)),
+      appBar: AppBar(title: Text(customer.customerName)),
       body: ListView(
         children: [
-          _buildListTile(Icons.person_pin_outlined, 'Customer Name', customer.name),
+          _buildListTile(Icons.person_pin_outlined, 'Customer Name',
+              customer.customerName),
           divider(),
           _buildListTile(Icons.pin, 'Pin Code', customer.pinCode),
           divider(),
-
-
-          _buildListTile(Icons.location_on, 'Area', customer.area),
-          divider(),
-          _buildListTile(Icons.location_city, 'Lane', customer.lane),
+          _buildListTile(Icons.location_on, 'Area', customer.landMark),
           divider(),
           _buildListTile(Icons.streetview, 'Street', customer.street),
           divider(),
@@ -85,44 +94,73 @@ class CustomerDetailsScreen extends StatelessWidget {
           divider(),
           _buildListTile(Icons.business, 'GST No', customer.gstNo),
           divider(),
-          _buildListTile(Icons.business, 'Company Type', customer.companyType),
+          _buildListTile(
+              Icons.business,
+              'Company Type',
+              controller.companyTypes.firstWhere(
+                    (c) => c['CompanyTypeTextListId'] == customer.companyTypeId,
+                orElse: () => {'Text': 'Unknown Company Type'}, // Default value
+              )['Text']),
           divider(),
-          _buildListTile(Icons.person, 'Customer Type', customer.customerType),
+          _buildListTile(
+              Icons.person,
+              'Customer Type',
+              controller.customerTypes.firstWhere(
+                    (c) => c['CustomerTypeTextListId'] == customer.customerTypeId,
+                orElse: () => {'Text': 'Unknown Customer Type'}, // Default value
+              )['Text']),
           divider(),
-          _buildListTile(Icons.category, 'Industry Type', customer.industryType),
+          _buildListTile(
+              Icons.category,
+              'Industry Type',
+              controller.industryTypes.firstWhere(
+                    (c) => c['IndustryTypeTextListId'] == customer.industryTypeId,
+                orElse: () => {'Text': 'Unknown Industry Type'}, // Default value
+              )['Text']),
           divider(),
-          ...customer.contacts.map((contact) {
+          ...customer.contacts
+              .where(
+            (element) => element.name.isNotEmpty,
+          )
+              .map((contact) {
             return Column(
               children: [
                 ExpansionTile(
-                  shape: RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
-                  collapsedShape: RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
-                  leading: Icon(Icons.account_circle),
-                  title: Text(contact.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.transparent)),
+                  collapsedShape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.transparent)),
+
+                  leading: const Icon(Icons.account_circle),
+                  title: Text(contact.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18)),
                   subtitle: Text(
                     contact.designation,
                     style: const TextStyle(color: Colors.black54),
                   ),
-                  // childrenPadding: EdgeInsets.symmetric(horizontal: 10),
+                  // children
+                  // Padding: EdgeInsets.symmetric(horizontal: 10),
                   children: [
                     _buildListTile(Icons.phone, 'Phone', contact.phone),
-                    _buildListTile(Icons.work, 'Department', contact.department),
-                    _buildListTile(Icons.work, 'Department', contact.department),
+                    _buildListTile(
+                        Icons.work, 'Department', contact.department),
+                    _buildListTile(
+                        Icons.work, 'Department', contact.department),
                     _buildListTile(Icons.email, 'Email', contact.email),
                   ],
                 ),
                 divider(),
-
               ],
             );
           }).toList(),
         ],
       ),
     );
-    
   }
-  divider(){
-    return  const Padding(
+
+  divider() {
+    return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: Divider(),
     );
@@ -131,7 +169,8 @@ class CustomerDetailsScreen extends StatelessWidget {
   Widget _buildListTile(IconData icon, String title, String value) {
     return ListTile(
       // contentPadding: const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
-      leading: Icon(icon, color: const Color(0xFF336699)), // Use your primary color for icons
+      leading: Icon(icon,
+          color: const Color(0xFF336699)), // Use your primary color for icons
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(value),
     );

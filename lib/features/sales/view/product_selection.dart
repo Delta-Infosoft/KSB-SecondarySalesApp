@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
+import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/sales/view/widgets/product_card.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
@@ -19,6 +20,7 @@ class _ProductSelectionState extends State<ProductSelection> {
   void initState() {
     super.initState();
     controller= Get.put(SalesInsertController());
+
   }
   @override
   void dispose() {
@@ -41,8 +43,19 @@ class _ProductSelectionState extends State<ProductSelection> {
               );
             }
             if (controller.products.isEmpty) {
-              return const Center(
-                child: Text('No Record Found'),
+              return Stack(
+                children: [
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      await controller.getProductList();
+                    },
+                    child: SingleChildScrollView(
+                        child: SizedBox(height: context.screenHeight,width: context.screenWidth,)),
+                  ),
+            const Center(
+                    child: Text('No Record Found'),
+                  ),
+                ],
               );
             }
             return RefreshIndicator(
