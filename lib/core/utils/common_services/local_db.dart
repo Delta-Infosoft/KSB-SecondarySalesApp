@@ -5,7 +5,7 @@ class LocalDb {
   static initialize() async {
 
     _preferences = await SharedPreferences.getInstance();
-    _preferences.clear();
+    // _preferences.clear();
   }
 
   static Future<void> setBool(String key, bool val) async {

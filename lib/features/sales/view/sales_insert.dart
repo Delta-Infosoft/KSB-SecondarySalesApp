@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/common_services/app_date_time_controller.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
@@ -10,12 +9,22 @@ import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/tap_to_remove_keyboard_widget.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
-
 import '../../../core/utils/common_services/validator.dart';
 
-class SalesInsert extends GetView<SalesInsertController> {
+class SalesInsert extends StatefulWidget {
   const SalesInsert({super.key});
 
+  @override
+  State<SalesInsert> createState() => _SalesInsertState();
+}
+
+class _SalesInsertState extends State<SalesInsert> {
+  final controller = Get.find<SalesInsertController>();
+  @override
+  void initState() {
+    super.initState();
+    controller.getCustomerList();
+  }
   @override
   Widget build(BuildContext context) {
     return TapToRemoveKeyboardWidget(
@@ -62,6 +71,7 @@ class SalesInsert extends GetView<SalesInsertController> {
                     ),
                   ),
                   15.heightGap,
+                  if(false)
                   DropdownButtonFormField(
                     // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
                     decoration: InputDecoration(
@@ -86,7 +96,18 @@ class SalesInsert extends GetView<SalesInsertController> {
                                       fontSize: 15))
                             ]),
                       ),
-                      border: OutlineInputBorder(
+                        suffixIcon: controller.isCustomerLoading.value
+                            ? const SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(
+                                      strokeWidth: 3),
+                                )))
+                            :null,
+                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.transparent),
                       ),
@@ -108,7 +129,8 @@ class SalesInsert extends GetView<SalesInsertController> {
                       if (cId != null && cId.isNotEmpty) {
                         Customer c = controller.customersList
                             .firstWhere((c) => c.customerId == cId);
-                        controller.contactList = c.contacts;
+                        controller.contactList = c.contacts.where((element) => element.name.trim().isNotEmpty,).toList();
+                        controller.gstNoController.text = c.gstNo;
                         controller.nameCtrl.text = c.addressName;
                         controller.pinCodeCtrl.text = c.pinCode;
                         controller.streetCtrl.text = c.street;
@@ -116,6 +138,101 @@ class SalesInsert extends GetView<SalesInsertController> {
                         controller.districtCtrl.text = c.district;
                         controller.stateCtrl.text = c.state;
                         controller.countryCtrl.text = c.country;
+                        setState(() {
+                        });
+                      }
+                    },
+                  ),
+                  DropdownMenu(
+                    enableFilter: true,
+
+                    enabled: true,
+                    enableSearch: true,
+                    width: context.screenWidth*0.92,
+                    menuHeight: 300,
+                    requestFocusOnTap: true,
+                    initialSelection: controller.selectedCustomerId.value.isNotEmpty?controller.selectedCustomerId.value:null,
+
+                    trailingIcon: controller.isCustomerLoading.value
+                        ? const SizedBox(
+                        height: 10,
+                        width: 10,
+                        child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 3),
+                            )))
+                        :null,
+                    label: RichText(
+                      text: TextSpan(
+                          text: 'Select Customer',
+                          style: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                          children: const [
+                            TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ]),
+                    ),
+
+                    // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
+                    inputDecorationTheme: InputDecorationTheme(
+                      filled: true,
+
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 13
+                      ),
+
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    dropdownMenuEntries: controller.customersList.map(
+                          (e) {
+                        return DropdownMenuEntry(
+                          value: e.customerId,
+                          label: e.customerName,
+                        );
+                      },
+                    ).toList(),
+                    onSelected: (cId) {
+                      if (cId != null && cId.isNotEmpty) {
+                        Customer c = controller.customersList
+                            .firstWhere((c) => c.customerId == cId);
+                        // controller.contactDDKey.currentState?.reset();
+                        // controller.contactList.clear();
+                        // controller.  selectedContactName='';
+                        // controller.mobileNoCtrl.clear();
+                        // controller.emailCtrl.clear();
+                        // controller.contactList = c.contacts.where((element) => element.name.trim().isNotEmpty,).toList();
+                        controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
+                        controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
+                        controller.gstNoController.text = c.gstNo;
+                        controller.nameCtrl.text = c.addressName;
+                        controller.pinCodeCtrl.text = c.pinCode;
+                        controller.streetCtrl.text = c.street;
+                        controller.cityCtrl.text = c.city;
+                        controller.districtCtrl.text = c.district;
+                        controller.stateCtrl.text = c.state;
+                        controller.countryCtrl.text = c.country;
+                        controller.selectedLandMark.value=c.landMark;
+                        controller.getDataFromPinCode(c.pinCode);
+                        setState(() {
+                        });
                       }
                     },
                   ),
@@ -159,54 +276,55 @@ class SalesInsert extends GetView<SalesInsertController> {
                         fontSize: 15),
                   ),
 
-                  15.heightGap,
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13,
-                      ),
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Select Customer Contact',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                    items: controller.contactList
-                        .map((e) => DropdownMenuItem(
-                              value: e.name,
-                              child: Text(e.name),
-                            ))
-                        .toList(),
-                    onChanged: (name) {
-                      if (name == null && (name?.isEmpty ?? false)) return;
-                      final contact = controller.contactList.firstWhere((n) => n.name==name);
-                    controller.  selectedContactName = name;
-                      controller.mobileNoCtrl.text = contact.phone;
-                      controller.emailCtrl.text = contact.email;
-                    }
-                  ),
+                  // 15.heightGap,
+                  // DropdownButtonFormField(
+                  //   key: controller.contactDDKey,
+                  //   decoration: InputDecoration(
+                  //     filled: true,
+                  //     contentPadding: const EdgeInsets.symmetric(
+                  //       horizontal: 15,
+                  //       vertical: 13,
+                  //     ),
+                  //     label: RichText(
+                  //       text: TextSpan(
+                  //           text: 'Select Customer Contact',
+                  //           style: TextStyle(
+                  //               color: context.primaryColor,
+                  //               fontWeight: FontWeight.w500,
+                  //               fontSize: 15),
+                  //           children: const [
+                  //             TextSpan(
+                  //                 text: '*',
+                  //                 style: TextStyle(
+                  //                     color: Colors.red,
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 15))
+                  //           ]),
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       borderSide: const BorderSide(color: Colors.transparent),
+                  //     ),
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       borderSide: const BorderSide(color: Colors.transparent),
+                  //     ),
+                  //     fillColor: context.primaryColor.withOpacity(.1),
+                  //   ),
+                  //   items: controller.contactList
+                  //       .map((e) => DropdownMenuItem(
+                  //             value: e.name,
+                  //             child: Text(e.name),
+                  //           ))
+                  //       .toList(),
+                  //   onChanged: (name) {
+                  //     if (name == null && (name?.isEmpty ?? false)) return;
+                  //     final contact = controller.contactList.firstWhere((n) => n.name==name);
+                  //   controller.  selectedContactName = name;
+                  //     controller.mobileNoCtrl.text = contact.phone;
+                  //     controller.emailCtrl.text = contact.email;
+                  //   }
+                  // ),
                   15.heightGap,
                   Form(
                     key: controller.mobileNoKey,
@@ -479,6 +597,8 @@ class SalesInsert extends GetView<SalesInsertController> {
                   15.heightGap,
                   DropdownButtonFormField(
                     menuMaxHeight: 300,
+                    key: controller.landMarkDdKey,
+                    value: controller.selectedLandMark.value.isEmpty?null:controller.selectedLandMark.value,
                     decoration: InputDecoration(
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(
@@ -520,7 +640,8 @@ class SalesInsert extends GetView<SalesInsertController> {
                     ).toList(),
                     onChanged: (name) {
                       final selectedAddress = controller.addressList
-                          .firstWhere((address) => address['Name'] == name);
+                          .firstWhereOrNull((address) => address['Name'] == name);
+                      if(selectedAddress==null)return;
                       controller.selectedLandMark.value = name ?? '';
                       // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
                       // controller.streetCtrl.text = selectedAddress['Division'] ?? '';

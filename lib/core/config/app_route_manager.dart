@@ -31,7 +31,7 @@ class AppRouteManager {
         binding: BindingsBuilder(
           () {
             Get.lazyPut(() => CustomerViewController());
-          },
+          }
         )),    GetPage(
         name: AppRoute.salesView,
         page: () => const SalesListView(),

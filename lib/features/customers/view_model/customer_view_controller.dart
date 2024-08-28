@@ -14,7 +14,6 @@ class CustomerViewController extends GetxController{
     getCustomerList();
 
   }
-
   // List of Dropdown Options
   List customerTypes = [];
   List companyTypes = [];

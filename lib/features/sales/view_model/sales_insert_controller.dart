@@ -51,14 +51,22 @@ class SalesInsertController extends GetxController {
   GlobalKey<FormState> emailKey = GlobalKey<FormState>();
   String? selectedContactName = '';
 
+  final GlobalKey<FormFieldState<String>> landMarkDdKey =
+  GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> contactDDKey =
+  GlobalKey<FormFieldState<String>>();
+
+
+
   RxString selectedLandMark = ''.obs;
+  RxString selectedCustomerId = ''.obs;
   List<Customer> customersList = [];
   List<Contact> contactList = [];
 
   Future<void> getProductList() async {
     isProductLoading.value = true;
     products = await SalesInsertRepository.getProductList();
-    products = dummyProductData;
+    // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
     isProductLoading.value = false;
   }
@@ -223,53 +231,22 @@ class SalesInsertController extends GetxController {
   getDataFromPinCode(String pinCode) async {
     isPinCodeDataLoading.value = true;
     addressList = [];
+    landMarkDdKey.currentState?.reset();
     List data = await SalesInsertRepository.getAddressFromPinCode(pinCode);
     addressList = data;
     isPinCodeDataLoading.value = false;
   }
 }
 
-List<ProductModel> dummyProductData = [
-  ProductModel(
-    id: '1',
-    invoiceNo: 'INV001',
-    materialNo: 'MAT12345',
-    materialDescreption: 'High-quality steel rods',
-    serialNumber: 'SN1001',
-  ),
-  ProductModel(
-    id: '2',
-    invoiceNo: 'INV002',
-    materialNo: 'MAT67890',
-    materialDescreption: 'Durable plastic sheets',
-    serialNumber: 'SN1002',
-  ),
-  ProductModel(
-    id: '3',
-    invoiceNo: 'INV003',
-    materialNo: 'MAT54321',
-    materialDescreption: 'Aluminum alloy plates',
-    serialNumber: 'SN1003',
-  ),
-  ProductModel(
-    id: '4',
-    invoiceNo: 'INV004',
-    materialNo: 'MAT98765',
-    materialDescreption: 'Copper wire spools',
-    serialNumber: 'SN1004',
-  ),
-];
 
 class ProductModel {
   String id;
-  String invoiceNo;
   String materialNo;
   String materialDescreption;
   String serialNumber;
 
   ProductModel({
     required this.id,
-    required this.invoiceNo,
     required this.materialDescreption,
     required this.materialNo,
     required this.serialNumber,
@@ -277,10 +254,9 @@ class ProductModel {
 
   factory ProductModel.fromJson(dynamic json) {
     return ProductModel(
-        id: json['productId'],
-        invoiceNo: json['invoiceNo'],
-        materialDescreption: json['materialDescreption'],
-        materialNo: json['materialNo'],
-        serialNumber: json['serialNumber']);
+        id: json['KSBSalesInvoiceId'],
+        materialDescreption: json['MaterialDescription'],
+        materialNo: json['MaterialNumber'],
+        serialNumber: json['SerialNumber']);
   }
 }

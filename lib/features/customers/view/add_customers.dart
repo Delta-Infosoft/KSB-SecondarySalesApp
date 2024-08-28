@@ -485,7 +485,8 @@ class _AddCustomerState extends State<AddCustomer> {
                       ).toList(),
                       onChanged: (name) {
                         final selectedAddress = controller.addressList
-                            .firstWhere((address) => address['Name'] == name);
+                            .firstWhereOrNull((address) => address['Name'] == name);
+                        if(selectedAddress==null)return;
                         controller.selectedLandMark.value=name??'';
                         // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
                         // controller.streetCtrl.text = selectedAddress['Division'] ?? '';

@@ -50,10 +50,10 @@ class SalesInsertRepository{
   static Future<List<ProductModel>> getProductList() async {
     try {
       final response = await http
-          .post(Uri.parse(ApiUrl.textListApi),);
+          .get(Uri.parse(ApiUrl.getProductListUrl),);
       final data = jsonDecode(response.body);
-      if (data['message'] == 'Successful') {
-        return data['data'];
+      if (data['isSuccessful'] == 200) {
+        return (data['data'] as List).map((e) => ProductModel.fromJson(e),).toList();
       }
       return [];
     } catch (e) {

@@ -34,7 +34,7 @@ class CustomerCard extends StatelessWidget {
           Icons.arrow_forward_ios_rounded,
           size: 15,
         ),
-        subtitle: Text(customer.customerTypeId),
+        subtitle: Text(customer.customerType),
       ),
       openBuilder: (context, closeContainer) =>
           CustomerDetailsScreen(customer: customer),
@@ -97,26 +97,17 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
           _buildListTile(
               Icons.business,
               'Company Type',
-              controller.companyTypes.firstWhere(
-                    (c) => c['CompanyTypeTextListId'] == customer.companyTypeId,
-                orElse: () => {'Text': 'Unknown Company Type'}, // Default value
-              )['Text']),
+customer.companyType),
           divider(),
           _buildListTile(
               Icons.person,
               'Customer Type',
-              controller.customerTypes.firstWhere(
-                    (c) => c['CustomerTypeTextListId'] == customer.customerTypeId,
-                orElse: () => {'Text': 'Unknown Customer Type'}, // Default value
-              )['Text']),
+              customer.customerType),
           divider(),
           _buildListTile(
               Icons.category,
               'Industry Type',
-              controller.industryTypes.firstWhere(
-                    (c) => c['IndustryTypeTextListId'] == customer.industryTypeId,
-                orElse: () => {'Text': 'Unknown Industry Type'}, // Default value
-              )['Text']),
+              customer.industryType),
           divider(),
           ...customer.contacts
               .where(

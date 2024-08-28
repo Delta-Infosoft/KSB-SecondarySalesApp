@@ -83,7 +83,7 @@ class Home extends GetView<HomeController> {
                 10.widthGap,
                 CommonCard(
                     onTap: () {
-
+Get.toNamed(AppRoute.salesView);
                     },
                     title: 'Sales View',
                     icon: const Stack(
@@ -157,6 +157,9 @@ class Customer {
   final String customerTypeId;
   final String companyTypeId;
   final String industryTypeId;
+  final String customerType;
+  final String companyType;
+  final String industryType;
   final String addressName;
   final String street;
   final String landMark;
@@ -191,6 +194,10 @@ class Customer {
     required this.lastUpdatedOn,
     required this.insertedByUserId,
     required this.lastUpdatedByUserId,
+    required this.customerType,
+    required this.companyType,
+    required this.industryType,
+
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
@@ -222,6 +229,10 @@ class Customer {
       lastUpdatedOn: DateTime.parse(json['lastUpdatedOn']),
       insertedByUserId: json['insertedByUserId'],
       lastUpdatedByUserId: json['lastUpdatedByUserId'],
+      customerType: json['CustomerType']??'',
+      companyType: json['CompanyType']??'',
+      industryType: json['IndustryType']??'',
+
     );
   }
 }
