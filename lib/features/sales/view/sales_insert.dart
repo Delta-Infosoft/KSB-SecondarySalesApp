@@ -211,6 +211,7 @@ class _SalesInsertState extends State<SalesInsert> {
                     ).toList(),
                     onSelected: (cId) {
                       if (cId != null && cId.isNotEmpty) {
+                        controller.selectedCustomerId.value=cId;
                         Customer c = controller.customersList
                             .firstWhere((c) => c.customerId == cId);
                         // controller.contactDDKey.currentState?.reset();
@@ -881,16 +882,16 @@ class _SalesInsertState extends State<SalesInsert> {
                   15.heightGap,
                   CommonButton(
                     isLoading: controller.isSubmitLoading.value,
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                          color: context.colorScheme.onPrimary, fontSize: 16),
-                    ),
                     onPressed: () {
                       controller.submitSalesEntry();
                     },
                     borderRadius: 10,
                     backgroundColor: context.primaryColor,
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(
+                          color: context.colorScheme.onPrimary, fontSize: 16),
+                    ),
                   )
                 ],
               ),

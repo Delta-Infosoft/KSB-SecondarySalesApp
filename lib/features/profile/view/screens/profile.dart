@@ -37,7 +37,7 @@ class _ProfileState extends State<Profile> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (controller.userModel == null) {
+            } else if (controller.userData == null) {
               return const Center(
                 child: Text('No Record Found'),
               );
@@ -52,19 +52,11 @@ class _ProfileState extends State<Profile> {
                 //   ),
                 // ),
                 // 30.heightGap,
-                ListTile(
-                    onTap: () {
-                      if(controller.userModel?.id.isEmpty??true)return;
-                      Clipboard.setData(ClipboardData(text: controller.userModel?.id??''));
-                      Fluttertoast.showToast(msg: 'Copied to Clipboard ${controller.userModel?.id}');
-                    },
-                    title: const Text('User ID'),
-                    subtitle: Text(controller.userModel?.id ?? ''),
-                    trailing: const Icon(Icons.copy)),
+
                 ListTile(
                     onTap: () {},
                     title: const Text('User Name'),
-                    subtitle: Text(controller.userModel?.name ?? ''),
+                    subtitle: Text('${controller.userData!['FirstName']+controller.userData!['LastName']}'),
                     trailing: const Icon(Icons.person)),
                 ListTile(
                     onTap: () {

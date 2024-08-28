@@ -30,6 +30,7 @@ class CommonTextInput extends StatelessWidget {
         this.maxLength,
         this.enabled,
         this.lableWidget,
+        this.cursoColor,
         this.autoValidateNull=false,
         this.controller,this.initialValue, this.focusBorder});
 
@@ -39,6 +40,7 @@ class CommonTextInput extends StatelessWidget {
   final bool obscureText;
   final bool borderInputNone;
   final Widget? suffixIcon;
+  final Color? cursoColor;
   final Widget? prefixIcon;
   final bool? filled;
   final Color? filledColor;
@@ -79,7 +81,7 @@ class CommonTextInput extends StatelessWidget {
       maxLength: maxLength,
       // style:
       //     GoogleFonts.montserrat(fontSize: 16.sp, color: context.colorScheme.onBackground),
-      cursorColor:context.primaryColor,
+      cursorColor:cursoColor??context.primaryColor,
       textAlignVertical: TextAlignVertical.bottom,
       onTap: onTap,
       style: style,
@@ -90,6 +92,7 @@ class CommonTextInput extends StatelessWidget {
         prefixIcon: prefixIcon,
         contentPadding: padding,
         filled: filled,
+
         fillColor: filledColor,
         labelStyle: TextStyle(fontSize: 16, color:context.primaryColor),
         label: lableWidget?? (label != null ? Text(label!,style: labelStyle,) : null),

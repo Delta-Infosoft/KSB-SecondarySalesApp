@@ -6,6 +6,7 @@ import 'package:ksb_secondary_sales/features/customers/view/add_customers.dart';
 
 class SplashController extends GetxController {
   init() {
+    // return;
     Future.delayed(
       const Duration(seconds: 1),
       () {

@@ -139,15 +139,18 @@ class CustomerController extends GetxController {
           phoneControllers[i].text.trim(),
           emailControllers[i].text.trim(),
         ];
-        if (contactCtrl.any((text) => text.isNotEmpty)) {
+        if (contactCtrl.any((text) => text.isEmpty)) {
+          print('here');
           Fluttertoast.showToast(
               msg: 'Please fill all details of contact ${i + 1}');
                 isContactValidate=false;
           break;
         }
       }
+      print('isContactValidate:$isContactValidate');
       if(!isContactValidate)return;
       isSubmitLoading.value = true;
+
       final customer = CustomerInsertModel(
         customerName: customerNameController.text,
         gstNo: gstNoController.text,

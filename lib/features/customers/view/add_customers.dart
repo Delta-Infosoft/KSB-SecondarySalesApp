@@ -519,7 +519,7 @@ class _AddCustomerState extends State<AddCustomer> {
                           nonEmptyValidator(p0, "Please enter street"),
                       lableWidget: RichText(
                         text: TextSpan(
-                            text: 'Street',
+                            text: 'House Name/Building Name/Street Name',
                             style: TextStyle(
                                 color: context.primaryColor,
                                 fontWeight: FontWeight.w500,

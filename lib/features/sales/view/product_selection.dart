@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 import 'package:ksb_secondary_sales/features/sales/view/widgets/product_card.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 
@@ -34,7 +35,17 @@ class _ProductSelectionState extends State<ProductSelection> {
     () {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Select Products'),
+            title:controller.isSearchEnable.value? CommonTextInput(
+cursoColor: Colors.white,
+              style: TextStyle(color: Colors.white),
+              controller: controller.searchCtrl,onChange: (p0) {
+controller.onQuerySearch(p0??'');
+            },):const Text('Select Products'),
+            actions: [
+              IconButton(onPressed: (){
+                controller.isSearchEnable.value=!controller.isSearchEnable.value;
+              }, icon:  Icon(controller.isSearchEnable.value?Icons.close:Icons.search))
+            ],
           ),
           body:  () {
             if (controller.isProductLoading.value) {
@@ -42,7 +53,7 @@ class _ProductSelectionState extends State<ProductSelection> {
                 child: CircularProgressIndicator(),
               );
             }
-            if (controller.products.isEmpty) {
+            if (controller.searchProducts.isEmpty) {
               return Stack(
                 children: [
                   RefreshIndicator(
@@ -67,16 +78,16 @@ class _ProductSelectionState extends State<ProductSelection> {
                   padding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   itemBuilder: (context, index) {
-                    final product = controller.products[index];
+                    final product = controller.searchProducts[index];
                     return ProductCard(product, index);
                   },
                   separatorBuilder: (context, index) => 15.heightGap,
-                  itemCount: controller.products.length),
+                  itemCount: controller.searchProducts.length),
             );
           }(),
           floatingActionButton: () {
             if (controller.isProductLoading.value ||
-                controller.products.isEmpty ||
+                controller.searchProducts.isEmpty ||
                 !(controller.isProductSelected.any(
                       (element) => element.value,
                 ))) {

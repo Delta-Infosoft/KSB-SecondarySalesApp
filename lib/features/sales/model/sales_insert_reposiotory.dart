@@ -24,23 +24,20 @@ class SalesInsertRepository{
 
   static Future<bool> insertSalesRecord(Map<String, dynamic> salesData) async {
     try {
-      await Future.delayed(3.seconds);
-      salesRecord.add(salesData);
-      return true;
-      // final response = await http.post(
-      //   Uri.parse(ApiUrl.insertSalesEntryUrl),
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: jsonEncode(salesData),
-      // );
-      //
-      // if (response.statusCode == 200) {
-      //   return true;
-      // } else {
-      //   // Handle other status codes here if needed
-      //   return false;
-      // }
+
+      final response = await http.post(
+        Uri.parse(ApiUrl.insertSalesEntryUrl),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(salesData),
+      );
+final data = jsonDecode(response.body);
+      if (data['isSuccessful'] == 200) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       print('Error inserting sales record: $e');
       return false;

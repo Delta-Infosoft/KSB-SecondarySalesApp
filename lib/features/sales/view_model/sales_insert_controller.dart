@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:intl/intl.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
 import 'package:ksb_secondary_sales/core/utils/common_services/local_db.dart';
@@ -9,6 +11,7 @@ import 'package:ksb_secondary_sales/features/auth/model/repositories/login_repos
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
 import 'package:ksb_secondary_sales/features/customers/model/customer_repository.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
+import 'package:ksb_secondary_sales/features/sales/model/sales_data_model.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_insert_reposiotory.dart';
 
 import '../../auth/view/widgets/otp_verification_dialog.dart';
@@ -22,8 +25,9 @@ class SalesInsertController extends GetxController {
   }
 
   List addressList = [];
-
+RxBool isSearchEnable =false.obs;
   List<ProductModel> products = [];
+  RxList<ProductModel> searchProducts = <ProductModel>[].obs;
   List<RxBool> isProductSelected = [];
   RxBool isProductLoading = false.obs;
   RxBool isPinCodeDataLoading = false.obs;
@@ -33,6 +37,7 @@ class SalesInsertController extends GetxController {
   RxBool isEmailAddressApprove = false.obs;
   RxBool isCustomerLoading = false.obs;
 
+  TextEditingController searchCtrl = TextEditingController();
   RxBool isSubmitLoading = false.obs;
 
   TextEditingController salesDateCtrl = TextEditingController();
@@ -57,6 +62,19 @@ class SalesInsertController extends GetxController {
   GlobalKey<FormFieldState<String>>();
 
 
+  onQuerySearch(String query){
+    if(query.isEmpty){
+      searchProducts.assignAll(products);
+    }else{
+      searchProducts.assignAll(products.where((element) {
+        return element.materialNo.toLowerCase().contains(query.toLowerCase()) ||element.serialNumber.toLowerCase().contains(query.toLowerCase())|| element.materialDescreption.toLowerCase().contains(query.toLowerCase());
+      },));
+    }
+  }
+
+
+
+
 
   RxString selectedLandMark = ''.obs;
   RxString selectedCustomerId = ''.obs;
@@ -66,6 +84,7 @@ class SalesInsertController extends GetxController {
   Future<void> getProductList() async {
     isProductLoading.value = true;
     products = await SalesInsertRepository.getProductList();
+    searchProducts.value=List.of(products);
     // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
     isProductLoading.value = false;
@@ -88,16 +107,14 @@ class SalesInsertController extends GetxController {
 
   Future<void> submitSalesEntry() async {
     if (formKey.currentState!.validate()) {
-      // Create the sales data map
+      isSubmitLoading.value=true;
       Map<String, dynamic> salesData = {
-        "salesEntryId":
-            "3fa85f64-5717-4562-b3fc-2c963f66afa6", // Generate or use existing ID
         "ksbSalesInvoiceId": selectedProductIds,
         "salesDate": DateTime.now().toIso8601String(),
         "customerId":
-            "3fa85f64-5717-4562-b3fc-2c963f66afa6", // Replace with actual customer ID
+           selectedCustomerId.value, // Replace with actual customer ID
         "gstNo": gstNoController.text,
-        "customerContactName": selectedContactName,
+        "customerContactName": 'custom',
         "customerMobileNo": mobileNoCtrl.text,
         "customerEmailId": emailCtrl.text,
         "customerAddress": streetCtrl.text,
@@ -108,15 +125,10 @@ class SalesInsertController extends GetxController {
         "state": stateCtrl.text,
         "country": countryCtrl.text,
         "district": districtCtrl.text,
-        "insertedOn": DateTime.now().toIso8601String(),
-        "lastUpdatedOn": DateTime.now().toIso8601String(),
         "insertedByUserId":
-            "C313B57A-5BC3-4FB9-8F23-2028343FB16F", // Replace with actual user ID
-        "lastUpdatedByUserId":
-            "C313B57A-5BC3-4FB9-8F23-2028343FB16F", // Replace with actual user ID
+            LocalDb.getString(AppConstants.userIdKey), // Replace with actual user ID
       };
 
-      // Call the repository method
       bool isInserted =
           await SalesInsertRepository.insertSalesRecord(salesData);
 
@@ -129,6 +141,8 @@ class SalesInsertController extends GetxController {
     } else {
       Fluttertoast.showToast(msg: 'Please fill all required fields');
     }
+    isSubmitLoading.value=false;
+
   }
 
   Future<String> resendOtp() async {

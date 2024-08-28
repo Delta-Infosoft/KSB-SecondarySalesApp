@@ -6,13 +6,13 @@ import '../model/repositories/profile_repository.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
-  UserModel? userModel;
+  Map? userData;
 
   getProfileDetail() async {
     isLoading.value = true;
-    UserModel? user = await ProfileRepository.getUserData();
+    Map? user = await ProfileRepository.getUserData();
     if (user != null) {
-      userModel = user;
+  userData= user;
     }
     isLoading.value = false;
   }

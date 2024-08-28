@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 
@@ -22,6 +23,7 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +34,7 @@ class _SplashState extends State<Splash> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),),
                 clipBehavior: Clip.hardEdge,
-                child: const FlutterLogo(size: 150,).animate().scale().fadeIn()),
+                child: SvgPicture.asset(AppAssets.ksbLogo,height: 70,width: 70,).animate().scale().fadeIn()),
           ],
         ),
       ),

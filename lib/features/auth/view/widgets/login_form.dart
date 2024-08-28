@@ -31,7 +31,7 @@ class LoginForm extends GetView<LoginController> {
               ),
               20.heightGap,
               CommonTextInput(
-                label: 'Enter User Code ',
+                label: 'Enter Customer Code ',
                 controller: controller.userNameCtrl,
                 suffixIcon: const Icon(Icons.person,color: Colors.grey,),
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -116,7 +116,7 @@ class LandingContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Welcome to KSB \nSales App",
+            "Welcome to KSB\nSecondary Sales App",
             textAlign: TextAlign.start,
             style: Theme.of(context)
                 .textTheme

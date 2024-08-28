@@ -17,7 +17,7 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('KSB Sales'),
+        title: const Text('KSB Secondary Sales'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -170,9 +170,6 @@ class Customer {
   final String country;
   final List<Contact> contacts;
   final DateTime insertedOn;
-  final DateTime lastUpdatedOn;
-  final String insertedByUserId;
-  final String lastUpdatedByUserId;
 
   Customer({
     required this.customerId,
@@ -191,9 +188,6 @@ class Customer {
     required this.country,
     required this.contacts,
     required this.insertedOn,
-    required this.lastUpdatedOn,
-    required this.insertedByUserId,
-    required this.lastUpdatedByUserId,
     required this.customerType,
     required this.companyType,
     required this.industryType,
@@ -202,37 +196,33 @@ class Customer {
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
-      customerId: json['customerId'] ?? '',
-      customerName: json['customerName'] ?? '',
-      gstNo: json['gstNo'] ?? '',
-      customerTypeId: json['customerTypeId'] ?? '',
-      companyTypeId: json['companyTypeId'] ?? '',
-      industryTypeId: json['industryTypeId'] ?? '',
-      addressName: json['addressName'] ?? '',
-      street: json['street'] ?? '',
-      district: json['street'] ?? '' ?? '',
-      landMark: json['landMark'] ?? '',
-      pinCode: json['pincode'] ?? '',
-      city: json['city'] ?? '',
-      state: json['state'] ?? '',
-      country: json['country'] ?? '',
+      customerId: json['CustomerId'] ?? '',
+      customerName: json['CustomerName'] ?? '',
+      gstNo: json['GSTNo'] ?? '',
+      customerTypeId: json['CustomerTypeId'] ?? '',
+      companyTypeId: json['CompanyTypeId'] ?? '',
+      industryTypeId: json['IndustryTypeId'] ?? '',
+      addressName: json['AddressName'] ?? '',
+      street: json['Street'] ?? '',
+      district: json['Street'] ?? '' ?? '',
+      landMark: json['LandMark'] ?? '',
+      pinCode: json['Pincode'] ?? '',
+      city: json['City'] ?? '',
+      state: json['State'] ?? '',
+      country: json['Country'] ?? '',
       contacts: List.generate(5, (index) {
         return Contact(
-          name: json['contactName${index + 1}'] ?? '',
-          department: json['contactDepartment${index + 1}'] ?? '',
-          designation: json['contactDesignation${index + 1}'] ?? '',
-          phone: json['contactPhone${index + 1}'] ?? '',
-          email: json['contactEmail${index + 1}'] ?? '',
+          name: json['ContactName${index + 1}'] ?? '',
+          department: json['ContactDepartment${index + 1}'] ?? '',
+          designation: json['ContactDesignation${index + 1}'] ?? '',
+          phone: json['ContactPhone${index + 1}'] ?? '',
+          email: json['ContactEmail${index + 1}'] ?? '',
         );
       }),
-      insertedOn: DateTime.parse(json['insertedOn']),
-      lastUpdatedOn: DateTime.parse(json['lastUpdatedOn']),
-      insertedByUserId: json['insertedByUserId'],
-      lastUpdatedByUserId: json['lastUpdatedByUserId'],
+      insertedOn: DateTime.parse(json['InsertedOn']),
       customerType: json['CustomerType']??'',
       companyType: json['CompanyType']??'',
       industryType: json['IndustryType']??'',
-
     );
   }
 }

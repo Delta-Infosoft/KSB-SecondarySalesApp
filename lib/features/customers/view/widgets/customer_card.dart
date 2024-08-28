@@ -134,8 +134,7 @@ customer.companyType),
                   // Padding: EdgeInsets.symmetric(horizontal: 10),
                   children: [
                     _buildListTile(Icons.phone, 'Phone', contact.phone),
-                    _buildListTile(
-                        Icons.work, 'Department', contact.department),
+
                     _buildListTile(
                         Icons.work, 'Department', contact.department),
                     _buildListTile(Icons.email, 'Email', contact.email),

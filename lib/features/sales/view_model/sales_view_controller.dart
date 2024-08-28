@@ -15,6 +15,7 @@ class SalesViewController extends GetxController{
   getSalesData() async {
     isLoading.value = true;
     salesList = await SalesViewRepo.getSalesList();
+    salesList.sort((a, b) => b.insertedOn.compareTo(a.insertedOn),);
     isLoading.value = false;
   }
 }

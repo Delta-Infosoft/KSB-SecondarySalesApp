@@ -23,8 +23,9 @@ class SalesListView extends GetView<SalesViewController> {
           return const Center(child: Text('No Record Found'),);
         }
         return ListView.separated(
-            separatorBuilder: (context, index) => 10.heightGap,
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+            physics: const AlwaysScrollableScrollPhysics(),
+            separatorBuilder: (context, index) => 15.heightGap,
+            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
             itemCount: controller.salesList.length,
             itemBuilder: (context, index) {
               final data = controller.salesList[index];

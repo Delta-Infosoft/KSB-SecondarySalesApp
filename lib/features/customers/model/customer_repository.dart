@@ -33,7 +33,7 @@ class CustomerRepository {
   }
 
   static Future<List<Customer>> getCustomerById() async {
-    try {
+    // try {
       print('getCustomerById');
       final response = await http.post(
         Uri.parse(ApiUrl.getCustomerById),
@@ -49,11 +49,11 @@ class CustomerRepository {
       } else {
         return [];
       }
-    } catch (e) {
-      print('e.toString()');
-      print(e.toString());
-      return [];
-    }
+    // } catch (e) {
+    //   print('e.toString()');
+    //   print(e.toString());
+    //   return [];
+    // }
   }
 
   static Future<List> getTestListFromGroup(String groupName) async {
