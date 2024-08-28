@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/sales/view/widgets/sales_card.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_view_controller.dart';
+
+import '../../../core/utils/constants/app_assets.dart';
 
 class SalesListView extends GetView<SalesViewController> {
   const SalesListView({Key? key}) : super(key: key);
@@ -14,7 +17,13 @@ class SalesListView extends GetView<SalesViewController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sales Data'),
+        title: Row(
+          children: [
+            Expanded(child: const Text('Sales Data')),
+            SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
+
+          ],
+        ),
       ),
       body: Obx(() {
         if(controller.isLoading.value){

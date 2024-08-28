@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
@@ -9,6 +10,7 @@ import 'package:ksb_secondary_sales/core/utils/widgets/tap_to_remove_keyboard_wi
 import 'package:ksb_secondary_sales/features/customers/view_model/customer_controller.dart';
 
 import '../../../core/utils/common_services/validator.dart';
+import '../../../core/utils/constants/app_assets.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -37,7 +39,13 @@ class _AddCustomerState extends State<AddCustomer> {
     return TapToRemoveKeyboardWidget(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Customer Form'),
+          title: Row(
+            children: [
+              Expanded(child: const Text('Customer Form')),
+              SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
+
+            ],
+          ),
         ),
         body: Form(
           key: controller.formKey,

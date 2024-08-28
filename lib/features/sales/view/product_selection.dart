@@ -36,14 +36,19 @@ class _ProductSelectionState extends State<ProductSelection> {
         return Scaffold(
           appBar: AppBar(
             title:controller.isSearchEnable.value? CommonTextInput(
+              focusNode: controller.searchFocus,
 cursoColor: Colors.white,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               controller: controller.searchCtrl,onChange: (p0) {
 controller.onQuerySearch(p0??'');
             },):const Text('Select Products'),
             actions: [
               IconButton(onPressed: (){
+
                 controller.isSearchEnable.value=!controller.isSearchEnable.value;
+                if(controller.isSearchEnable.value){
+                  controller.searchFocus.requestFocus();
+                }
               }, icon:  Icon(controller.isSearchEnable.value?Icons.close:Icons.search))
             ],
           ),

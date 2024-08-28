@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -36,6 +37,7 @@ RxBool isSearchEnable =false.obs;
   RxBool isMobileNumberApproved = false.obs;
   RxBool isEmailAddressApprove = false.obs;
   RxBool isCustomerLoading = false.obs;
+  FocusNode searchFocus = FocusNode();
 
   TextEditingController searchCtrl = TextEditingController();
   RxBool isSubmitLoading = false.obs;
@@ -54,7 +56,7 @@ RxBool isSearchEnable =false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> mobileNoKey = GlobalKey<FormState>();
   GlobalKey<FormState> emailKey = GlobalKey<FormState>();
-  String? selectedContactName = '';
+  String selectedContactName = '';
 
   final GlobalKey<FormFieldState<String>> landMarkDdKey =
   GlobalKey<FormFieldState<String>>();

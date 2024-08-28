@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/customers/view/widgets/customer_card.dart';
 import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
+
+import '../../../core/utils/constants/app_assets.dart';
 
 class CustomerListScreen extends GetView<CustomerViewController> {
 
@@ -13,7 +16,13 @@ class CustomerListScreen extends GetView<CustomerViewController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Customer List'),
+        title: Row(
+          children: [
+            Expanded(child: const Text('Customer List')),
+            SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
+
+          ],
+        ),
       ),
       body: Obx(() {
         if(controller.isLoading.value){

@@ -212,16 +212,17 @@ class _SalesInsertState extends State<SalesInsert> {
                     onSelected: (cId) {
                       if (cId != null && cId.isNotEmpty) {
                         controller.selectedCustomerId.value=cId;
-                        Customer c = controller.customersList
-                            .firstWhere((c) => c.customerId == cId);
+                        Customer? c = controller.customersList
+                            .firstWhereOrNull((c) => c.customerId == cId);
+                        if(c==null)return;
                         // controller.contactDDKey.currentState?.reset();
-                        // controller.contactList.clear();
-                        // controller.  selectedContactName='';
-                        // controller.mobileNoCtrl.clear();
-                        // controller.emailCtrl.clear();
-                        // controller.contactList = c.contacts.where((element) => element.name.trim().isNotEmpty,).toList();
-                        controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
-                        controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
+                        controller.contactList.clear();
+                        controller.  selectedContactName='';
+                        controller.mobileNoCtrl.clear();
+                        controller.emailCtrl.clear();
+                        controller.contactList = c.contacts.where((element) => element.name.trim().isNotEmpty,).toList();
+                        // controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
+                        // controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
                         controller.gstNoController.text = c.gstNo;
                         controller.nameCtrl.text = c.addressName;
                         controller.pinCodeCtrl.text = c.pinCode;
@@ -277,55 +278,57 @@ class _SalesInsertState extends State<SalesInsert> {
                         fontSize: 15),
                   ),
 
-                  // 15.heightGap,
-                  // DropdownButtonFormField(
-                  //   key: controller.contactDDKey,
-                  //   decoration: InputDecoration(
-                  //     filled: true,
-                  //     contentPadding: const EdgeInsets.symmetric(
-                  //       horizontal: 15,
-                  //       vertical: 13,
-                  //     ),
-                  //     label: RichText(
-                  //       text: TextSpan(
-                  //           text: 'Select Customer Contact',
-                  //           style: TextStyle(
-                  //               color: context.primaryColor,
-                  //               fontWeight: FontWeight.w500,
-                  //               fontSize: 15),
-                  //           children: const [
-                  //             TextSpan(
-                  //                 text: '*',
-                  //                 style: TextStyle(
-                  //                     color: Colors.red,
-                  //                     fontWeight: FontWeight.w500,
-                  //                     fontSize: 15))
-                  //           ]),
-                  //     ),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       borderSide: const BorderSide(color: Colors.transparent),
-                  //     ),
-                  //     enabledBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       borderSide: const BorderSide(color: Colors.transparent),
-                  //     ),
-                  //     fillColor: context.primaryColor.withOpacity(.1),
-                  //   ),
-                  //   items: controller.contactList
-                  //       .map((e) => DropdownMenuItem(
-                  //             value: e.name,
-                  //             child: Text(e.name),
-                  //           ))
-                  //       .toList(),
-                  //   onChanged: (name) {
-                  //     if (name == null && (name?.isEmpty ?? false)) return;
-                  //     final contact = controller.contactList.firstWhere((n) => n.name==name);
-                  //   controller.  selectedContactName = name;
-                  //     controller.mobileNoCtrl.text = contact.phone;
-                  //     controller.emailCtrl.text = contact.email;
-                  //   }
-                  // ),
+                  15.heightGap,
+                  DropdownButtonFormField(
+                    key: controller.contactDDKey,
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 13,
+                      ),
+
+                      label: RichText(
+                        text: TextSpan(
+                            text: 'Select Customer Contact',
+                            style: TextStyle(
+                                color: context.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15),
+                            children: const [
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15))
+                            ]),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    value:controller.selectedContactName.isEmpty?null:controller.selectedContactName ,
+                    items: controller.contactList
+                        .map((e) => DropdownMenuItem(
+                              value: e.name,
+                              child: Text(e.name),
+                            ))
+                        .toList(),
+                    onChanged: (name) {
+                      if (name == null && (name?.isEmpty ?? false)) return;
+                      final contact = controller.contactList.firstWhere((n) => n.name==name);
+                    controller.  selectedContactName = name??'';
+                      controller.mobileNoCtrl.text = contact.phone;
+                      controller.emailCtrl.text = contact.email;
+                    }
+                  ),
                   15.heightGap,
                   Form(
                     key: controller.mobileNoKey,

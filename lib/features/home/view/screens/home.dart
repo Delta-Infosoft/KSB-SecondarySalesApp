@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
+import 'package:ksb_secondary_sales/core/utils/constants/app_assets.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/customers/view/add_customers.dart';
@@ -17,7 +19,12 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('KSB Secondary Sales'),
+        title: Row(
+          children: [
+            const Expanded(child: Text('KSB Secondary Sales',softWrap: true,)),
+            SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
