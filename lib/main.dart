@@ -22,6 +22,7 @@ class KSBSecondarySales extends StatelessWidget {
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
+      defaultTransition: Transition.rightToLeftWithFade,
       initialRoute: AppRoute.splash,
       initialBinding:InitialBinding() ,
       getPages: AppRouteManager.pages,

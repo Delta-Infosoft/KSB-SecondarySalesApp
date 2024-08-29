@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
 import 'package:ksb_secondary_sales/core/utils/common_services/local_db.dart';
@@ -14,6 +15,7 @@ import 'package:ksb_secondary_sales/features/customers/model/customer_repository
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_data_model.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_insert_reposiotory.dart';
+import 'package:ksb_secondary_sales/features/sales/view/widgets/filter_item_selection_bottomsheet.dart';
 
 import '../../auth/view/widgets/otp_verification_dialog.dart';
 
@@ -25,8 +27,37 @@ class SalesInsertController extends GetxController {
     salesDateCtrl.text = DateFormat('dd-MMM-yyyy').format(DateTime.now());
   }
 
+  RxList<Item> selectedSalesNoList = <Item>[
+    Item(name: 'Sales NO 1', isSelected: false),
+    Item(name: 'Sales NO 2', isSelected: false),
+    Item(name: 'Sales NO 3', isSelected: false),
+    Item(name: 'Sales NO 4', isSelected: false),
+    Item(name: 'Sales NO 5', isSelected: false),
+    Item(name: 'Sales NO 6', isSelected: false),
+    Item(name: 'Sales NO 7', isSelected: false),
+    Item(name: 'Sales NO 8', isSelected: false),
+  ].obs;
+
+  RxList<Item> productGroupList = <Item>[
+    Item(name: 'Product Group 1', isSelected: false),
+    Item(name: 'Product Group 2', isSelected: false),
+    Item(name: 'Product Group 3', isSelected: false),
+  ].obs;
+
+  RxList<Item> invoiceNumberList = <Item>[
+    Item(name: 'Invoice 001', isSelected: false),
+    Item(name: 'Invoice 002', isSelected: false),
+    Item(name: 'Invoice 003', isSelected: false),
+  ].obs;
+
+  RxList<Item> serialNumberList = <Item>[
+    Item(name: 'Serial 001', isSelected: false),
+    Item(name: 'Serial 002', isSelected: false),
+    Item(name: 'Serial 003', isSelected: false),
+  ].obs;
+
   List addressList = [];
-RxBool isSearchEnable =false.obs;
+  RxBool isSearchEnable = true.obs;
   List<ProductModel> products = [];
   RxList<ProductModel> searchProducts = <ProductModel>[].obs;
   List<RxBool> isProductSelected = [];
@@ -40,6 +71,7 @@ RxBool isSearchEnable =false.obs;
   FocusNode searchFocus = FocusNode();
 
   TextEditingController searchCtrl = TextEditingController();
+  TextEditingController invoiceDateCtrl = TextEditingController();
   RxBool isSubmitLoading = false.obs;
 
   TextEditingController salesDateCtrl = TextEditingController();
@@ -59,24 +91,29 @@ RxBool isSearchEnable =false.obs;
   String selectedContactName = '';
 
   final GlobalKey<FormFieldState<String>> landMarkDdKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> contactDDKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
 
-
-  onQuerySearch(String query){
-    if(query.isEmpty){
+  onQuerySearch(String query) {
+    if (query.isEmpty) {
       searchProducts.assignAll(products);
-    }else{
-      searchProducts.assignAll(products.where((element) {
-        return element.materialNo.toLowerCase().contains(query.toLowerCase()) ||element.serialNumber.toLowerCase().contains(query.toLowerCase())|| element.materialDescreption.toLowerCase().contains(query.toLowerCase());
-      },));
+    } else {
+      searchProducts.assignAll(products.where(
+        (element) {
+          return element.materialNo
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element.serialNumber
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element.materialDescreption
+                  .toLowerCase()
+                  .contains(query.toLowerCase());
+        },
+      ));
     }
   }
-
-
-
-
 
   RxString selectedLandMark = ''.obs;
   RxString selectedCustomerId = ''.obs;
@@ -86,7 +123,7 @@ RxBool isSearchEnable =false.obs;
   Future<void> getProductList() async {
     isProductLoading.value = true;
     products = await SalesInsertRepository.getProductList();
-    searchProducts.value=List.of(products);
+    searchProducts.value = List.of(products);
     // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
     isProductLoading.value = false;
@@ -109,12 +146,12 @@ RxBool isSearchEnable =false.obs;
 
   Future<void> submitSalesEntry() async {
     if (formKey.currentState!.validate()) {
-      isSubmitLoading.value=true;
+      isSubmitLoading.value = true;
       Map<String, dynamic> salesData = {
         "ksbSalesInvoiceId": selectedProductIds,
         "salesDate": DateTime.now().toIso8601String(),
         "customerId":
-           selectedCustomerId.value, // Replace with actual customer ID
+            selectedCustomerId.value, // Replace with actual customer ID
         "gstNo": gstNoController.text,
         "customerContactName": 'custom',
         "customerMobileNo": mobileNoCtrl.text,
@@ -127,8 +164,8 @@ RxBool isSearchEnable =false.obs;
         "state": stateCtrl.text,
         "country": countryCtrl.text,
         "district": districtCtrl.text,
-        "insertedByUserId":
-            LocalDb.getString(AppConstants.userIdKey), // Replace with actual user ID
+        "insertedByUserId": LocalDb.getString(
+            AppConstants.userIdKey), // Replace with actual user ID
       };
 
       bool isInserted =
@@ -143,8 +180,7 @@ RxBool isSearchEnable =false.obs;
     } else {
       Fluttertoast.showToast(msg: 'Please fill all required fields');
     }
-    isSubmitLoading.value=false;
-
+    isSubmitLoading.value = false;
   }
 
   Future<String> resendOtp() async {
@@ -253,7 +289,6 @@ RxBool isSearchEnable =false.obs;
     isPinCodeDataLoading.value = false;
   }
 }
-
 
 class ProductModel {
   String id;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
@@ -29,7 +30,13 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Profile'),
+          title: Row(
+            children: [
+              const Expanded(child: Text('Profile')),
+              SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
+              
+            ],
+          ),
         ),
         body: Obx(
           () {
