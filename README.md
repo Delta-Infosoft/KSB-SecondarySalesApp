@@ -1,6 +1,6 @@
 # ksb_secondary_sales
 
-A new Flutter project.
+KSB Secondary sales application for ksb delars
 
 ## Getting Started
 
