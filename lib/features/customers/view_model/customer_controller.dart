@@ -48,7 +48,7 @@ class CustomerController extends GetxController {
   TextEditingController cityCtrl = TextEditingController();
   TextEditingController stateCtrl = TextEditingController();
   TextEditingController countryCtrl = TextEditingController();
-  TextEditingController districtCtrl = TextEditingController();
+  TextEditingController   districtCtrl = TextEditingController();
 
   List<TextEditingController> nameControllers = [];
   List<TextEditingController> departmentControllers = [];

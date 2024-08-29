@@ -1,6 +1,9 @@
 
+import 'dart:math';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/date_time_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
@@ -122,7 +125,6 @@ class SalesCard extends StatelessWidget {
 }
 
 
-
 class SalesEntryDetailsScreen extends StatelessWidget {
   final SalesData data;
 
@@ -136,142 +138,84 @@ class SalesEntryDetailsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Customer Name'),
-            subtitle: Text(data.customerName),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.date_range),
-            title: const Text('Sales Date'),
-            subtitle: Text(data.salesDate.toIso8601String()),
-          ),
-
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.qr_code),
-            title: const Text('GST No'),
-            subtitle: Text(data.gstNo),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.phone),
-            title: const Text('Customer Mobile No'),
-            subtitle: Text(data.customerMobileNo),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.email),
-            title: const Text('Customer Email ID'),
-            subtitle: Text(data.customerEmailId),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.location_on),
-            title: const Text('Customer Address'),
-            subtitle: Text(data.customerAddress),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.pin_drop),
-            title: const Text('Pincode'),
-            subtitle: Text(data.pincode),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.map),
-            title: const Text('Landmark'),
-            subtitle: Text(data.landMark),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.streetview),
-            title: const Text('Street'),
-            subtitle: Text(data.street),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.location_city),
-            title: const Text('City'),
-            subtitle: Text(data.city),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.map_outlined),
-            title: const Text('State'),
-            subtitle: Text(data.state),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.public),
-            title: const Text('Country'),
-            subtitle: Text(data.country),
-          ),
-          divider(),
-          ListTile(
-            leading: const Icon(Icons.location_city_outlined),
-            title: const Text('District'),
-            subtitle: Text(data.district),
-          ),
-          30.heightGap,
+          _buildListTile(FontAwesomeIcons.user, 'Customer Name', data.customerName),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.calendarAlt, 'Sales Date', data.salesDate.toIso8601String()),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.qrcode, 'GST No', data.gstNo),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.phone, 'Customer Mobile No', data.customerMobileNo),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.envelope, 'Customer Email ID', data.customerEmailId),
+          _divider(),
+          // _buildListTile(FontAwesomeIcons.mapMarkerAlt, 'Customer Address', data.customerAddress),
+          // _divider(),
+          _buildListTile(FontAwesomeIcons.mapPin, 'Pincode', data.pincode),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.landmark, 'Landmark', data.landMark),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.road, 'Street', data.street),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.city, 'City', data.city),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.map, 'State', data.state),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.locationArrow, 'District', data.district),
+          _divider(),
+          _buildListTile(FontAwesomeIcons.globe, 'Country', data.country),
+          const SizedBox(height: 30),
           Text(
             '    Products Detail',
             style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-                color: context.primaryColor),
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
-          30.heightGap,
-    ...data.products
-        .map((contact) {
-          return Column(
-            children: [
-              ExpansionTile(
-                shape: const RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                collapsedShape: const RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.transparent)),
-
-                leading: const Icon(Icons.numbers),
-                title: const Text('Material Number',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18)),
-                subtitle: Text(
-                  contact.materialNumber,
-                  style: const TextStyle(color: Colors.black54),
-                ),
-                // children
-                // Padding: EdgeInsets.symmetric(horizontal: 10),
-                children: [
-                  _buildListTile(Icons.note_alt, 'Material Descreption', contact.materialDescription),
-
-                ],
-              ),
-              divider(),
-
-            ],
-          );
-    }),
-
+          const SizedBox(height: 30),
+          ...data.products.map((product) => _buildProductExpansionTile(product)).toList(),
         ],
       ),
     );
   }
-    Widget _buildListTile(IconData icon, String title, String value) {
+
+  Widget _buildListTile(IconData icon, String title, String value) {
     return ListTile(
-    // contentPadding: const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
-    leading: Icon(icon,
-    color: const Color(0xFF336699)), // Use your primary color for icons
-    title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-    subtitle: Text(value),
+      leading: Icon(icon, color: const Color(0xFF336699),size: 20), // Use your primary color for icons
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: Text(value),
     );
-    }
-  divider() {
+  }
+
+  Widget _buildProductExpansionTile(Product product) {
+    return Column(
+      children: [
+        ExpansionTile(
+          shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
+          collapsedShape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
+          leading: const Icon(FontAwesomeIcons.boxOpen,size: 20,),
+          title: const Text(
+            'Material Number',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          subtitle: Text(
+            product.materialNumber,
+            style: const TextStyle(color: Colors.black54),
+          ),
+          children: [
+            _buildListTile(FontAwesomeIcons.clipboard, 'Material Description', product.materialDescription),
+            _buildListTile(FontAwesomeIcons.tag, 'Serial Number', product.serialNumber),
+          ],
+        ),
+        _divider(),
+      ],
+    );
+  }
+
+  Widget _divider() {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: Divider(),
     );
   }
-
 }

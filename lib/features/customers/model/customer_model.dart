@@ -103,7 +103,7 @@ class CustomerInsertModel {
       'city': city,
       'state': state,
       'country': country,
-      // 'district': district,
+      'district': district,
       'contactName1': contactName1,
       'contactDepartment1': contactDepartment1,
       'contactPhone1': contactPhone1,

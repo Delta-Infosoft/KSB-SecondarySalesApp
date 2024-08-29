@@ -207,7 +207,7 @@ class _SalesInsertState extends State<SalesInsert> {
                           value: e.customerId,
                           label: e.customerName,
                         );
-                      },
+                      }
                     ).toList(),
                     onSelected: (cId) {
                       if (cId != null && cId.isNotEmpty) {

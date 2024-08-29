@@ -50,7 +50,7 @@ dependencies:
   flutter_svg:
   pinput:
   dio:
-
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

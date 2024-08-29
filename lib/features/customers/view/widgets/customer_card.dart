@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
@@ -66,7 +67,6 @@ class CustomerCard extends StatelessWidget {
     );
   }
 }
-
 class CustomerDetailsScreen extends GetView<CustomerViewController> {
   const CustomerDetailsScreen({super.key, required this.customer});
   final Customer customer;
@@ -77,43 +77,39 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
       appBar: AppBar(title: Text(customer.customerName)),
       body: ListView(
         children: [
-          _buildListTile(Icons.person_pin_outlined, 'Customer Name',
+          _buildListTile(FontAwesomeIcons.userCircle, 'Customer Name',
               customer.customerName),
           divider(),
-          _buildListTile(Icons.pin, 'Pin Code', customer.pinCode),
+          _buildListTile(FontAwesomeIcons.mapPin, 'Pin Code', customer.pinCode),
           divider(),
-          _buildListTile(Icons.location_on, 'Area', customer.landMark),
+          _buildListTile(FontAwesomeIcons.landmark, 'Landmark', customer.landMark),divider(),
+          _buildListTile(FontAwesomeIcons.road, 'Street', customer.street),
           divider(),
-          _buildListTile(Icons.streetview, 'Street', customer.street),
+          _buildListTile(FontAwesomeIcons.city, 'City', customer.city),
           divider(),
-          _buildListTile(Icons.location_city, 'City', customer.city),
+          _buildListTile(FontAwesomeIcons.locationArrow, 'District', customer.district),
           divider(),
-          _buildListTile(Icons.location_city, 'State', customer.state),
+          _buildListTile(FontAwesomeIcons.map, 'State', customer.state),
           divider(),
-          _buildListTile(Icons.location_city, 'District', customer.district),
+          _buildListTile(FontAwesomeIcons.globe, 'Country', customer.country),
           divider(),
-          _buildListTile(Icons.business, 'GST No', customer.gstNo),
+          _buildListTile(FontAwesomeIcons.fileInvoiceDollar, 'GST No', customer.gstNo),
           divider(),
-          _buildListTile(
-              Icons.business,
-              'Company Type',
-customer.companyType),
+          _buildListTile(FontAwesomeIcons.building, 'Company Type', customer.companyType),
           divider(),
-          _buildListTile(
-              Icons.person,
-              'Customer Type',
-              customer.customerType),
+          _buildListTile(FontAwesomeIcons.userTie, 'Customer Type', customer.customerType),
           divider(),
-          _buildListTile(
-              Icons.category,
-              'Industry Type',
-              customer.industryType),
+          _buildListTile(FontAwesomeIcons.industry, 'Industry Type', customer.industryType),
           divider(),
+
           ...customer.contacts
-              .where(
-            (element) => element.name.isNotEmpty,
-          )
-              .map((contact) {
+              .where((contact) => contact.name.isNotEmpty).toList()
+              .asMap()
+              .entries
+              .map((entry) {
+            int index = entry.key;
+            Contact contact = entry.value;
+
             return Column(
               children: [
                 ExpansionTile(
@@ -121,8 +117,7 @@ customer.companyType),
                       side: BorderSide(color: Colors.transparent)),
                   collapsedShape: const RoundedRectangleBorder(
                       side: BorderSide(color: Colors.transparent)),
-
-                  leading: const Icon(Icons.account_circle),
+                  leading: const Icon(FontAwesomeIcons.user),
                   title: Text(contact.name,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18)),
@@ -130,17 +125,14 @@ customer.companyType),
                     contact.designation,
                     style: const TextStyle(color: Colors.black54),
                   ),
-                  // children
-                  // Padding: EdgeInsets.symmetric(horizontal: 10),
                   children: [
-                    _buildListTile(Icons.phone, 'Phone', contact.phone),
-
-                    _buildListTile(
-                        Icons.work, 'Department', contact.department),
-                    _buildListTile(Icons.email, 'Email', contact.email),
+                    _buildListTile(FontAwesomeIcons.phone, 'Phone', contact.phone),
+                    _buildListTile(FontAwesomeIcons.briefcase, 'Department', contact.department),
+                    _buildListTile(FontAwesomeIcons.envelope, 'Email', contact.email),
                   ],
                 ),
-                divider(),
+                // Show divider only if it's not the last contact
+                if (index < customer.contacts.length - 1 ) divider(),
               ],
             );
           }).toList(),
@@ -158,9 +150,7 @@ customer.companyType),
 
   Widget _buildListTile(IconData icon, String title, String value) {
     return ListTile(
-      // contentPadding: const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
-      leading: Icon(icon,
-          color: const Color(0xFF336699)), // Use your primary color for icons
+      leading: Icon(icon, color: const Color(0xFF336699),size: 20,), // Use your primary color for icons
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(value),
     );

@@ -211,7 +211,7 @@ class Customer {
       industryTypeId: json['IndustryTypeId'] ?? '',
       addressName: json['AddressName'] ?? '',
       street: json['Street'] ?? '',
-      district: json['Street'] ?? '' ?? '',
+      district: json['District'] ?? '' ?? '',
       landMark: json['LandMark'] ?? '',
       pinCode: json['Pincode'] ?? '',
       city: json['City'] ?? '',

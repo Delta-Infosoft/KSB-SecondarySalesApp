@@ -62,6 +62,7 @@ class SalesData {
       return Product(
         materialNumber: materialNumbers[index],
         materialDescription: materialDescriptions[index],
+        serialNumber: '198298989839839'
       );
     });
     return SalesData(
@@ -124,9 +125,11 @@ class SalesData {
 class Product {
   final String materialNumber;
   final String materialDescription;
+  final String serialNumber;
 
   Product({
     required this.materialNumber,
     required this.materialDescription,
+    required this.serialNumber,
   });
 }

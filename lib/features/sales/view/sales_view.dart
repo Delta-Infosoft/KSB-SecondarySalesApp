@@ -19,7 +19,7 @@ class SalesListView extends GetView<SalesViewController> {
       appBar: AppBar(
         title: Row(
           children: [
-            Expanded(child: const Text('Sales Data')),
+            const Expanded(child: Text('Sales Data')),
             SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
 
           ],
