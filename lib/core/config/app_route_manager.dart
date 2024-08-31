@@ -23,7 +23,7 @@ class AppRouteManager {
         binding: BindingsBuilder(
           () {
             Get.lazyPut(() => SplashController());
-          },
+          }
         )),
     GetPage(
         name: AppRoute.customerView,
