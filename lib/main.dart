@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_theme.dart';
 import 'package:ksb_secondary_sales/core/config/initial_binding.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'core/config/app_route.dart';
 import 'core/config/app_route_manager.dart';
@@ -22,6 +23,12 @@ class KSBSecondarySales extends StatelessWidget {
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
+      builder: (context, child) {
+        return ShowCaseWidget(builder: (BuildContext context) {
+          return child!;
+        },
+       );
+      },
       defaultTransition: Transition.rightToLeftWithFade,
       initialRoute: AppRoute.splash,
       initialBinding:InitialBinding() ,

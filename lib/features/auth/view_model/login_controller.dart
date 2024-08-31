@@ -50,6 +50,12 @@ class LoginController extends GetxController {
         LocalDb.setString(AppConstants.userIdKey, userId);
         LocalDb.setBool(AppConstants.isLoggedInKey, true);
         LocalDb.setString(AppConstants.userNameKey, userNameCtrl.text);
+
+
+        if(isRememberMe.value){
+          LocalDb.setString(AppConstants.rememberUserName, userNameCtrl.text);
+          LocalDb.setString(AppConstants.rememberPasswordKey, passCtrl.text);
+        }
         // Get.offAllNamed(AppRoute.dashboard);
         // return;
         await showGeneralDialog(

@@ -1,37 +1,30 @@
 import 'dart:convert';
 class SalesData {
-  String salesEntryId;
-  String ksbSalesInvoiceId;
-  String salesMaterialNumbers;
-  String salesMaterialDescreption;
-  DateTime salesDate;
-  String customerId;
-  String gstNo;
-  String customerContactName;
-  String customerMobileNo;
-  String customerEmailId;
-  String customerAddress;
-  String pincode;
-  String landMark;
-  String street;
-  String city;
-  String state;
-  String country;
-  String district;
-  DateTime insertedOn;
-  DateTime lastUpdatedOn;
-  String insertedByUserId;
-  String? lastUpdatedByUserId;
-  String userName;
-  String customerName;
+  final String salesEntryId;
+  final String ksbSalesInvoiceId;
+  final DateTime salesDate;
+  final String customerId;
+  final String customerName;
+  final String gstNo;
+  final String customerContactName;
+  final String customerMobileNo;
+  final String customerEmailId;
+  final String customerAddress;
+  final String pincode;
+  final String landMark;
+  final String street;
+  final String city;
+  final String state;
+  final String country;
+  final String district;
+  final String insertedByUserId;
   final List<Product> products;
 
   SalesData({
     required this.salesEntryId,
     required this.ksbSalesInvoiceId,
-    required this.salesMaterialNumbers,
-    required this.salesMaterialDescreption,
     required this.salesDate,
+    required this.customerName,
     required this.customerId,
     required this.gstNo,
     required this.customerContactName,
@@ -45,81 +38,35 @@ class SalesData {
     required this.state,
     required this.country,
     required this.district,
-    required this.insertedOn,
-    required this.lastUpdatedOn,
     required this.insertedByUserId,
-    this.lastUpdatedByUserId,
-    required this.userName,
-    required this.customerName,
     required this.products,
   });
 
   factory SalesData.fromJson(Map<String, dynamic> json) {
-    List<String> materialNumbers = (json['MaterialNumbers'] as String).split(',');
-    List<String> materialDescriptions = (json['MaterialDescription'] as String).split(',');
-
-    List<Product> products = List.generate(materialNumbers.length, (index) {
-      return Product(
-        materialNumber: materialNumbers[index],
-        materialDescription: materialDescriptions[index],
-        serialNumber: '198298989839839'
-      );
-    });
     return SalesData(
-      salesEntryId: json['SalesEntryId'],
-      ksbSalesInvoiceId: json['KSBSalesInvoiceId'],
-      salesMaterialNumbers: json['MaterialNumbers']??'',
-      salesMaterialDescreption: json['MaterialDescription']??'',
-      salesDate: DateTime.parse(json['SalesDate']),
-      customerId: json['CustomerId'],
-      gstNo: json['GSTNo'],
-      customerContactName: json['CustomerContactName'],
-      customerMobileNo: json['CustomerMobileNo'],
-      customerEmailId: json['CustomerEmailId'],
-      customerAddress: json['CustomerAddress'],
-      pincode: json['Pincode'],
-      landMark: json['LandMark'],
-      street: json['Street'],
-      city: json['City'],
-      state: json['State'],
-      country: json['Country'],
-      district: json['District'],
-      insertedOn: DateTime.parse(json['InsertedOn']),
-      lastUpdatedOn: DateTime.parse(json['LastUpdatedOn']),
-      insertedByUserId: json['InsertedByUserId'],
-      lastUpdatedByUserId: json['LastUpdatedByUserId'],
-      userName: json['UserName'],
-      customerName: json['CustomerName'],
-      products: products,
+      salesEntryId: json['salesEntryId'],
+      customerName: json['customerName'],
+      ksbSalesInvoiceId: json['ksbSalesInvoiceId'],
+      salesDate: DateTime.parse(json['salesDate']),
+      customerId: json['customerId'],
+      gstNo: json['gstNo'],
+      customerContactName: json['customerContactName'],
+      customerMobileNo: json['customerMobileNo'],
+      customerEmailId: json['customerEmailId'],
+      customerAddress: json['customerAddress'],
+      pincode: json['pincode'],
+      landMark: json['landMark'],
+      street: json['street'],
+      city: json['city'],
+      state: json['state'],
+      country: json['country'],
+      district: json['district'],
+      insertedByUserId: json['insertedByUserId'],
+      products: List<Product>.from(
+          json['materialData'].map((data) => Product.fromJson(data))),
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'SalesEntryId': salesEntryId,
-      'KSBSalesInvoiceId': ksbSalesInvoiceId,
-      'SalesDate': salesDate.toIso8601String(),
-      'CustomerId': customerId,
-      'GSTNo': gstNo,
-      'CustomerContactName': customerContactName,
-      'CustomerMobileNo': customerMobileNo,
-      'CustomerEmailId': customerEmailId,
-      'CustomerAddress': customerAddress,
-      'Pincode': pincode,
-      'LandMark': landMark,
-      'Street': street,
-      'City': city,
-      'State': state,
-      'Country': country,
-      'District': district,
-      'InsertedOn': insertedOn.toIso8601String(),
-      'LastUpdatedOn': lastUpdatedOn.toIso8601String(),
-      'InsertedByUserId': insertedByUserId,
-      'LastUpdatedByUserId': lastUpdatedByUserId,
-      'UserName': userName,
-      'CustomerName': customerName,
-    };
-  }
 }
 
 class Product {
@@ -132,4 +79,20 @@ class Product {
     required this.materialDescription,
     required this.serialNumber,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      materialNumber: json['materialNumber'],
+      materialDescription: json['materialDescription'],
+      serialNumber: json['serialNumber'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'materialNumber': materialNumber,
+      'materialDescription': materialDescription,
+      'serialNumber': serialNumber,
+    };
+  }
 }

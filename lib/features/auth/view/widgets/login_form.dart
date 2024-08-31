@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ksb_secondary_sales/core/utils/common_services/local_db.dart';
 import 'package:ksb_secondary_sales/core/utils/constants/app_assets.dart';
+import 'package:ksb_secondary_sales/core/utils/constants/app_constants.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 
@@ -21,26 +23,67 @@ class LoginForm extends GetView<LoginController> {
           key: controller.loginFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
-              if(MediaQuery.of(context).viewInsets.bottom > 0)
-              30.heightGap,
+              // if(false)
+              if (MediaQuery.of(context).viewInsets.bottom > 0) 30.heightGap,
               const Text(
                 'Login With Credential',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               20.heightGap,
+              Autocomplete(
+                onSelected: (option) {
+                  if(option.isNotEmpty){
+                    controller.userNameCtrl.text=option;
+                    controller.passCtrl.text = LocalDb.getString(AppConstants.rememberPasswordKey);
+                  }
+                },
+                optionsBuilder: (textEditingValue) {
+                  if(LocalDb.getString(AppConstants.rememberUserName).isEmpty){
+                    return const Iterable<String>.empty();
+                  }
+                  return  [LocalDb.getString(AppConstants.rememberUserName)];
+                },
+                fieldViewBuilder: (context, textEditingController, focusNode,
+                    onFieldSubmitted) {
+                  return CommonTextInput(
+                    label: 'Enter Customer Code',
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                    onChange: (p0) {
+                      controller.userNameCtrl.text=p0??'';
+                    },
+                    suffixIcon: const Icon(
+                        Icons.person,
+                        color: Colors.grey),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    validator: (val) =>
+                        nonEmptyValidator(val, "Please enter user name"),
+                  );
+                },
+              ),
+              if(false)
               CommonTextInput(
                 label: 'Enter Customer Code ',
                 controller: controller.userNameCtrl,
-                suffixIcon: const Icon(Icons.person,color: Colors.grey,),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                suffixIcon: const Icon(
+                  Icons.person,
+                  color: Colors.grey,
+                ),
+                onTap: (){
+
+                },
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 validator: (val) =>
                     nonEmptyValidator(val, "Please enter user name"),
               ),
               15.heightGap,
+
               CommonTextInput(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 obscureText: controller.isObSecure.value,
                 label: 'Enter Password',
                 controller: controller.passCtrl,
@@ -51,51 +94,77 @@ class LoginForm extends GetView<LoginController> {
                       controller.isObSecure.value =
                           !controller.isObSecure.value;
                     },
-                    icon: Icon( Icons.visibility,color: controller.isObSecure.value?Colors.grey:context.primaryColor,)),
+                    icon: Icon(
+                      Icons.visibility,
+                      color: controller.isObSecure.value
+                          ? Colors.grey
+                          : context.primaryColor,
+                    )),
               ),
               20.heightGap,
               // Checkbox(value: controller.isRememberMe.value, onChanged: (value) {
               //   controller.isRememberMe.value=!controller.isRememberMe.value;
               // },),
-              Row(children: [
-                GestureDetector(
-                  onTap: () {
-                    controller.isRememberMe.value=! controller.isRememberMe.value;
-                  },
-                  child: Container(
-                    width: 23,height: 23,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color:  controller.isRememberMe.value ? context.primaryColor : Colors.grey,
-                        width: 2.0,
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      controller.isRememberMe.value =
+                          !controller.isRememberMe.value;
+                    },
+                    child: Container(
+                      width: 23,
+                      height: 23,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: controller.isRememberMe.value
+                              ? context.primaryColor
+                              : Colors.grey,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: FittedBox(
-                      child: Text(
-                        controller.isRememberMe.value ? '✓' : '', // Use check icon or empty string based on value
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: context.primaryColor// Change icon color based on value
+                      child: FittedBox(
+                        child: Text(
+                          controller.isRememberMe.value
+                              ? '✓'
+                              : '', // Use check icon or empty string based on value
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: context
+                                  .primaryColor // Change icon color based on value
+                              ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Text('  Remember Me',style: TextStyle(fontWeight: FontWeight.w600),)
-              ],),
-              if(false)
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: TextButton.icon(
-                    style: TextButton.styleFrom(
-                      backgroundColor: controller.isRememberMe.value?context.primaryColor:Colors.grey.withOpacity(.1),foregroundColor: controller.isRememberMe.value?Colors.white:null
-                    ),
-                      onPressed: () {
-                        controller.isRememberMe.value=!controller.isRememberMe.value;
-                      },
-                      icon:  Icon(controller.isRememberMe.value?Icons.check:Icons.remember_me_rounded),
-                      label:  Text(controller.isRememberMe.value?'Remembered':'Remember Me'))),
+                  Text(
+                    '  Remember Me',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+              if (false)
+                Align(
+                    alignment: Alignment.bottomLeft,
+                    child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                            backgroundColor: controller.isRememberMe.value
+                                ? context.primaryColor
+                                : Colors.grey.withOpacity(.1),
+                            foregroundColor: controller.isRememberMe.value
+                                ? Colors.white
+                                : null),
+                        onPressed: () {
+                          controller.isRememberMe.value =
+                              !controller.isRememberMe.value;
+                        },
+                        icon: Icon(controller.isRememberMe.value
+                            ? Icons.check
+                            : Icons.remember_me_rounded),
+                        label: Text(controller.isRememberMe.value
+                            ? 'Remembered'
+                            : 'Remember Me'))),
             ],
           ),
         ),

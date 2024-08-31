@@ -45,16 +45,34 @@ class _FilterItemSelectionBottomSheetState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            widget.title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(onPressed: (){
+                  if(_items.any((element) => !element.isSelected,)){
+
+                  _items=_items.map((e) => Item(name: e.name, isSelected: true),).toList();
+                  }else{
+                  _items=_items.map((e) => Item(name: e.name, isSelected: false),).toList();
+                  }
+                  setState(() {
+                  });
+                }, icon: const Icon(Icons.checklist_sharp))
+              ],
             ),
           ),
           const Divider(),
           Expanded(
-            child: Scrollbar(
+            child:_items.isEmpty?const Center(child: Center(child: Text('No Record Found'),),): Scrollbar(
               controller: scrollController,
               thumbVisibility: true,
               interactive: true,

@@ -8,6 +8,7 @@ class ApiUrl{
   static const String textListApi = '$baseUrl/Common/TextList';
   static const String productionList = '$baseUrl/Common/TextList';
   static const String getProductListUrl = '$baseUrl/KSBSalesInvoice/GetAll';
+  static const String getFilterProductsUrl = '$baseUrl/KSBSalesInvoice/GetFilteredKSBSalesInvoice';
   static const String insertSalesEntryUrl = '$baseUrl/SalesEntry/Insert';
   static const String salesList = '$baseUrl/SalesEntry/GetSalesEntryById';
 }

@@ -10,7 +10,7 @@ import '../../../core/utils/constants/app_constants.dart';
 
 class SalesViewRepo{
   static Future<List<SalesData>> getSalesList() async {
-    try {
+    // try {
       print('getCustomerById');
       final response = await http.post(
         Uri.parse(ApiUrl.salesList),
@@ -26,10 +26,10 @@ class SalesViewRepo{
       } else {
         return [];
       }
-    } catch (e) {
-      print('e.toString()');
-      print(e.toString());
-      return [];
-    }
+    // } catch (e) {
+    //   print('e.toString()');
+    //   print(e.toString());
+    //   return [];
+    // }
   }
 }

@@ -68,7 +68,7 @@ class _ProductSelectionState extends State<ProductSelection> {
                         horizontal: 20, vertical: 10),
                     customBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25),
-                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderSide: const BorderSide(color: Colors.transparent)
                     ),
                     prefixIcon: const Icon(
                       FontAwesomeIcons.search,
@@ -196,7 +196,11 @@ class _ProductSelectionState extends State<ProductSelection> {
                                       horizontal: 10, vertical: 15),
                                   itemBuilder: (context, index) {
                                     final product =
-                                        controller.searchProducts[index];
+                                    controller.searchProducts[index];
+                                    if(!controller.isProductListSeen && index==0){
+                                      return ProductCard(product, index);
+                                    }
+
                                     return AnimationConfiguration.staggeredList(
                                       position: index,
                                       duration:

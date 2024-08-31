@@ -37,69 +37,18 @@ class SalesCard extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(data.customerName),
-            Text('Product Qty : ${data.ksbSalesInvoiceId.split(',').length}')
+            Text(data.customerContactName),
+            Text('Product Qty : ${data.products.length}')
           ],
         ),
         trailing: const Icon(
           Icons.arrow_forward_ios_rounded,
           size: 15,
         ),
-        subtitle: Text(data.insertedOn.format('dd-MMM-yyyy hh:mm a')),
+        subtitle: Text(data.salesDate.format('dd-MMM-yyyy hh:mm a')),
       ),
       openBuilder: (context, closeContainer) =>
           SalesEntryDetailsScreen(data: data),
-    );
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.all(8.0),
-      child: ExpansionTile(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              data.salesMaterialNumbers,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              data.customerName,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(width: 8.0),
-            Text(
-              data.insertedOn.format('dd-MMM-yyyy hh:mm a'),
-            ),
-          ],
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildRichText('KSB Sales Product ID: ', data.ksbSalesInvoiceId),
-                _buildRichText('Sales Date: ', data.salesDate.toIso8601String()),
-                _buildRichText('Customer ID: ', data.customerId),
-                _buildRichText('GST No: ', data.gstNo),
-                _buildRichText('Customer Mobile No: ', data.customerMobileNo),
-                _buildRichText('Customer Email ID: ', data.customerEmailId),
-                _buildRichText('Customer Address: ', data.customerAddress),
-                _buildRichText('Pincode: ', data.pincode),
-                _buildRichText('Landmark: ', data.landMark),
-                _buildRichText('Street: ', data.street),
-                _buildRichText('City: ', data.city),
-                _buildRichText('State: ', data.state),
-                _buildRichText('Country: ', data.country),
-                _buildRichText('District: ', data.district),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -148,8 +97,6 @@ class SalesEntryDetailsScreen extends StatelessWidget {
           _divider(),
           _buildListTile(FontAwesomeIcons.envelope, 'Customer Email ID', data.customerEmailId),
           _divider(),
-          // _buildListTile(FontAwesomeIcons.mapMarkerAlt, 'Customer Address', data.customerAddress),
-          // _divider(),
           _buildListTile(FontAwesomeIcons.mapPin, 'Pincode', data.pincode),
           _divider(),
           _buildListTile(FontAwesomeIcons.landmark, 'Landmark', data.landMark),

@@ -25,36 +25,21 @@ class SalesInsertController extends GetxController {
     super.onInit();
     getProductList();
     salesDateCtrl.text = DateFormat('dd-MMM-yyyy').format(DateTime.now());
+    isProductListSeen = LocalDb.getBool(AppConstants.isProductListSeenKey);
   }
 
-  RxList<Item> selectedSalesNoList = <Item>[
-    Item(name: 'Sales NO 1', isSelected: false),
-    Item(name: 'Sales NO 2', isSelected: false),
-    Item(name: 'Sales NO 3', isSelected: false),
-    Item(name: 'Sales NO 4', isSelected: false),
-    Item(name: 'Sales NO 5', isSelected: false),
-    Item(name: 'Sales NO 6', isSelected: false),
-    Item(name: 'Sales NO 7', isSelected: false),
-    Item(name: 'Sales NO 8', isSelected: false),
-  ].obs;
+  bool isProductListSeen = false;
 
-  RxList<Item> productGroupList = <Item>[
-    Item(name: 'Product Group 1', isSelected: false),
-    Item(name: 'Product Group 2', isSelected: false),
-    Item(name: 'Product Group 3', isSelected: false),
-  ].obs;
+  GlobalKey materialNumberKey = GlobalKey();
+  GlobalKey materialDescriptionKey = GlobalKey();
+  GlobalKey serialNoKey = GlobalKey();
+  RxList<Item> salesNoList = <Item>[].obs;
 
-  RxList<Item> invoiceNumberList = <Item>[
-    Item(name: 'Invoice 001', isSelected: false),
-    Item(name: 'Invoice 002', isSelected: false),
-    Item(name: 'Invoice 003', isSelected: false),
-  ].obs;
+  RxList<Item> productGroupList = <Item>[].obs;
 
-  RxList<Item> serialNumberList = <Item>[
-    Item(name: 'Serial 001', isSelected: false),
-    Item(name: 'Serial 002', isSelected: false),
-    Item(name: 'Serial 003', isSelected: false),
-  ].obs;
+  RxList<Item> invoiceNumberList = <Item>[].obs;
+
+  RxList<Item> serialNumberList = <Item>[].obs;
 
   List addressList = [];
   RxBool isSearchEnable = true.obs;
@@ -120,14 +105,59 @@ class SalesInsertController extends GetxController {
   List<Customer> customersList = [];
   List<Contact> contactList = [];
 
+  setProductListSeenTrue() {
+    isProductListSeen = true;
+    LocalDb.setBool(AppConstants.isProductListSeenKey, true);
+  }
+
   Future<void> getProductList() async {
     isProductLoading.value = true;
     products = await SalesInsertRepository.getProductList();
     searchProducts.value = List.of(products);
     // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
+    salesNoList.value = products
+        .map((e) => e.salesOrderNo)
+        .toSet()
+        .toList()
+        .map(
+          (e) => Item(name: e, isSelected: false),
+        )
+        .toList();
+    invoiceNumberList.value = products
+        .map((e) => e.invoiceNumber)
+        .toSet()
+        .toList()
+        .map(
+          (e) => Item(name: e, isSelected: false),
+        )
+        .toList();
+    serialNumberList.value = products
+        .map((e) => e.serialNumber)
+        .toSet()
+        .toList()
+        .map(
+          (e) => Item(name: e, isSelected: false),
+        )
+        .toList();
     isProductLoading.value = false;
   }
+
+
+  filterProductsRecords() async {
+    Get.back();
+    isProductLoading.value = true;
+    String selectedSerialNumberIds =serialNumberList.where((p0) => p0.isSelected).map((e) => e.name,).toList().join(',');
+    String selectedSalesOrderIds =salesNoList.where((p0) => p0.isSelected).map((e) => e.name,).toList().join(',');
+    String selectedInvoiceNumberIds =invoiceNumberList.where((p0) => p0.isSelected).map((e) => e.name,).toList().join(',');
+    products = await SalesInsertRepository.getFiltersData(selectedSerialNumberIds, selectedSalesOrderIds, selectedInvoiceNumberIds, invoiceDateCtrl.text);
+    searchProducts.value = List.of(products);
+    // products = dummyProductData;
+    isProductSelected = List.generate(products.length, (index) => false.obs);
+    isProductLoading.value = false;
+
+  }
+
 
   Future<void> getCustomerList() async {
     isCustomerLoading.value = true;
@@ -294,13 +324,19 @@ class ProductModel {
   String id;
   String materialNo;
   String materialDescreption;
+  String invoiceDate;
+  String invoiceNumber;
   String serialNumber;
+  String salesOrderNo;
 
   ProductModel({
     required this.id,
     required this.materialDescreption,
     required this.materialNo,
+    required this.invoiceNumber,
     required this.serialNumber,
+    required this.invoiceDate,
+    required this.salesOrderNo,
   });
 
   factory ProductModel.fromJson(dynamic json) {
@@ -308,6 +344,9 @@ class ProductModel {
         id: json['KSBSalesInvoiceId'],
         materialDescreption: json['MaterialDescription'],
         materialNo: json['MaterialNumber'],
+        salesOrderNo: json['SalesOrder'],
+        invoiceNumber: json['InvoiceNumber'],
+        invoiceDate: json['InvoiceDate'],
         serialNumber: json['SerialNumber']);
   }
 }

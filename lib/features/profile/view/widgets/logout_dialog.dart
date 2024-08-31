@@ -28,6 +28,7 @@ class LogoutDialog extends StatelessWidget {
               }, child: const Text('Cancel')),
               ElevatedButton(onPressed: (){
                 LocalDb.setBool(AppConstants.isLoggedInKey,false);
+                LocalDb.setBool(AppConstants.isProductListSeenKey,false);
                 LocalDb.setString(AppConstants.userIdKey,'');
                 Get.offAllNamed(AppRoute.login);
               }, child: const Text('Confirm')),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/date_time_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/common_button.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 
@@ -34,8 +35,17 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                   () {
                     return Column(
                       children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: ColoredBox(
+                              color: Colors.grey.shade300,
+                              child: const SizedBox(
+                                height: 6,
+                                width: 75,
+                              )),
+                        ),
+                        15.heightGap,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Product Filters',
@@ -44,8 +54,21 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                                   fontWeight: FontWeight.w700,
                                   color: context.primaryColor),
                             ),
+                            const Spacer(),
                             IconButton(
+                                onPressed: () {
+                                  controller.invoiceDateCtrl.clear();
+                                  controller.salesNoList.value = controller.salesNoList.value.map((e) => Item(name: e.name, isSelected: false),).toList();
 
+                                  controller.invoiceNumberList.value = controller.invoiceNumberList.value.map((e) => Item(name: e.name, isSelected: false),).toList();
+                                  controller.serialNumberList.value = controller.serialNumberList.value
+                                      .map(
+                                        (e) => Item(name: e.name, isSelected: false),
+                                      )
+                                      .toList();
+                                },
+                                icon: const Icon(Icons.clear_all)),
+                            IconButton(
                                 onPressed: () {
                                   Get.back();
                                 },
@@ -56,7 +79,8 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                         CommonTextInput(
                           customBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.transparent)),
+                              borderSide:
+                                  const BorderSide(color: Colors.transparent)),
                           filled: true,
                           controller: controller.invoiceDateCtrl,
                           filledColor: context.primaryColor.withOpacity(.1),
@@ -69,46 +93,54 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                                 lastDate: DateTime.now());
                             if (range != null) {
                               controller.invoiceDateCtrl.text =
-                              "${range.start.format('dd-MMM-yyyy')} To ${range.end.format('dd-MMM-yyyy')}";
+                                  "${range.start.format('dd-MMM-yyyy')} To ${range.end.format('dd-MMM-yyyy')}";
                             }
                           },
-                          suffixIcon: PopupMenuButton<String>(
-                            onSelected: (String value) {
-                              controller.invoiceDateCtrl.text = value;
-                            },
-                            color: Colors.white,
-                            constraints: BoxConstraints.expand(height: 300,width: context.screenWidth*0.4),
-                            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                              const PopupMenuItem<String>(
-                                value: 'Today',
-                                child: Text('Today'),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'Yesterday',
-                                child: Text('Yesterday'),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'Last 7 days',
-                                child: Text('Last 7 days'),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'Last 30 days',
-                                child: Text('Last 30 days'),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'Last 90 days',
-                                child: Text('Last 90 days'),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'This month',
-                                child: Text('This month'),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'Last month',
-                                child: Text('Last month'),
+                          suffixIcon: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if(controller.invoiceDateCtrl.text.isNotEmpty)
+                              InkWell(child: const Icon(Icons.close),onTap: (){
+                                controller.invoiceDateCtrl.clear();
+                              },),
+                              PopupMenuButton<String>(
+                                onSelected: (String value) {
+                                  controller.invoiceDateCtrl.text = value;
+                                },
+                                color: Colors.white,
+                                constraints: BoxConstraints.expand(
+                                    height: 300, width: context.screenWidth * 0.4),
+                                itemBuilder: (BuildContext context) =>
+                                    <PopupMenuEntry<String>>[
+                                  const PopupMenuItem<String>(
+                                      value: 'Today', child: Text('Today')),
+                                  const PopupMenuItem<String>(
+                                      value: 'Yesterday', child: Text('Yesterday')),
+                                  const PopupMenuItem<String>(
+                                    value: 'Last 7 days',
+                                    child: Text('Last 7 days'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'Last 30 days',
+                                    child: Text('Last 30 days'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'Last 90 days',
+                                    child: Text('Last 90 days'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'This month',
+                                    child: Text('This month'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'Last month',
+                                    child: Text('Last month'),
+                                  ),
+                                ],
+                                icon: const Icon(Icons.more_vert),
                               ),
                             ],
-                            icon: const Icon(Icons.more_vert),
                           ),
                           // suffixIcon: IconButton(onPressed: (){
                           //   Get.dialog(DateRangeDialog(onChange: (val) {
@@ -129,19 +161,21 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                         const SizedBox(height: 15),
                         SelectedItemWidget(
                           title: 'Select Sales No',
-                          items: controller.selectedSalesNoList.value,
+                          items: controller.salesNoList.value,
                           onItemRemove: (item) {
-                            controller.selectedSalesNoList.value.firstWhere((element) => element == item).isSelected = false;
-                            controller.selectedSalesNoList.refresh();
+                            controller.salesNoList.value
+                                .firstWhere((element) => element == item)
+                                .isSelected = false;
+                            controller.salesNoList.refresh();
                           },
                           onEditPress: () {
                             Get.bottomSheet(
                               FilterItemSelectionBottomSheet(
                                 title: 'Select Sales No',
-                                items: controller.selectedSalesNoList.value,
+                                items: controller.salesNoList.value,
                                 onDone: (List<Item> items) {
-                                  controller.selectedSalesNoList.value = items;
-                                  controller.selectedSalesNoList.refresh();
+                                  controller.salesNoList.value = items;
+                                  controller.salesNoList.refresh();
                                 },
                               ),
                               backgroundColor: Colors.white,
@@ -149,35 +183,37 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                             );
                           },
                         ),
-                        const SizedBox(height: 20),
-                        SelectedItemWidget(
-                          title: 'Select Product Group',
-                          items: controller.productGroupList.value,
-                          onItemRemove: (item) {
-                            controller.productGroupList.value.firstWhere((element) => element == item).isSelected = false;
-                            controller.productGroupList.refresh();
-                          },
-                          onEditPress: () {
-                            Get.bottomSheet(
-                              FilterItemSelectionBottomSheet(
-                                title: 'Select Product Group',
-                                items: controller.productGroupList.value,
-                                onDone: (List<Item> items) {
-                                  controller.productGroupList.value = items;
-                                  controller.productGroupList.refresh();
-                                },
-                              ),
-                              backgroundColor: Colors.white,
-                              isScrollControlled: true,
-                            );
-                          },
-                        ),
+                        // const SizedBox(height: 20),
+                        // SelectedItemWidget(
+                        //   title: 'Select Product Group',
+                        //   items: controller.productGroupList.value,
+                        //   onItemRemove: (item) {
+                        //     controller.productGroupList.value.firstWhere((element) => element == item).isSelected = false;
+                        //     controller.productGroupList.refresh();
+                        //   },
+                        //   onEditPress: () {
+                        //     Get.bottomSheet(
+                        //       FilterItemSelectionBottomSheet(
+                        //         title: 'Select Product Group',
+                        //         items: controller.productGroupList.value,
+                        //         onDone: (List<Item> items) {
+                        //           controller.productGroupList.value = items;
+                        //           controller.productGroupList.refresh();
+                        //         },
+                        //       ),
+                        //       backgroundColor: Colors.white,
+                        //       isScrollControlled: true,
+                        //     );
+                        //   },
+                        // ),
                         const SizedBox(height: 20),
                         SelectedItemWidget(
                           title: 'Select Invoice Number',
                           items: controller.invoiceNumberList.value,
                           onItemRemove: (item) {
-                            controller.invoiceNumberList.firstWhere((element) => element == item).isSelected = false;
+                            controller.invoiceNumberList
+                                .firstWhere((element) => element == item)
+                                .isSelected = false;
                             controller.invoiceNumberList.refresh();
                           },
                           onEditPress: () {
@@ -200,7 +236,9 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                           title: 'Select Serial Number',
                           items: controller.serialNumberList.value,
                           onItemRemove: (item) {
-                            controller.serialNumberList.firstWhere((element) => element == item).isSelected = false;
+                            controller.serialNumberList
+                                .firstWhere((element) => element == item)
+                                .isSelected = false;
                             controller.serialNumberList.refresh();
                           },
                           onEditPress: () {
@@ -218,19 +256,25 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                             );
                           },
                         ),
-
+                        60.heightGap,
                       ],
                     );
                   },
                 ),
               ),
+              // if(false)
               Align(
-                  alignment: Alignment.bottomRight,
-                  child: FloatingActionButton(
+                  alignment: Alignment.bottomCenter,
+                  child: CommonButton(
                     onPressed: () {
-                      Get.back();
+                      controller.filterProductsRecords();
                     },
-                    child: const Icon(Icons.search),
+                    backgroundColor: context.primaryColor,
+                    height: 45,
+                    child: const Text(
+                      'Filter Records',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ))
             ],
           ),
@@ -245,7 +289,8 @@ class SelectedItemWidget extends StatelessWidget {
       {super.key,
       required this.items,
       required this.onItemRemove,
-      required this.onEditPress, required this.title});
+      required this.onEditPress,
+      required this.title});
   final List<Item> items;
   final String title;
   final Function(Item item) onItemRemove;
@@ -262,8 +307,8 @@ class SelectedItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: (){
-              if(items.isEmpty) onEditPress();
+            onTap: () {
+              if (items.isEmpty) onEditPress();
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -271,9 +316,10 @@ class SelectedItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   Text(
+                  Text(
                     title,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w500),
                   ),
                   InkWell(
                       onTap: () {
@@ -290,7 +336,11 @@ class SelectedItemWidget extends StatelessWidget {
           Wrap(
               spacing: 10,
               runSpacing: 2,
-              children: items.where((element) => element.isSelected,).map(
+              children: items
+                  .where(
+                (element) => element.isSelected,
+              )
+                  .map(
                 (e) {
                   return Chip(
                     label: Text(e.name),

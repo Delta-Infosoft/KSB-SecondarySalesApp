@@ -27,9 +27,7 @@ class SalesInsertRepository {
     try {
       final response = await http.post(
         Uri.parse(ApiUrl.insertSalesEntryUrl),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(salesData),
       );
       final data = jsonDecode(response.body);
@@ -65,6 +63,33 @@ class SalesInsertRepository {
       return [];
     }
   }
-}
 
-List salesRecord = [];
+  static Future<List<ProductModel>> getFiltersData(String serialNo,
+      String salesOrder, String invoiceNumber, String invoiceDate) async {
+    try {
+      print(salesOrder);
+      final response = await http.post(Uri.parse(ApiUrl.getFilterProductsUrl),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode({
+            'soldToCode': LocalDb.getString(AppConstants.userNameKey),
+            'serialNumber': serialNo,
+            'salesOrder': salesOrder,
+            'invoiceNumber': invoiceNumber,
+            'invoiceDate': invoiceDate
+          }));
+      final data = jsonDecode(response.body);
+      if (data['isSuccessful'] == 200) {
+        return (data['data'] as List)
+            .map(
+              (e) => ProductModel.fromJson(e),
+            )
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+}
