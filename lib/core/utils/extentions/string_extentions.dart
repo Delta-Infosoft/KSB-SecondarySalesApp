@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 extension StringExtention on String {
@@ -6,6 +7,10 @@ extension StringExtention on String {
     return DateFormat(format).parse(this);
   }
 
+  showToast(){
+    Fluttertoast.cancel();
+    Fluttertoast.showToast(msg: this);
+  }
 
   String get formatAmount {
     int salaryInt = int.parse(this);

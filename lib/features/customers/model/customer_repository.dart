@@ -23,7 +23,12 @@ class CustomerRepository {
         Fluttertoast.showToast(msg: 'Customer Inserted Successfully');
         return 'Successfully';
       } else {
-        Fluttertoast.showToast(msg: data['message']??'Something went wrong');
+        print(data['message']);
+        Fluttertoast.showToast(
+            msg: (data['message'] ?? 'Something went wrong') ==
+                    'GSTNo already exists'
+                ? 'Customer already inserted with this GST number'
+                : (data['message'] ?? 'Something went wrong'));
         return '';
       }
     } catch (e) {
@@ -34,21 +39,21 @@ class CustomerRepository {
 
   static Future<List<Customer>> getCustomerById() async {
     // try {
-      print('getCustomerById');
-      final response = await http.post(
-        Uri.parse(ApiUrl.getCustomerById),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({'userId': LocalDb.getString(AppConstants.userIdKey)}),
-      );
-      final data = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = data['data'];
-        return jsonData.map((json) => Customer.fromJson(json)).toList();
-      } else {
-        return [];
-      }
+    print('getCustomerById');
+    final response = await http.post(
+      Uri.parse(ApiUrl.getCustomerById),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({'userId': LocalDb.getString(AppConstants.userIdKey)}),
+    );
+    final data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = data['data'];
+      return jsonData.map((json) => Customer.fromJson(json)).toList();
+    } else {
+      return [];
+    }
     // } catch (e) {
     //   print('e.toString()');
     //   print(e.toString());
