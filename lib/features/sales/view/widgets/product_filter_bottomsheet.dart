@@ -57,15 +57,7 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                             const Spacer(),
                             IconButton(
                                 onPressed: () {
-                                  controller.invoiceDateCtrl.clear();
-                                  controller.salesNoList.value = controller.salesNoList.value.map((e) => Item(name: e.name, isSelected: false),).toList();
-
-                                  controller.invoiceNumberList.value = controller.invoiceNumberList.value.map((e) => Item(name: e.name, isSelected: false),).toList();
-                                  controller.serialNumberList.value = controller.serialNumberList.value
-                                      .map(
-                                        (e) => Item(name: e.name, isSelected: false),
-                                      )
-                                      .toList();
+                                  controller.clearFilter();
                                 },
                                 icon: const Icon(Icons.clear_all)),
                             IconButton(
@@ -94,54 +86,66 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                             if (range != null) {
                               controller.invoiceDateCtrl.text =
                                   "${range.start.format('dd-MMM-yyyy')} To ${range.end.format('dd-MMM-yyyy')}";
+
+                              controller.invoiceDate.value =
+                                  controller.invoiceDateCtrl.text;
                             }
                           },
-                          suffixIcon: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if(controller.invoiceDateCtrl.text.isNotEmpty)
-                              InkWell(child: const Icon(Icons.close),onTap: (){
-                                controller.invoiceDateCtrl.clear();
-                              },),
-                              PopupMenuButton<String>(
-                                onSelected: (String value) {
-                                  controller.invoiceDateCtrl.text = value;
-                                },
-                                color: Colors.white,
-                                constraints: BoxConstraints.expand(
-                                    height: 300, width: context.screenWidth * 0.4),
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<String>>[
-                                  const PopupMenuItem<String>(
-                                      value: 'Today', child: Text('Today')),
-                                  const PopupMenuItem<String>(
-                                      value: 'Yesterday', child: Text('Yesterday')),
-                                  const PopupMenuItem<String>(
-                                    value: 'Last 7 days',
-                                    child: Text('Last 7 days'),
+                          suffixIcon: Obx(() {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (controller.invoiceDate.value.isNotEmpty)
+                                  InkWell(
+                                    child: const Icon(Icons.close),
+                                    onTap: () {
+                                      controller.invoiceDateCtrl.clear();
+                                      controller.invoiceDate.value = "";
+                                    },
                                   ),
-                                  const PopupMenuItem<String>(
-                                    value: 'Last 30 days',
-                                    child: Text('Last 30 days'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'Last 90 days',
-                                    child: Text('Last 90 days'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'This month',
-                                    child: Text('This month'),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'Last month',
-                                    child: Text('Last month'),
-                                  ),
-                                ],
-                                icon: const Icon(Icons.more_vert),
-                              ),
-                            ],
-                          ),
+                                PopupMenuButton<String>(
+                                  onSelected: (String value) {
+                                    controller.invoiceDateCtrl.text = value;
+                                    controller.invoiceDate.value = value;
+                                  },
+                                  color: Colors.white,
+                                  constraints: BoxConstraints.expand(
+                                      height: 300,
+                                      width: context.screenWidth * 0.4),
+                                  itemBuilder: (BuildContext context) =>
+                                      <PopupMenuEntry<String>>[
+                                    const PopupMenuItem<String>(
+                                        value: 'Today', child: Text('Today')),
+                                    const PopupMenuItem<String>(
+                                        value: 'Yesterday',
+                                        child: Text('Yesterday')),
+                                    const PopupMenuItem<String>(
+                                      value: 'Last 7 days',
+                                      child: Text('Last 7 days'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'Last 30 days',
+                                      child: Text('Last 30 days'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'Last 90 days',
+                                      child: Text('Last 90 days'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'This month',
+                                      child: Text('This month'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'Last month',
+                                      child: Text('Last month'),
+                                    ),
+                                  ],
+                                  icon: const Icon(Icons.more_vert),
+                                ),
+                              ],
+                            );
+                          }),
                           // suffixIcon: IconButton(onPressed: (){
                           //   Get.dialog(DateRangeDialog(onChange: (val) {
                           //     controller.fromToDateCtrl.text=val;
@@ -298,59 +302,68 @@ class SelectedItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-          color: context.primaryColor.withOpacity(.1),
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              if (items.isEmpty) onEditPress();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w500),
-                  ),
-                  InkWell(
-                      onTap: () {
-                        onEditPress();
-                      },
-                      child: const Icon(
-                        FontAwesomeIcons.edit,
-                        size: 19,
-                      ))
-                ],
+    return InkWell(
+      onTap: () {
+        onEditPress();
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+            color: context.primaryColor.withOpacity(.1),
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (items.isEmpty) onEditPress();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w500),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          onEditPress();
+                        },
+                        child: const Icon(
+                          FontAwesomeIcons.edit,
+                          size: 19,
+                        ))
+                  ],
+                ),
               ),
             ),
-          ),
-          Wrap(
-              spacing: 10,
-              runSpacing: 2,
-              children: items
-                  .where(
-                (element) => element.isSelected,
-              )
-                  .map(
-                (e) {
-                  return Chip(
-                    label: Text(e.name),
-                    onDeleted: () {
-                      onItemRemove(e);
-                    },
-                  );
-                },
-              ).toList()),
-        ],
+            Wrap(
+                spacing: 5,
+                // runSpacing: 2,
+                children: items
+                    .where(
+                  (element) => element.isSelected,
+                )
+                    .map(
+                  (e) {
+                    return Chip(
+                      padding: EdgeInsets.zero,
+                      label: Text(
+                        e.name,
+                        style: TextStyle(fontSize: 13),
+                      ),
+                      onDeleted: () {
+                        onItemRemove(e);
+                      },
+                    );
+                  },
+                ).toList()),
+          ],
+        ),
       ),
     );
   }

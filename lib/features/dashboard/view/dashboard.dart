@@ -13,13 +13,15 @@ class Dashboard extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Obx(() {
-        return [
-          const Home(),
-          const Profile()
-        ][controller.selectedItemIndex.value];
-      },),
+    return Scaffold(
+      body: Obx(
+        () {
+          return [
+            const Home(),
+            const Profile()
+          ][controller.selectedItemIndex.value];
+        },
+      ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButton: AddFab(),
       bottomNavigationBar: const DashboardBottomBar(),

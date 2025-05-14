@@ -25,6 +25,7 @@ class _SalesInsertState extends State<SalesInsert> {
     super.initState();
     controller.getCustomerList();
   }
+
   @override
   Widget build(BuildContext context) {
     return TapToRemoveKeyboardWidget(
@@ -71,99 +72,104 @@ class _SalesInsertState extends State<SalesInsert> {
                     ),
                   ),
                   15.heightGap,
-                  if(false)
-                  DropdownButtonFormField(
-                    // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13
-                      ),
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Select Customer',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
+                  if (false)
+                    DropdownButtonFormField(
+                      // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
+                      decoration: InputDecoration(
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 13),
+                        label: RichText(
+                          text: TextSpan(
+                              text: 'Select Customer',
+                              style: TextStyle(
+                                  color: context.primaryColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15),
+                              children: const [
+                                TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15))
+                              ]),
+                        ),
                         suffixIcon: controller.isCustomerLoading.value
                             ? const SizedBox(
-                            height: 10,
-                            width: 10,
-                            child: Center(
-                                child: Padding(
+                                height: 10,
+                                width: 10,
+                                child: Center(
+                                    child: Padding(
                                   padding: EdgeInsets.all(8.0),
-                                  child: CircularProgressIndicator(
-                                      strokeWidth: 3),
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 3),
                                 )))
-                            :null,
+                            : null,
                         border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        fillColor: context.primaryColor.withOpacity(.1),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                    items: controller.customersList.map(
-                      (e) {
-                        return DropdownMenuItem(
-                          value: e.customerId,
-                          child: Text(e.customerName),
-                        );
+                      items: controller.customersList.map(
+                        (e) {
+                          return DropdownMenuItem(
+                            value: e.customerId,
+                            child: Text(e.customerName),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (cId) {
+                        if (cId != null && cId.isNotEmpty) {
+                          Customer c = controller.customersList
+                              .firstWhere((c) => c.customerId == cId);
+                          controller.contactList = c.contacts
+                              .where(
+                                (element) => element.name.trim().isNotEmpty,
+                              )
+                              .toList();
+                          controller.gstNoController.text = c.gstNo;
+                          controller.nameCtrl.text = c.addressName;
+                          controller.pinCodeCtrl.text = c.pinCode;
+                          controller.streetCtrl.text = c.street;
+                          controller.cityCtrl.text = c.city;
+                          controller.districtCtrl.text = c.district;
+                          controller.stateCtrl.text = c.state;
+                          controller.countryCtrl.text = c.country;
+                          setState(() {});
+                        }
                       },
-                    ).toList(),
-                    onChanged: (cId) {
-                      if (cId != null && cId.isNotEmpty) {
-                        Customer c = controller.customersList
-                            .firstWhere((c) => c.customerId == cId);
-                        controller.contactList = c.contacts.where((element) => element.name.trim().isNotEmpty,).toList();
-                        controller.gstNoController.text = c.gstNo;
-                        controller.nameCtrl.text = c.addressName;
-                        controller.pinCodeCtrl.text = c.pinCode;
-                        controller.streetCtrl.text = c.street;
-                        controller.cityCtrl.text = c.city;
-                        controller.districtCtrl.text = c.district;
-                        controller.stateCtrl.text = c.state;
-                        controller.countryCtrl.text = c.country;
-                        setState(() {
-                        });
-                      }
-                    },
-                  ),
+                    ),
                   DropdownMenu(
                     enableFilter: true,
 
                     enabled: true,
                     enableSearch: true,
-                    width: context.screenWidth*0.92,
+                    width: context.screenWidth * 0.92,
                     menuHeight: 300,
                     requestFocusOnTap: true,
-                    initialSelection: controller.selectedCustomerId.value.isNotEmpty?controller.selectedCustomerId.value:null,
+                    initialSelection:
+                        controller.selectedCustomerId.value.isNotEmpty
+                            ? controller.selectedCustomerId.value
+                            : null,
 
                     trailingIcon: controller.isCustomerLoading.value
                         ? const SizedBox(
-                        height: 10,
-                        width: 10,
-                        child: Center(
-                            child: Padding(
+                            height: 10,
+                            width: 10,
+                            child: Center(
+                                child: Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: CircularProgressIndicator(
-                                  strokeWidth: 3),
+                              child: CircularProgressIndicator(strokeWidth: 3),
                             )))
-                        :null,
+                        : null,
                     label: RichText(
                       text: TextSpan(
                           text: 'Select Customer',
@@ -184,13 +190,8 @@ class _SalesInsertState extends State<SalesInsert> {
                     // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
                     inputDecorationTheme: InputDecorationTheme(
                       filled: true,
-
                       contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 13
-                      ),
-
-
+                          horizontal: 15, vertical: 13),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.transparent),
@@ -201,26 +202,28 @@ class _SalesInsertState extends State<SalesInsert> {
                       ),
                       fillColor: context.primaryColor.withOpacity(.1),
                     ),
-                    dropdownMenuEntries: controller.customersList.map(
-                          (e) {
-                        return DropdownMenuEntry(
-                          value: e.customerId,
-                          label: e.customerName,
-                        );
-                      }
-                    ).toList(),
+                    dropdownMenuEntries: controller.customersList.map((e) {
+                      return DropdownMenuEntry(
+                        value: e.customerId,
+                        label: e.customerName,
+                      );
+                    }).toList(),
                     onSelected: (cId) {
                       if (cId != null && cId.isNotEmpty) {
-                        controller.selectedCustomerId.value=cId;
+                        controller.selectedCustomerId.value = cId;
                         Customer? c = controller.customersList
                             .firstWhereOrNull((c) => c.customerId == cId);
-                        if(c==null)return;
+                        if (c == null) return;
                         // controller.contactDDKey.currentState?.reset();
                         controller.contactList.clear();
-                        controller.  selectedContactName='';
+                        controller.selectedContactName = '';
                         controller.mobileNoCtrl.clear();
                         controller.emailCtrl.clear();
-                        controller.contactList = c.contacts.where((element) => element.name.trim().isNotEmpty,).toList();
+                        controller.contactList = c.contacts
+                            .where(
+                              (element) => element.name.trim().isNotEmpty,
+                            )
+                            .toList();
                         // controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
                         // controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
                         controller.gstNoController.text = c.gstNo;
@@ -231,10 +234,9 @@ class _SalesInsertState extends State<SalesInsert> {
                         controller.districtCtrl.text = c.district;
                         controller.stateCtrl.text = c.state;
                         controller.countryCtrl.text = c.country;
-                        controller.selectedLandMark.value=c.landMark;
+                        controller.selectedLandMark.value = c.landMark;
                         controller.getDataFromPinCode(c.pinCode);
-                        setState(() {
-                        });
+                        setState(() {});
                       }
                     },
                   ),
@@ -280,55 +282,58 @@ class _SalesInsertState extends State<SalesInsert> {
 
                   15.heightGap,
                   DropdownButtonFormField(
-                    key: controller.contactDDKey,
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13,
+                      key: controller.contactDDKey,
+                      decoration: InputDecoration(
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 13,
+                        ),
+                        label: RichText(
+                          text: TextSpan(
+                              text: 'Select Customer Contact',
+                              style: TextStyle(
+                                  color: context.primaryColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15),
+                              children: const [
+                                TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15))
+                              ]),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        fillColor: context.primaryColor.withOpacity(.1),
                       ),
-
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Select Customer Contact',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                    value:controller.selectedContactName.isEmpty?null:controller.selectedContactName ,
-                    items: controller.contactList
-                        .map((e) => DropdownMenuItem(
-                              value: e.name,
-                              child: Text(e.name),
-                            ))
-                        .toList(),
-                    onChanged: (name) {
-                      if (name == null && (name?.isEmpty ?? false)) return;
-                      final contact = controller.contactList.firstWhere((n) => n.name==name);
-                    controller.  selectedContactName = name??'';
-                      controller.mobileNoCtrl.text = contact.phone;
-                      controller.emailCtrl.text = contact.email;
-                    }
-                  ),
+                      value: controller.selectedContactName.isEmpty
+                          ? null
+                          : controller.selectedContactName,
+                      items: controller.contactList
+                          .map((e) => DropdownMenuItem(
+                                value: e.name,
+                                child: Text(e.name),
+                              ))
+                          .toList(),
+                      onChanged: (name) {
+                        if (name == null && (name?.isEmpty ?? false)) return;
+                        final contact = controller.contactList
+                            .firstWhere((n) => n.name == name);
+                        controller.selectedContactName = name ?? '';
+                        controller.mobileNoCtrl.text = contact.phone;
+                        controller.emailCtrl.text = contact.email;
+                      }),
                   15.heightGap,
                   Form(
                     key: controller.mobileNoKey,
@@ -337,9 +342,7 @@ class _SalesInsertState extends State<SalesInsert> {
                       readOnly: controller.isOtpSendToMobileIsLoading.value,
                       filledColor: context.primaryColor.withOpacity(.1),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13
-                      ),
+                          horizontal: 15, vertical: 13),
                       customBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.transparent),
@@ -351,8 +354,8 @@ class _SalesInsertState extends State<SalesInsert> {
                               child: Center(
                                   child: Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 3),
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 3),
                               )))
                           : Stack(
                               children: [
@@ -413,9 +416,7 @@ class _SalesInsertState extends State<SalesInsert> {
                       readOnly: controller.isOtpSendToEmailIsLoading.value,
                       filledColor: context.primaryColor.withOpacity(.1),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13
-                      ),
+                          horizontal: 15, vertical: 13),
                       customBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.transparent),
@@ -441,7 +442,8 @@ class _SalesInsertState extends State<SalesInsert> {
                                 Positioned(
                                     top: 7,
                                     right: 7,
-                                    child: controller.isEmailAddressApprove.value
+                                    child:
+                                        controller.isEmailAddressApprove.value
                                             ? Container(
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
@@ -452,11 +454,9 @@ class _SalesInsertState extends State<SalesInsert> {
                                                   color: context.primaryColor,
                                                   size: 15,
                                                 ))
-                                            : Icon(
-                                                Icons.access_time_filled,
+                                            : Icon(Icons.access_time_filled,
                                                 color: context.primaryColor,
-                                                size: 15
-                                    ))
+                                                size: 15))
                               ],
                             ),
                       keyboardType: TextInputType.emailAddress,
@@ -561,29 +561,31 @@ class _SalesInsertState extends State<SalesInsert> {
                       FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$')),
                     ],
                     controller: controller.pinCodeCtrl,
-                    suffixIcon: controller.isPinCodeDataLoading.value
-                        ? SizedBox(
-                            height: 10,
-                            width: 10,
-                            child: Stack(
-                              children: [
-                                const Center(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
+                    suffixIcon:
+                        // controller.isPinCodeDataLoading.value
+                        false
+                            ? SizedBox(
+                                height: 10,
+                                width: 10,
+                                child: Stack(
+                                  children: [
+                                    const Center(
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                    Center(
+                                        child: Icon(
+                                      Icons.pin_drop,
+                                      color: context.primaryColor,
+                                    )),
+                                  ],
                                 ),
-                                Center(
-                                    child: Icon(
-                                  Icons.pin_drop,
-                                  color: context.primaryColor,
-                                )),
-                              ],
-                            ),
-                          )
-                        : Icon(
-                            Icons.pin_drop,
-                            color: context.primaryColor,
-                          ),
+                              )
+                            : Icon(
+                                Icons.pin_drop,
+                                color: context.primaryColor,
+                              ),
                     validator: (p0) {
                       if (p0 == null || p0.isEmpty) {
                         return 'Please enter pin code';
@@ -598,68 +600,77 @@ class _SalesInsertState extends State<SalesInsert> {
                         fontWeight: FontWeight.w500,
                         fontSize: 15),
                   ),
-                  15.heightGap,
-                  DropdownButtonFormField(
-                    menuMaxHeight: 300,
-                    key: controller.landMarkDdKey,
-                    value: controller.selectedLandMark.value.isEmpty?null:controller.selectedLandMark.value,
-                    decoration: InputDecoration(
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 13,
+                  if (false) ...[
+                    15.heightGap,
+                    DropdownButtonFormField(
+                      menuMaxHeight: 300,
+                      key: controller.landMarkDdKey,
+                      value: controller.selectedLandMark.value.isEmpty
+                          ? null
+                          : controller.selectedLandMark.value,
+                      validator: (val) =>
+                          nonEmptyValidator(val, "Please select land mark"),
+                      decoration: InputDecoration(
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 13,
+                        ),
+                        label: RichText(
+                          text: TextSpan(
+                              text: 'Select LandMark',
+                              style: TextStyle(
+                                  color: context.primaryColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15),
+                              children: const [
+                                TextSpan(
+                                    text: '',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15))
+                              ]),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        fillColor: context.primaryColor.withOpacity(.1),
                       ),
-                      label: RichText(
-                        text: TextSpan(
-                            text: 'Select LandMark',
-                            style: TextStyle(
-                                color: context.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            children: const [
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15))
-                            ]),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                    items: controller.addressList.map(
-                      (e) {
-                        return DropdownMenuItem(
-                            value: e['Name'].toString(),
-                            child: Text(e['Name'] ?? ''));
+                      items: controller.addressList.map(
+                        (e) {
+                          return DropdownMenuItem(
+                              value: e['Name'].toString(),
+                              child: Text(e['Name'] ?? ''));
+                        },
+                      ).toList(),
+                      onChanged: (name) {
+                        final selectedAddress = controller.addressList
+                            .firstWhereOrNull(
+                                (address) => address['Name'] == name);
+                        if (selectedAddress == null) return;
+                        controller.selectedLandMark.value = name ?? '';
+                        // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
+                        // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
+                        // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
+                        controller.cityCtrl.text =
+                            selectedAddress['District'] ?? '';
+                        controller.stateCtrl.text =
+                            selectedAddress['State'] ?? '';
+                        controller.districtCtrl.text =
+                            selectedAddress['District'] ?? '';
+                        controller.countryCtrl.text =
+                            selectedAddress['Country'] ?? '';
                       },
-                    ).toList(),
-                    onChanged: (name) {
-                      final selectedAddress = controller.addressList
-                          .firstWhereOrNull((address) => address['Name'] == name);
-                      if(selectedAddress==null)return;
-                      controller.selectedLandMark.value = name ?? '';
-                      // controller.laneCtrl.text = selectedAddress['Block'] ?? '';
-                      // controller.streetCtrl.text = selectedAddress['Division'] ?? '';
-                      // controller.landmarkCtrl.text = selectedAddress['BranchType'] ?? '';
-                      controller.cityCtrl.text =
-                          selectedAddress['District'] ?? '';
-                      controller.stateCtrl.text =
-                          selectedAddress['State'] ?? '';
-                      controller.districtCtrl.text =
-                          selectedAddress['District'] ?? '';
-                      controller.countryCtrl.text =
-                          selectedAddress['Country'] ?? '';
-                    },
-                  ),
+                    ),
+                  ],
                   15.heightGap,
                   // 378
                   //

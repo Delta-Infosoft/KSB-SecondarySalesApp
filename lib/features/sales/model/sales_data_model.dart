@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 class SalesData {
   final String salesEntryId;
   final String ksbSalesInvoiceId;
@@ -66,7 +67,6 @@ class SalesData {
           json['materialData'].map((data) => Product.fromJson(data))),
     );
   }
-
 }
 
 class Product {

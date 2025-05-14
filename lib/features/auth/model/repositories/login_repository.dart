@@ -14,22 +14,19 @@ class LoginRepository {
   static Future<String?> loginWithUserNameAndPass(
       String userName, String pass) async {
     try {
-      final response = await http.post((Uri.parse(ApiUrl.loginUrl)), body: {
-        'UserName': userName,
-        'Password': pass,
-        'FCMId': ''
-      }).timeout(1.seconds);
+      final response = await http.post((Uri.parse(ApiUrl.loginUrl)),
+          body: {'UserName': userName, 'Password': pass, 'FCMId': ''});
       print(response.statusCode);
       if (response.statusCode == 500 || response.statusCode == 503) {
         Fluttertoast.cancel();
         Fluttertoast.showToast(
-            msg: "Server is down. Please try again later.",
-            toastLength: Toast.LENGTH_LONG,
-            // gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-          );
+          msg: "Server is down. Please try again later.",
+          toastLength: Toast.LENGTH_LONG,
+          // gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
         return null;
       }
       final data = jsonDecode(response.body);

@@ -18,7 +18,7 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   final SalesInsertController controller = Get.find();
-  bool isFirstItem =false;
+  bool isFirstItem = false;
 
   @override
   void initState() {
@@ -32,12 +32,11 @@ class _ProductCardState extends State<ProductCard> {
         ]);
       });
     }
-     isFirstItem = widget.index == 0;
+    isFirstItem = widget.index == 0;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
       final isSelected = controller.isProductSelected[widget.index].value;
 
@@ -60,7 +59,8 @@ class _ProductCardState extends State<ProductCard> {
             trailing: _buildTrailingIcon(isSelected),
             expandedAlignment: Alignment.topLeft,
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            childrenPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            childrenPadding:
+                const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             children: _buildExpandedContent(isSelected),
             onExpansionChanged: (expanded) {
               // if (expanded) {
@@ -90,44 +90,44 @@ class _ProductCardState extends State<ProductCard> {
       ),
       title: isFirstItem
           ? Showcase(
-        key: controller.materialNumberKey,
-        disposeOnTap: true,
-        onBarrierClick: ShowCaseWidget.of(context).next,
-        onTargetClick: ShowCaseWidget.of(context).next,
-        onToolTipClick: ShowCaseWidget.of(context).next,
-        description: 'Show Product Material No',
-        title: 'Material No',
-        child: _buildMaterialNumber(isSelected),
-      )
+              key: controller.materialNumberKey,
+              disposeOnTap: true,
+              onBarrierClick: ShowCaseWidget.of(context).next,
+              onTargetClick: ShowCaseWidget.of(context).next,
+              onToolTipClick: ShowCaseWidget.of(context).next,
+              description: 'Show Product Material No',
+              title: 'Material No',
+              child: _buildMaterialNumber(isSelected),
+            )
           : _buildMaterialNumber(isSelected),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           isFirstItem
               ? Showcase(
-            key: controller.materialDescriptionKey,
-            scrollLoadingWidget: const FlutterLogo(size: 50),
-            description: 'Show Product Material Description',
-            title: 'Material Description',
-            disposeOnTap: true,
-            onBarrierClick: ShowCaseWidget.of(context).next,
-            onTargetClick: ShowCaseWidget.of(context).next,
-            onToolTipClick: ShowCaseWidget.of(context).next,
-            child: _buildMaterialDescription(isSelected),
-          )
+                  key: controller.materialDescriptionKey,
+                  scrollLoadingWidget: const FlutterLogo(size: 50),
+                  description: 'Show Product Material Description',
+                  title: 'Material Description',
+                  disposeOnTap: true,
+                  onBarrierClick: ShowCaseWidget.of(context).next,
+                  onTargetClick: ShowCaseWidget.of(context).next,
+                  onToolTipClick: ShowCaseWidget.of(context).next,
+                  child: _buildMaterialDescription(isSelected),
+                )
               : _buildMaterialDescription(isSelected),
           isFirstItem
               ? Showcase(
-            key: controller.serialNoKey,
-            scrollLoadingWidget: const FlutterLogo(size: 50),
-            description: 'Show Product Serial No',
-            title: 'Product Serial No',
-            disposeOnTap: true,
-            onBarrierClick: controller.setProductListSeenTrue,
-            onTargetClick: controller.setProductListSeenTrue,
-            onToolTipClick: controller.setProductListSeenTrue,
-            child: _buildSerialNumber(isSelected),
-          )
+                  key: controller.serialNoKey,
+                  scrollLoadingWidget: const FlutterLogo(size: 50),
+                  description: 'Show Product Serial No',
+                  title: 'Product Serial No',
+                  disposeOnTap: true,
+                  onBarrierClick: controller.setProductListSeenTrue,
+                  onTargetClick: controller.setProductListSeenTrue,
+                  onToolTipClick: controller.setProductListSeenTrue,
+                  child: _buildSerialNumber(isSelected),
+                )
               : _buildSerialNumber(isSelected),
         ],
       ),
@@ -135,9 +135,17 @@ class _ProductCardState extends State<ProductCard> {
   }
 
   Widget _buildMaterialNumber(bool isSelected) {
-    return Text(
-      widget.product.materialNo,
-      style: TextStyle(color: isSelected ? Colors.white : null),
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: widget.product.materialNo,
+            style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+          )
+        ],
+        text: "Material No : ",
+        style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+      ),
     );
   }
 
@@ -161,7 +169,9 @@ class _ProductCardState extends State<ProductCard> {
         controller.isProductSelected[widget.index].value = !isSelected;
       },
       child: FaIcon(
-        isSelected ? FontAwesomeIcons.solidCheckCircle : FontAwesomeIcons.circle,
+        isSelected
+            ? FontAwesomeIcons.solidCheckCircle
+            : FontAwesomeIcons.circle,
         color: isSelected ? Colors.white : context.primaryColor,
       ),
     );
@@ -171,9 +181,13 @@ class _ProductCardState extends State<ProductCard> {
     return [
       _buildRichText('Sales No : ', widget.product.salesOrderNo, isSelected),
       const SizedBox(height: 5),
-      _buildRichText('Invoice Number : ', widget.product.invoiceNumber, isSelected),
+      _buildRichText(
+          'Invoice Number : ', widget.product.invoiceNumber, isSelected),
       const SizedBox(height: 5),
-      _buildRichText('Invoice Date : ', DateTime.parse(widget.product.invoiceDate).format('dd-MMM-yyyy'), isSelected),
+      _buildRichText(
+          'Invoice Date : ',
+          DateTime.parse(widget.product.invoiceDate).format('dd-MMM-yyyy'),
+          isSelected),
     ];
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
@@ -35,15 +36,25 @@ class CustomerListScreen extends GetView<CustomerViewController> {
           onRefresh: () async {
             await controller.getCustomerList();
           },
-          child: ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => 15.heightGap,
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-            itemCount: controller.customersList.length,
-            itemBuilder: (context, index) {
-              final customer = controller.customersList[index];
-              return CustomerCard(customer: customer);
-            },
+          child: AnimationLimiter(
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              separatorBuilder: (context, index) => 15.heightGap,
+              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+              itemCount: controller.customersList.length,
+              itemBuilder: (context, index) {
+                final customer = controller.customersList[index];
+                return AnimationConfiguration
+                    .staggeredList(
+                  position: index,
+                  duration:
+                  const Duration(milliseconds: 375),
+                  child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(child: CustomerCard(customer: customer))),
+                );
+              },
+            ),
           ),
         );
 

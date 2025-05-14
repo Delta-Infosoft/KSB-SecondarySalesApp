@@ -23,6 +23,20 @@ class SalesInsertRepository {
     }
   }
 
+  static Future<Map> getAddressFromPinCode2(String pinCode) async {
+    try {
+      final response = await http.get(Uri.parse(
+          "https://nominatim.openstreetmap.org/search?format=json&q=$pinCode&limit=5&countrycodes=in"));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data[0];
+      }
+      return {};
+    } catch (e) {
+      return {};
+    }
+  }
+
   static Future<bool> insertSalesRecord(Map<String, dynamic> salesData) async {
     try {
       final response = await http.post(
@@ -73,11 +87,16 @@ class SalesInsertRepository {
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
-            'soldToCode': LocalDb.getString(AppConstants.userNameKey),
+            'soldToCode': null,
             'serialNumber': serialNo,
             'salesOrder': salesOrder,
             'invoiceNumber': invoiceNumber,
             'invoiceDate': invoiceDate
+            // 'soldToCode': null,
+            // 'serialNumber': "",
+            // 'salesOrder': "",
+            // 'invoiceNumber': "",
+            // 'invoiceDate': ""
           }));
       final data = jsonDecode(response.body);
       if (data['isSuccessful'] == 200) {

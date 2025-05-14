@@ -67,14 +67,11 @@ class _ProductSelectionState extends State<ProductSelection> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
                     customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: const BorderSide(color: Colors.transparent)
-                    ),
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.search,
-                      size: 20,
-                      color: Colors.grey
-                    ),
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide:
+                            const BorderSide(color: Colors.transparent)),
+                    prefixIcon: const Icon(FontAwesomeIcons.search,
+                        size: 20, color: Colors.grey),
                     suffixIcon: IconButton(
                         onPressed: () async {
                           Get.bottomSheet(
@@ -189,40 +186,45 @@ class _ProductSelectionState extends State<ProductSelection> {
                               await controller.getProductList();
                             },
                             child: AnimationLimiter(
-                              child: ListView.separated(
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  itemBuilder: (context, index) {
-                                    final product =
-                                    controller.searchProducts[index];
-                                    if(!controller.isProductListSeen && index==0){
-                                      return ProductCard(product, index);
-                                    }
+                              child: Scrollbar(
+                                child: ListView.separated(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 15),
+                                    itemBuilder: (context, index) {
+                                      final product =
+                                          controller.searchProducts[index];
+                                      if (!controller.isProductListSeen &&
+                                          index == 0) {
+                                        return ProductCard(product, index);
+                                      }
 
-                                    return AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      duration:
-                                          const Duration(milliseconds: 375),
-                                      child: SlideAnimation(
-                                          verticalOffset: 50.0,
-                                          child: FadeInAnimation(
-                                              child:
-                                                  ProductCard(product, index))),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) =>
-                                      AnimationConfiguration.staggeredList(
+                                      return AnimationConfiguration
+                                          .staggeredList(
                                         position: index,
                                         duration:
                                             const Duration(milliseconds: 375),
-                                        child: const SlideAnimation(
+                                        child: SlideAnimation(
                                             verticalOffset: 50.0,
                                             child: FadeInAnimation(
-                                                child: Divider())),
-                                      ),
-                                  itemCount: controller.searchProducts.length),
+                                                child: ProductCard(
+                                                    product, index))),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        AnimationConfiguration.staggeredList(
+                                          position: index,
+                                          duration:
+                                              const Duration(milliseconds: 375),
+                                          child: const SlideAnimation(
+                                              verticalOffset: 50.0,
+                                              child: FadeInAnimation(
+                                                  child: Divider())),
+                                        ),
+                                    itemCount:
+                                        controller.searchProducts.length),
+                              ),
                             ),
                           ),
                         ),

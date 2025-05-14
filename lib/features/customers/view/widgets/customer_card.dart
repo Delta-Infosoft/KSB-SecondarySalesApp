@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
+import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 
@@ -24,7 +25,7 @@ class CustomerCard extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         leading: CircleAvatar(
-          child: Icon(
+          child: const Icon(
             Icons.person,
             color: Colors.white,
           ),
@@ -67,6 +68,7 @@ class CustomerCard extends StatelessWidget {
     );
   }
 }
+
 class CustomerDetailsScreen extends GetView<CustomerViewController> {
   const CustomerDetailsScreen({super.key, required this.customer});
   final Customer customer;
@@ -81,29 +83,47 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
               customer.customerName),
           divider(),
           _buildListTile(FontAwesomeIcons.mapPin, 'Pin Code', customer.pinCode),
+          // divider(),
+          // _buildListTile(
+          //     FontAwesomeIcons.landmark, 'Landmark', customer.landMark),
           divider(),
-          _buildListTile(FontAwesomeIcons.landmark, 'Landmark', customer.landMark),divider(),
           _buildListTile(FontAwesomeIcons.road, 'Street', customer.street),
           divider(),
           _buildListTile(FontAwesomeIcons.city, 'City', customer.city),
           divider(),
-          _buildListTile(FontAwesomeIcons.locationArrow, 'District', customer.district),
+          _buildListTile(
+              FontAwesomeIcons.locationArrow, 'District', customer.district),
           divider(),
           _buildListTile(FontAwesomeIcons.map, 'State', customer.state),
           divider(),
           _buildListTile(FontAwesomeIcons.globe, 'Country', customer.country),
           divider(),
-          _buildListTile(FontAwesomeIcons.fileInvoiceDollar, 'GST No', customer.gstNo),
+          _buildListTile(
+              FontAwesomeIcons.fileInvoiceDollar, 'GST No', customer.gstNo),
           divider(),
-          _buildListTile(FontAwesomeIcons.building, 'Company Type', customer.companyType),
+          _buildListTile(
+              FontAwesomeIcons.building, 'Company Type', customer.companyType),
           divider(),
-          _buildListTile(FontAwesomeIcons.userTie, 'Customer Type', customer.customerType),
+          _buildListTile(
+              FontAwesomeIcons.userTie, 'Customer Type', customer.customerType),
           divider(),
-          _buildListTile(FontAwesomeIcons.industry, 'Industry Type', customer.industryType),
-          divider(),
-
+          _buildListTile(FontAwesomeIcons.industry, 'Industry Type',
+              customer.industryType),
+          10.heightGap,
+          Container(
+              color: context.colorScheme.primaryContainer,
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+              child: Text(
+                ' Contact Persons List',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: context.colorScheme.onPrimaryContainer),
+              )),
+          10.heightGap,
           ...customer.contacts
-              .where((contact) => contact.name.isNotEmpty).toList()
+              .where((contact) => contact.name.isNotEmpty)
+              .toList()
               .asMap()
               .entries
               .map((entry) {
@@ -126,13 +146,16 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
                     style: const TextStyle(color: Colors.black54),
                   ),
                   children: [
-                    _buildListTile(FontAwesomeIcons.phone, 'Phone', contact.phone),
-                    _buildListTile(FontAwesomeIcons.briefcase, 'Department', contact.department),
-                    _buildListTile(FontAwesomeIcons.envelope, 'Email', contact.email),
+                    _buildListTile(
+                        FontAwesomeIcons.phone, 'Phone', contact.phone),
+                    _buildListTile(FontAwesomeIcons.briefcase, 'Department',
+                        contact.department),
+                    _buildListTile(
+                        FontAwesomeIcons.envelope, 'Email', contact.email),
                   ],
                 ),
                 // Show divider only if it's not the last contact
-                if (index < customer.contacts.length - 1 ) divider(),
+                if (index < customer.contacts.length - 1) divider(),
               ],
             );
           }).toList(),
@@ -150,7 +173,11 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
 
   Widget _buildListTile(IconData icon, String title, String value) {
     return ListTile(
-      leading: Icon(icon, color: const Color(0xFF336699),size: 20,), // Use your primary color for icons
+      leading: Icon(
+        icon,
+        color: const Color(0xFF336699),
+        size: 20,
+      ), // Use your primary color for icons
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(value),
     );

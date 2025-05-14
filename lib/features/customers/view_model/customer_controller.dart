@@ -48,7 +48,7 @@ class CustomerController extends GetxController {
   TextEditingController cityCtrl = TextEditingController();
   TextEditingController stateCtrl = TextEditingController();
   TextEditingController countryCtrl = TextEditingController();
-  TextEditingController   districtCtrl = TextEditingController();
+  TextEditingController districtCtrl = TextEditingController();
 
   List<TextEditingController> nameControllers = [];
   List<TextEditingController> departmentControllers = [];
@@ -143,12 +143,12 @@ class CustomerController extends GetxController {
           print('here');
           Fluttertoast.showToast(
               msg: 'Please fill all details of contact ${i + 1}');
-                isContactValidate=false;
+          isContactValidate = false;
           break;
         }
       }
       print('isContactValidate:$isContactValidate');
-      if(!isContactValidate)return;
+      if (!isContactValidate) return;
       isSubmitLoading.value = true;
 
       final customer = CustomerInsertModel(

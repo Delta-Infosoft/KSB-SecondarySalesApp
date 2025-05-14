@@ -23,7 +23,6 @@ class CustomerRepository {
         Fluttertoast.showToast(msg: 'Customer Inserted Successfully');
         return 'Successfully';
       } else {
-        print(data['message']);
         Fluttertoast.showToast(
             msg: (data['message'] ?? 'Something went wrong') ==
                     'GSTNo already exists'

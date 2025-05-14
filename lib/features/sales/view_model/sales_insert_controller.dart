@@ -59,6 +59,7 @@ class SalesInsertController extends GetxController {
   TextEditingController invoiceDateCtrl = TextEditingController();
   RxBool isSubmitLoading = false.obs;
 
+  RxString invoiceDate = "".obs;
   TextEditingController salesDateCtrl = TextEditingController();
   TextEditingController gstNoController = TextEditingController();
   TextEditingController nameCtrl = TextEditingController();
@@ -100,6 +101,28 @@ class SalesInsertController extends GetxController {
     }
   }
 
+  clearFilter() {
+    invoiceDateCtrl.clear();
+    salesNoList.value = salesNoList.value
+        .map(
+          (e) => Item(name: e.name, isSelected: false),
+        )
+        .toList();
+
+    invoiceNumberList.value = invoiceNumberList.value
+        .map(
+          (e) => Item(name: e.name, isSelected: false),
+        )
+        .toList();
+    serialNumberList.value = serialNumberList.value
+        .map(
+          (e) => Item(name: e.name, isSelected: false),
+        )
+        .toList();
+
+    invoiceDate.value = "";
+  }
+
   RxString selectedLandMark = ''.obs;
   RxString selectedCustomerId = ''.obs;
   List<Customer> customersList = [];
@@ -112,10 +135,13 @@ class SalesInsertController extends GetxController {
 
   Future<void> getProductList() async {
     isProductLoading.value = true;
+    clearFilter();
+
     products = await SalesInsertRepository.getProductList();
     searchProducts.value = List.of(products);
     // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
+
     salesNoList.value = products
         .map((e) => e.salesOrderNo)
         .toSet()
@@ -124,6 +150,7 @@ class SalesInsertController extends GetxController {
           (e) => Item(name: e, isSelected: false),
         )
         .toList();
+
     invoiceNumberList.value = products
         .map((e) => e.invoiceNumber)
         .toSet()
@@ -132,6 +159,7 @@ class SalesInsertController extends GetxController {
           (e) => Item(name: e, isSelected: false),
         )
         .toList();
+
     serialNumberList.value = products
         .map((e) => e.serialNumber)
         .toSet()
@@ -140,24 +168,44 @@ class SalesInsertController extends GetxController {
           (e) => Item(name: e, isSelected: false),
         )
         .toList();
+
     isProductLoading.value = false;
   }
-
 
   filterProductsRecords() async {
     Get.back();
     isProductLoading.value = true;
-    String selectedSerialNumberIds =serialNumberList.where((p0) => p0.isSelected).map((e) => e.name,).toList().join(',');
-    String selectedSalesOrderIds =salesNoList.where((p0) => p0.isSelected).map((e) => e.name,).toList().join(',');
-    String selectedInvoiceNumberIds =invoiceNumberList.where((p0) => p0.isSelected).map((e) => e.name,).toList().join(',');
-    products = await SalesInsertRepository.getFiltersData(selectedSerialNumberIds, selectedSalesOrderIds, selectedInvoiceNumberIds, invoiceDateCtrl.text);
+    String selectedSerialNumberIds = serialNumberList
+        .where((p0) => p0.isSelected)
+        .map(
+          (e) => e.name,
+        )
+        .toList()
+        .join(',');
+    String selectedSalesOrderIds = salesNoList
+        .where((p0) => p0.isSelected)
+        .map(
+          (e) => e.name,
+        )
+        .toList()
+        .join(',');
+    String selectedInvoiceNumberIds = invoiceNumberList
+        .where((p0) => p0.isSelected)
+        .map(
+          (e) => e.name,
+        )
+        .toList()
+        .join(',');
+    products = await SalesInsertRepository.getFiltersData(
+        selectedSerialNumberIds,
+        selectedSalesOrderIds,
+        selectedInvoiceNumberIds,
+        invoiceDateCtrl.text);
     searchProducts.value = List.of(products);
     // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
     isProductLoading.value = false;
-
   }
-
 
   Future<void> getCustomerList() async {
     isCustomerLoading.value = true;
@@ -180,10 +228,9 @@ class SalesInsertController extends GetxController {
       Map<String, dynamic> salesData = {
         "ksbSalesInvoiceId": selectedProductIds,
         "salesDate": DateTime.now().toIso8601String(),
-        "customerId":
-            selectedCustomerId.value, // Replace with actual customer ID
+        "customerId": selectedCustomerId.value,
         "gstNo": gstNoController.text,
-        "customerContactName": 'custom',
+        "customerContactName": selectedContactName,
         "customerMobileNo": mobileNoCtrl.text,
         "customerEmailId": emailCtrl.text,
         "customerAddress": streetCtrl.text,

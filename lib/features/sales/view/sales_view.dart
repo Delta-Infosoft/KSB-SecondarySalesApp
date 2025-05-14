@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
@@ -20,29 +21,49 @@ class SalesListView extends GetView<SalesViewController> {
         title: Row(
           children: [
             const Expanded(child: Text('Sales Data')),
-            SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
-
+            SvgPicture.asset(
+              AppAssets.ksbLogo,
+              height: 30,
+            ),
           ],
         ),
       ),
-      body: Obx(() {
-        if(controller.isLoading.value){
-          return const Center(child: CircularProgressIndicator(),);
-        }else if(controller.salesList.isEmpty){
-          return const Center(child: Text('No Record Found'),);
-        }
-        return ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => 15.heightGap,
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-            itemCount: controller.salesList.length,
-            itemBuilder: (context, index) {
-              final data = controller.salesList[index];
-              return SalesCard(data: data);
-            }
-        );
-
-      },),
+      body: Obx(
+        () {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (controller.salesList.isEmpty) {
+            return const Center(
+              child: Text('No Record Found'),
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () async {
+              await controller.getSalesData();
+            },
+            child: AnimationLimiter(
+              child: ListView.separated(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) => 15.heightGap,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  itemCount: controller.salesList.length,
+                  itemBuilder: (context, index) {
+                    final data = controller.salesList[index];
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                          verticalOffset: 50.0,
+                          child: FadeInAnimation(child: SalesCard(data: data))),
+                    );
+                  }),
+            ),
+          );
+        },
+      ),
     );
   }
 }

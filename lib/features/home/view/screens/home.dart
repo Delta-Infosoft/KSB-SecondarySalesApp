@@ -21,8 +21,15 @@ class Home extends GetView<HomeController> {
       appBar: AppBar(
         title: Row(
           children: [
-            const Expanded(child: Text('KSB Secondary Sales',softWrap: true,)),
-            SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
+            const Expanded(
+                child: Text(
+              'KSB Secondary Sales',
+              softWrap: true,
+            )),
+            SvgPicture.asset(
+              AppAssets.ksbLogo,
+              height: 30,
+            ),
           ],
         ),
       ),
@@ -44,12 +51,7 @@ class Home extends GetView<HomeController> {
                           child: Icon(Icons.person, size: 35),
                         ),
                         Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Icon(
-                              Icons.add,
-                              size: 20
-                            ))
+                            top: 0, right: 0, child: Icon(Icons.add, size: 20))
                       ],
                     )),
                 10.widthGap,
@@ -90,7 +92,7 @@ class Home extends GetView<HomeController> {
                 10.widthGap,
                 CommonCard(
                     onTap: () {
-Get.toNamed(AppRoute.salesView);
+                      Get.toNamed(AppRoute.salesView);
                     },
                     title: 'Sales View',
                     icon: const Stack(
@@ -198,7 +200,6 @@ class Customer {
     required this.customerType,
     required this.companyType,
     required this.industryType,
-
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
@@ -227,9 +228,9 @@ class Customer {
         );
       }),
       insertedOn: DateTime.parse(json['InsertedOn']),
-      customerType: json['CustomerType']??'',
-      companyType: json['CompanyType']??'',
-      industryType: json['IndustryType']??'',
+      customerType: json['CustomerType'] ?? '',
+      companyType: json['CompanyType'] ?? '',
+      industryType: json['IndustryType'] ?? '',
     );
   }
 }

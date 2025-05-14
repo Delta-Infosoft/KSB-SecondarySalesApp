@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:animations/animations.dart';
@@ -22,7 +21,7 @@ class SalesCard extends StatelessWidget {
       closedElevation: 0,
       openElevation: 0,
       closedShape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       middleColor: Colors.transparent,
       closedBuilder: (context, openContainer) => ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
@@ -37,7 +36,10 @@ class SalesCard extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(data.customerContactName),
+            Text(
+              data.customerName,
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             Text('Product Qty : ${data.products.length}')
           ],
         ),
@@ -73,7 +75,6 @@ class SalesCard extends StatelessWidget {
   }
 }
 
-
 class SalesEntryDetailsScreen extends StatelessWidget {
   final SalesData data;
 
@@ -87,15 +88,19 @@ class SalesEntryDetailsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          _buildListTile(FontAwesomeIcons.user, 'Customer Name', data.customerName),
+          _buildListTile(
+              FontAwesomeIcons.user, 'Customer Name', data.customerName),
           _divider(),
-          _buildListTile(FontAwesomeIcons.calendarAlt, 'Sales Date', data.salesDate.toIso8601String()),
+          _buildListTile(FontAwesomeIcons.calendarAlt, 'Sales Date',
+              data.salesDate.toIso8601String()),
           _divider(),
           _buildListTile(FontAwesomeIcons.qrcode, 'GST No', data.gstNo),
           _divider(),
-          _buildListTile(FontAwesomeIcons.phone, 'Customer Mobile No', data.customerMobileNo),
+          _buildListTile(FontAwesomeIcons.phone, 'Customer Mobile No',
+              data.customerMobileNo),
           _divider(),
-          _buildListTile(FontAwesomeIcons.envelope, 'Customer Email ID', data.customerEmailId),
+          _buildListTile(FontAwesomeIcons.envelope, 'Customer Email ID',
+              data.customerEmailId),
           _divider(),
           _buildListTile(FontAwesomeIcons.mapPin, 'Pincode', data.pincode),
           _divider(),
@@ -107,7 +112,8 @@ class SalesEntryDetailsScreen extends StatelessWidget {
           _divider(),
           _buildListTile(FontAwesomeIcons.map, 'State', data.state),
           _divider(),
-          _buildListTile(FontAwesomeIcons.locationArrow, 'District', data.district),
+          _buildListTile(
+              FontAwesomeIcons.locationArrow, 'District', data.district),
           _divider(),
           _buildListTile(FontAwesomeIcons.globe, 'Country', data.country),
           const SizedBox(height: 30),
@@ -120,7 +126,9 @@ class SalesEntryDetailsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          ...data.products.map((product) => _buildProductExpansionTile(product)).toList(),
+          ...data.products
+              .map((product) => _buildProductExpansionTile(product))
+              .toList(),
         ],
       ),
     );
@@ -128,7 +136,9 @@ class SalesEntryDetailsScreen extends StatelessWidget {
 
   Widget _buildListTile(IconData icon, String title, String value) {
     return ListTile(
-      leading: Icon(icon, color: const Color(0xFF336699),size: 20), // Use your primary color for icons
+      leading: Icon(icon,
+          color: const Color(0xFF336699),
+          size: 20), // Use your primary color for icons
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(value),
     );
@@ -138,9 +148,14 @@ class SalesEntryDetailsScreen extends StatelessWidget {
     return Column(
       children: [
         ExpansionTile(
-          shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
-          collapsedShape: const RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),
-          leading: const Icon(FontAwesomeIcons.boxOpen,size: 20,),
+          shape: const RoundedRectangleBorder(
+              side: BorderSide(color: Colors.transparent)),
+          collapsedShape: const RoundedRectangleBorder(
+              side: BorderSide(color: Colors.transparent)),
+          leading: const Icon(
+            FontAwesomeIcons.boxOpen,
+            size: 20,
+          ),
           title: const Text(
             'Material Number',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -150,8 +165,10 @@ class SalesEntryDetailsScreen extends StatelessWidget {
             style: const TextStyle(color: Colors.black54),
           ),
           children: [
-            _buildListTile(FontAwesomeIcons.clipboard, 'Material Description', product.materialDescription),
-            _buildListTile(FontAwesomeIcons.tag, 'Serial Number', product.serialNumber),
+            _buildListTile(FontAwesomeIcons.clipboard, 'Material Description',
+                product.materialDescription),
+            _buildListTile(
+                FontAwesomeIcons.tag, 'Serial Number', product.serialNumber),
           ],
         ),
         _divider(),
