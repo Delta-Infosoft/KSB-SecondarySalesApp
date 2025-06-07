@@ -33,16 +33,18 @@ class LoginForm extends GetView<LoginController> {
               20.heightGap,
               Autocomplete(
                 onSelected: (option) {
-                  if(option.isNotEmpty){
-                    controller.userNameCtrl.text=option;
-                    controller.passCtrl.text = LocalDb.getString(AppConstants.rememberPasswordKey);
+                  if (option.isNotEmpty) {
+                    controller.userNameCtrl.text = option;
+                    controller.passCtrl.text =
+                        LocalDb.getString(AppConstants.rememberPasswordKey);
                   }
                 },
                 optionsBuilder: (textEditingValue) {
-                  if(LocalDb.getString(AppConstants.rememberUserName).isEmpty){
+                  if (LocalDb.getString(AppConstants.rememberUserName)
+                      .isEmpty) {
                     return const Iterable<String>.empty();
                   }
-                  return  [LocalDb.getString(AppConstants.rememberUserName)];
+                  return [LocalDb.getString(AppConstants.rememberUserName)];
                 },
                 fieldViewBuilder: (context, textEditingController, focusNode,
                     onFieldSubmitted) {
@@ -51,11 +53,9 @@ class LoginForm extends GetView<LoginController> {
                     controller: textEditingController,
                     focusNode: focusNode,
                     onChange: (p0) {
-                      controller.userNameCtrl.text=p0??'';
+                      controller.userNameCtrl.text = p0 ?? '';
                     },
-                    suffixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.grey),
+                    suffixIcon: const Icon(Icons.person, color: Colors.grey),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
                     validator: (val) =>
@@ -63,22 +63,20 @@ class LoginForm extends GetView<LoginController> {
                   );
                 },
               ),
-              if(false)
-              CommonTextInput(
-                label: 'Enter Customer Code ',
-                controller: controller.userNameCtrl,
-                suffixIcon: const Icon(
-                  Icons.person,
-                  color: Colors.grey,
+              if (false)
+                CommonTextInput(
+                  label: 'Enter Customer Code ',
+                  controller: controller.userNameCtrl,
+                  suffixIcon: const Icon(
+                    Icons.person,
+                    color: Colors.grey,
+                  ),
+                  onTap: () {},
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  validator: (val) =>
+                      nonEmptyValidator(val, "Please enter user name"),
                 ),
-                onTap: (){
-
-                },
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                validator: (val) =>
-                    nonEmptyValidator(val, "Please enter user name"),
-              ),
               15.heightGap,
 
               CommonTextInput(

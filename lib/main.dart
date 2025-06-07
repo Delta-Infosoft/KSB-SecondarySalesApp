@@ -9,7 +9,7 @@ import 'core/config/app_route.dart';
 import 'core/config/app_route_manager.dart';
 import 'core/utils/common_services/local_db.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   await initializeApp();
   runApp(const KSBSecondarySales());
 }
@@ -24,20 +24,21 @@ class KSBSecondarySales extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       builder: (context, child) {
-        return ShowCaseWidget(builder: (BuildContext context) {
-          return child!;
-        },
-       );
+        return ShowCaseWidget(
+          builder: (BuildContext context) {
+            return child!;
+          },
+        );
       },
       defaultTransition: Transition.rightToLeftWithFade,
       initialRoute: AppRoute.splash,
-      initialBinding:InitialBinding() ,
+      initialBinding: InitialBinding(),
       getPages: AppRouteManager.pages,
     );
   }
 }
 
-Future<void> initializeApp()async{
+Future<void> initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // await NotificationService.initialize();

@@ -4,8 +4,10 @@ class ApiUrl {
   //     'http://59.227.253.77:90/ksbSecondarysalesAPI/api';
   static const String baseUrl =
       'http://59.144.126.25:90/ksbSecondarysalesAPI/api';
+
   // static const String baseUrl =
   //     'http://192.168.0.98:90/ksbSecondarysalesAPI/api';
+
   static const String loginUrl = '$baseUrl/Login/Login';
   static const String insertCustomer = '$baseUrl/Customer/Insert';
   static const String getCustomerById = '$baseUrl/Customer/GetCustomerById';
