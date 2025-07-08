@@ -22,6 +22,9 @@ class SalesViewRepo{
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         List<dynamic> jsonData = data['data'];
+
+        print('Sales view Data>>>>${data}');
+
         return jsonData.map((json) => SalesData.fromJson(json)).toList();
       } else {
         return [];

@@ -47,10 +47,10 @@ class SalesData {
     return SalesData(
       salesEntryId: json['salesEntryId'],
       customerName: json['customerName'],
-      ksbSalesInvoiceId: json['ksbSalesInvoiceId'],
+      ksbSalesInvoiceId: json['ksbSalesInvoiceId'].toString() ?? '',
       salesDate: DateTime.parse(json['salesDate']),
       customerId: json['customerId'],
-      gstNo: json['gstNo'],
+      gstNo: json['gstNo'].toString() ?? '',
       customerContactName: json['customerContactName'],
       customerMobileNo: json['customerMobileNo'],
       customerEmailId: json['customerEmailId'],

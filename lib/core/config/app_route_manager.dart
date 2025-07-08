@@ -13,6 +13,7 @@ import 'package:ksb_secondary_sales/features/sales/view_model/sales_view_control
 import 'package:ksb_secondary_sales/features/splash/view/splash.dart';
 
 import '../../features/auth/view/screens/login.dart';
+import '../../features/sales/view_model/sales_insert_controller.dart';
 import '../../features/splash/view_model/splash_controller.dart';
 
 class AppRouteManager {
@@ -48,8 +49,11 @@ class AppRouteManager {
             Get.lazyPut(() => LoginController());
           },
         )), GetPage(
-        name: AppRoute.salesInsertRoute,
-        page: () => const SalesInsert(),
+      name: AppRoute.salesInsertRoute,
+      page: () => const SalesInsert(),
+      binding: BindingsBuilder(() {
+        Get.create(() => SalesInsertController());
+      }),
     ),
     GetPage(
         name: AppRoute.dashboard,

@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:ksb_secondary_sales/core/utils/widgets/common_button.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/tap_to_remove_keyboard_widget.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
+import 'package:ksb_secondary_sales/features/sales/view/widgets/filter_item_selection_bottomsheet.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 import '../../../core/utils/common_services/validator.dart';
 
@@ -19,10 +21,16 @@ class SalesInsert extends StatefulWidget {
 }
 
 class _SalesInsertState extends State<SalesInsert> {
-  final controller = Get.find<SalesInsertController>();
+  late final SalesInsertController controller;
+
   @override
   void initState() {
     super.initState();
+
+    controller = Get.find<SalesInsertController>();
+
+    final showDropdown = Get.arguments?['showSerialDropdown'] ?? false;
+    controller.setSerialDropdownVisibility(showDropdown);
     controller.getCustomerList();
   }
 
@@ -281,59 +289,61 @@ class _SalesInsertState extends State<SalesInsert> {
                   ),
 
                   15.heightGap,
-                  DropdownButtonFormField(
-                      key: controller.contactDDKey,
-                      decoration: InputDecoration(
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 13,
-                        ),
-                        label: RichText(
-                          text: TextSpan(
-                              text: 'Select Customer Contact',
+                  DropdownButtonFormField<String>(
+                    key: controller.contactDDKey,
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                      label: RichText(
+                        text: TextSpan(
+                          text: 'Select Customer Contact',
+                          style: TextStyle(
+                            color: context.primaryColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
+                          children: const [
+                            TextSpan(
+                              text: '*',
                               style: TextStyle(
-                                  color: context.primaryColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15),
-                              children: const [
-                                TextSpan(
-                                    text: '*',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15))
-                              ]),
+                                color: Colors.red,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
-                        fillColor: context.primaryColor.withOpacity(.1),
                       ),
-                      value: controller.selectedContactName.isEmpty
-                          ? null
-                          : controller.selectedContactName,
-                      items: controller.contactList
-                          .map((e) => DropdownMenuItem(
-                                value: e.name,
-                                child: Text(e.name),
-                              ))
-                          .toList(),
-                      onChanged: (name) {
-                        if (name == null && (name?.isEmpty ?? false)) return;
-                        final contact = controller.contactList
-                            .firstWhere((n) => n.name == name);
-                        controller.selectedContactName = name ?? '';
-                        controller.mobileNoCtrl.text = contact.phone;
-                        controller.emailCtrl.text = contact.email;
-                      }),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    value: controller.contactList
+                        .any((e) => e.name == controller.selectedContactName)
+                        ? controller.selectedContactName
+                        : null,
+                    items: controller.contactList
+                        .map((e) => DropdownMenuItem<String>(
+                      value: e.name,
+                      child: Text(e.name),
+                    ))
+                        .toList(),
+                    onChanged: (name) {
+                      if (name == null || name.isEmpty) return;
+                      final contact = controller.contactList
+                          .firstWhere((n) => n.name == name, orElse: () => Contact(name: '', phone: '', email: '', department: '', designation: ''));
+                      controller.selectedContactName = name;
+                      controller.mobileNoCtrl.text = contact.phone;
+                      controller.emailCtrl.text = contact.email;
+                    },
+                  ),
+
                   15.heightGap,
                   Form(
                     key: controller.mobileNoKey,
@@ -892,19 +902,187 @@ class _SalesInsertState extends State<SalesInsert> {
                       ),
                     ],
                   ),
+
                   15.heightGap,
+
+                  // Obx(() {
+                  //   if (controller.showSerialDropdown.value) {
+                  //     return DropdownSearch<ProductModel>.multiSelection(
+                  //       compareFn: (a, b) => a.serialNumber == b.serialNumber,
+                  //       items: (String filter, LoadProps? loadProps) async {
+                  //         final all = controller.products;
+                  //         if (filter.isEmpty) return all;
+                  //         return all
+                  //             .where((i) => i.serialNumber
+                  //             .toLowerCase()
+                  //             .contains(filter.toLowerCase()))
+                  //             .toList();
+                  //       },
+                  //       selectedItems: controller.products
+                  //           .where((product) => controller.serialNumberList.any(
+                  //               (serial) => serial.name == product.serialNumber && serial.isSelected))
+                  //           .toList(),
+                  //       itemAsString: (ProductModel item) => item.serialNumber,
+                  //       onChanged: (List<ProductModel> selectedItems) {
+                  //
+                  //         controller.serialNumberList.value = controller.serialNumberList
+                  //             .map((item) => item.copyWith(isSelected: false))
+                  //             .toList();
+                  //
+                  //         for (var sel in selectedItems) {
+                  //           final idx = controller.serialNumberList
+                  //               .indexWhere((item) => item.name == sel.serialNumber);
+                  //           if (idx != -1) {
+                  //             controller.serialNumberList[idx] =
+                  //                 controller.serialNumberList[idx].copyWith(isSelected: true);
+                  //           }
+                  //         }
+                  //
+                  //         // Optionally set first selected serial as contact name
+                  //         if (selectedItems.isNotEmpty) {
+                  //           final first = selectedItems.first;
+                  //           controller.selectedContactName = first.serialNumber;
+                  //
+                  //           print("Serial selected: ${first.serialNumber}");
+                  //           print("Note: Contact lookup skipped because serial ≠ contact name.");
+                  //         }
+                  //       },
+                  //       decoratorProps: DropDownDecoratorProps(
+                  //         decoration: InputDecoration(
+                  //           filled: true,
+                  //           contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                  //           label: RichText(
+                  //             text: TextSpan(
+                  //               text: 'Select Serial No',
+                  //               style: TextStyle(
+                  //                 color: context.primaryColor,
+                  //                 fontWeight: FontWeight.w500,
+                  //                 fontSize: 15,
+                  //               ),
+                  //               children: const [
+                  //                 TextSpan(
+                  //                   text: '*',
+                  //                   style: TextStyle(
+                  //                     color: Colors.red,
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 15,
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           border: OutlineInputBorder(
+                  //             borderRadius: BorderRadius.circular(10),
+                  //             borderSide: BorderSide.none,
+                  //           ),
+                  //           enabledBorder: OutlineInputBorder(
+                  //             borderRadius: BorderRadius.circular(10),
+                  //             borderSide: BorderSide.none,
+                  //           ),
+                  //           fillColor: context.primaryColor.withOpacity(.1),
+                  //         ),
+                  //       ),
+                  //       popupProps: const PopupPropsMultiSelection.dialog(
+                  //         showSearchBox: true,
+                  //         showSelectedItems: true,
+                  //         searchFieldProps: TextFieldProps(
+                  //           decoration: InputDecoration(
+                  //             prefixIcon: Icon(Icons.search),
+                  //             hintText: 'Search..',
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   } else {
+                  //     return const SizedBox();
+                  //   }
+                  // }),
+
+                  Obx(() {
+                    if (!controller.showSerialDropdown.value) return const SizedBox.shrink();
+
+                    return GestureDetector(
+                      onTap: () => _showSerialNumberBottomSheet(context),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 15),
+                        decoration: BoxDecoration(
+                          color: context.primaryColor.withOpacity(.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Obx(() {
+                          final selectedSerials = controller.serialNumberList
+                              .where((s) => s.isSelected)
+                              .map((s) => s.name)
+                              .toList();
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: -8,
+                                children: selectedSerials.isEmpty
+                                    ? [
+                                  Text(
+                                    'Select Serial Numbers',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                    ),
+                                  )
+                                ]
+                                    : selectedSerials.map((serial) {
+                                  return Chip(
+                                    label: Text(
+                                      serial,
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                    backgroundColor: context.primaryColor,
+                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                    deleteIcon: const Icon(Icons.close, color: Colors.white),
+                                    onDeleted: () {
+                                      final idx = controller.serialNumberList.indexWhere(
+                                              (s) => s.name == serial && s.isSelected);
+                                      if (idx != -1) {
+                                        controller.serialNumberList[idx] = controller
+                                            .serialNumberList[idx]
+                                            .copyWith(isSelected: false);
+                                      }
+                                    },
+                                  );
+                                }).toList(),
+
+                              ),
+                              // const Align(
+                              //   alignment: Alignment.topRight,
+                              //   child: Icon(Icons.arrow_drop_down),
+                              // ),
+                            ],
+                          );
+                        }),
+                      ),
+                    );
+
+                  }),
+
                   15.heightGap,
                   CommonButton(
                     isLoading: controller.isSubmitLoading.value,
                     onPressed: () {
-                      controller.submitSalesEntry();
+                      if (controller.showSerialDropdown.value == true) {
+                        controller.submitOtherSalesEntry();
+                      } else {
+                        controller.submitSalesEntry();
+                      }
                     },
                     borderRadius: 10,
                     backgroundColor: context.primaryColor,
                     child: Text(
                       'Submit',
                       style: TextStyle(
-                          color: context.colorScheme.onPrimary, fontSize: 16),
+                        color: context.colorScheme.onPrimary,
+                        fontSize: 16,
+                      ),
                     ),
                   )
                 ],
@@ -915,4 +1093,108 @@ class _SalesInsertState extends State<SalesInsert> {
       ),
     );
   }
+
+  void _showSerialNumberBottomSheet(BuildContext context) {
+    final products = controller.products;
+    TextEditingController searchController = TextEditingController();
+    final RxString searchQuery = ''.obs;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Obx(() {
+            final filteredProducts = products.where((product) {
+              return product.serialNumber
+                  .toLowerCase()
+                  .contains(searchQuery.value.toLowerCase());
+            }).toList();
+
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Select Serial Numbers',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+
+                TextField(
+                  controller: searchController,
+                  onChanged: (value) => searchQuery.value = value,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: 'Search...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      final product = filteredProducts[index];
+
+                      return Obx(() {
+                        final isChecked = controller.serialNumberList.any((s) =>
+                        s.name == product.serialNumber && s.isSelected);
+
+                        return CheckboxListTile(
+                          title: Text(product.serialNumber),
+                          value: isChecked,
+                          onChanged: (val) {
+                            final idx = controller.serialNumberList.indexWhere(
+                                    (s) => s.name == product.serialNumber);
+                            if (idx != -1) {
+                              final updated = controller.serialNumberList[idx]
+                                  .copyWith(isSelected: val ?? false);
+                              controller.serialNumberList[idx] = updated;
+                            }
+                          },
+                        );
+                      });
+                    },
+                  ),
+                ),
+
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: context.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8))
+                      )
+                    ),
+                    onPressed: () {
+                      final firstSelected = controller.serialNumberList
+                          .firstWhereOrNull((s) => s.isSelected);
+                      if (firstSelected != null) {
+                        controller.selectedContactName = firstSelected.name;
+                      }
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Done',style: TextStyle(
+                      color: Colors.white
+                    ),),
+                  ),
+                ),
+                12.heightGap
+              ],
+            );
+          }),
+        );
+      },
+    );
+  }
+
 }

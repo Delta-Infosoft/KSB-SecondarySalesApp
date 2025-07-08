@@ -210,17 +210,21 @@ class _FilterItemSelectionBottomSheetState
 
 class Item {
   String name;
+  String? productId;
   bool isSelected;
 
   Item({
     required this.name,
+    this.productId,
     required this.isSelected,
   });
 
-  Item copyWith({String? name, bool? isSelected}) {
+  Item copyWith({String? name, String? productId, bool? isSelected}) {
     return Item(
       name: name ?? this.name,
+      productId: productId ?? this.productId,
       isSelected: isSelected ?? this.isSelected,
     );
   }
 }
+

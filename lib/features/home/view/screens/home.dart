@@ -7,13 +7,17 @@ import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/customers/view/add_customers.dart';
 import 'package:ksb_secondary_sales/features/sales/view/product_selection.dart';
+import 'package:ksb_secondary_sales/features/sales/view/sales_insert.dart';
 
 import '../../../customers/view/customer_view.dart';
 import '../../../sales/view/sales_view.dart';
+import '../../../sales/view_model/sales_insert_controller.dart';
 import '../../view_model/home_controller.dart';
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +116,39 @@ class Home extends GetView<HomeController> {
                       ],
                     )),
               ],
+            ),
+            10.heightGap,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                width: 180,
+                child: Row(
+                  children: [
+                    CommonCard(
+                        onTap: () {
+                          final controller = Get.put(SalesInsertController());
+                          controller.enableSerialDropdown();
+                          Get.to(() => const SalesInsert(), arguments: {'showSerialDropdown': true});
+                        },
+                        title: 'Sales Other Entry',
+                        icon: const Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.store, size: 35),
+                            ),
+                            Positioned(
+                                top: 0,
+                                right: 0,
+                                child: Icon(
+                                  Icons.add,
+                                  size: 20,
+                                )),
+                          ],
+                        )),
+                  ],
+                ),
+              ),
             )
           ],
         ),

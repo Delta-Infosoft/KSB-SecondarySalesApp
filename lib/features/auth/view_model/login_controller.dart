@@ -35,7 +35,7 @@ class LoginController extends GetxController {
 
   Future<String> resendOtp() async {
     Fluttertoast.showToast(msg: 'Otp Resend to register mobile no');
-    await LoginRepository.senOtpToMobil('9712268926');
+    await LoginRepository.senOtpToMobil('7984637744');
     return '1234';
   }
 
@@ -62,7 +62,7 @@ class LoginController extends GetxController {
           context: context,
           pageBuilder: (context, animation, secondaryAnimation) {
             return OtpVerificationDialog(
-              '9712268926',
+              '7984637744',
               onOtpVerifyTrigger: (value) {
                 verifyOtp('1234', value);
               },
