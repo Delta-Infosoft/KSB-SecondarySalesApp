@@ -41,10 +41,10 @@ class _AddCustomerState extends State<AddCustomer> {
         appBar: AppBar(
           title: Row(
             children: [
-              Expanded(child: const Text('Customer Form')),
+              Expanded(child: const Text('New Customer Creation')),
               SvgPicture.asset(
                 AppAssets.ksbLogo,
-                height: 30,
+                height: 20,
               ),
             ],
           ),

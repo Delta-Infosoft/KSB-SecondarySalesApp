@@ -79,33 +79,55 @@ class SalesInsertRepository {
   }
 
   static Future<List<ProductModel>> getFiltersData(String serialNo,
-      String salesOrder, String invoiceNumber, String invoiceDate) async {
+      String salesOrder, String invoiceNumber, String invoiceDate,String poNumber) async {
     try {
       print(salesOrder);
+      print('Serial No     : $serialNo');
+      print('Sales Order   : $salesOrder');
+      print('Invoice Number: $invoiceNumber');
+      print('Invoice Date  : $invoiceDate');
+      print('PO Number     : $poNumber');
+
+      print('PO NUMBER >>>>${poNumber}');
       final response = await http.post(Uri.parse(ApiUrl.getFilterProductsUrl),
           headers: {
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
-            'soldToCode': null,
+            'soldToCode': '',
             'serialNumber': serialNo,
             'salesOrder': salesOrder,
             'invoiceNumber': invoiceNumber,
-            'invoiceDate': invoiceDate
+            'invoiceDate': invoiceDate,
+            'poNumber': poNumber,
+
             // 'soldToCode': null,
             // 'serialNumber': "",
             // 'salesOrder': "",
             // 'invoiceNumber': "",
             // 'invoiceDate': ""
           }));
+
+      print('Filter body>>>${response.headers}');
+
       final data = jsonDecode(response.body);
       if (data['isSuccessful'] == 200) {
-        return (data['data'] as List)
-            .map(
-              (e) => ProductModel.fromJson(e),
-            )
-            .toList();
+        print('Filtered Response>>>>>>${data}');
+        final rawList = data['data'] as List;
+        print('Raw item count: ${rawList.length}');
+        for (var item in rawList) {
+          print('Raw item: $item');
+        }
+
+        final mapped = rawList.map((e) => ProductModel.fromJson(e)).toList();
+        print('Mapped items count: ${mapped.length}');
+        for (var item in mapped) {
+          print('Mapped item: ${item.serialNumber}, ${item.serialNumber}');
+        }
+
+        return mapped;
       }
+
       return [];
     } catch (e) {
       return [];

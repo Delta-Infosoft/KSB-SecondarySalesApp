@@ -152,7 +152,7 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                           //     Get.back();
                           //   },selectedRange: controller.fromToDateCtrl.text,));
                           // }, icon: const Icon(Icons.more_vert)),
-                          label: "Select Invoice Date Range",
+                          label: "KSB Invoice Date Range",
                           labelStyle: TextStyle(
                               color: context.primaryColor,
                               fontWeight: FontWeight.w500,
@@ -162,31 +162,31 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                             vertical: 13,
                           ),
                         ),
-                        const SizedBox(height: 15),
-                        SelectedItemWidget(
-                          title: 'Select Sales No',
-                          items: controller.salesNoList.value,
-                          onItemRemove: (item) {
-                            controller.salesNoList.value
-                                .firstWhere((element) => element == item)
-                                .isSelected = false;
-                            controller.salesNoList.refresh();
-                          },
-                          onEditPress: () {
-                            Get.bottomSheet(
-                              FilterItemSelectionBottomSheet(
-                                title: 'Select Sales No',
-                                items: controller.salesNoList.value,
-                                onDone: (List<Item> items) {
-                                  controller.salesNoList.value = items;
-                                  controller.salesNoList.refresh();
-                                },
-                              ),
-                              backgroundColor: Colors.white,
-                              isScrollControlled: true,
-                            );
-                          },
-                        ),
+                        // const SizedBox(height: 15),
+                        // SelectedItemWidget(
+                        //   title: 'Select Sales No',
+                        //   items: controller.salesNoList.value,
+                        //   onItemRemove: (item) {
+                        //     controller.salesNoList.value
+                        //         .firstWhere((element) => element == item)
+                        //         .isSelected = false;
+                        //     controller.salesNoList.refresh();
+                        //   },
+                        //   onEditPress: () {
+                        //     Get.bottomSheet(
+                        //       FilterItemSelectionBottomSheet(
+                        //         title: 'Select Sales No',
+                        //         items: controller.salesNoList.value,
+                        //         onDone: (List<Item> items) {
+                        //           controller.salesNoList.value = items;
+                        //           controller.salesNoList.refresh();
+                        //         },
+                        //       ),
+                        //       backgroundColor: Colors.white,
+                        //       isScrollControlled: true,
+                        //     );
+                        //   },
+                        // ),
                         // const SizedBox(height: 20),
                         // SelectedItemWidget(
                         //   title: 'Select Product Group',
@@ -212,7 +212,7 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                         // ),
                         const SizedBox(height: 20),
                         SelectedItemWidget(
-                          title: 'Select Invoice Number',
+                          title: 'KSB Invoice Number',
                           items: controller.invoiceNumberList.value,
                           onItemRemove: (item) {
                             controller.invoiceNumberList
@@ -236,6 +236,59 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                           },
                         ),
                         const SizedBox(height: 20),
+
+                        TextField(
+                          controller: controller.poNumberSearchCtrl,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            label: Text('Search PO Number',
+                                style: TextStyle(fontWeight: FontWeight.w700)),
+                            fillColor: context.primaryColor.withOpacity(.1),
+                            filled: true,
+                          ),
+                          onChanged: (value) {
+                            // Local search within already fetched `products`
+                            controller.searchProducts.value = controller
+                                .products
+                                .where((element) =>
+                                    element.poNumber
+                                        .toLowerCase()
+                                        .contains(value.toLowerCase()) ??
+                                    false)
+                                .toList();
+                          },
+                        ),
+
+                        // SelectedItemWidget(
+                        //   title: 'PO Number',
+                        //   items: controller.invoiceNumberList.value,
+                        //   onItemRemove: (item) {
+                        //     controller.invoiceNumberList
+                        //         .firstWhere((element) => element == item)
+                        //         .isSelected = false;
+                        //     controller.invoiceNumberList.refresh();
+                        //   },
+                        //   onEditPress: () {
+                        //     Get.bottomSheet(
+                        //       FilterItemSelectionBottomSheet(
+                        //         title: 'PO Number',
+                        //         items: controller.invoiceNumberList.value,
+                        //         onDone: (List<Item> items) {
+                        //           controller.invoiceNumberList.value = items;
+                        //           controller.invoiceNumberList.refresh();
+                        //         },
+                        //       ),
+                        //       backgroundColor: Colors.white,
+                        //       isScrollControlled: true,
+                        //     );
+                        //   },
+                        // ),
+                        20.heightGap,
+
                         SelectedItemWidget(
                           title: 'Select Serial Number',
                           items: controller.serialNumberList.value,
@@ -260,6 +313,7 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                             );
                           },
                         ),
+
                         60.heightGap,
                       ],
                     );
@@ -271,7 +325,10 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                   alignment: Alignment.bottomCenter,
                   child: CommonButton(
                     onPressed: () {
-                      controller.filterProductsRecords();
+                      controller.filterProductsRecords().then((_) {
+                        // Add this block to refresh the UI or trigger state update after sheet is closed
+                        controller.searchProducts.refresh(); // Triggers Obx() rebuild
+                      });
                     },
                     backgroundColor: context.primaryColor,
                     height: 45,
@@ -279,7 +336,7 @@ class ProductFilterBottomSheet extends GetView<SalesInsertController> {
                       'Filter Records',
                       style: TextStyle(color: Colors.white),
                     ),
-                  ))
+                  )),
             ],
           ),
         );

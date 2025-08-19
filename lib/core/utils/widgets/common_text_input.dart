@@ -32,7 +32,7 @@ class CommonTextInput extends StatelessWidget {
         this.lableWidget,
         this.cursoColor,
         this.autoValidateNull=false,
-        this.controller,this.initialValue, this.focusBorder});
+        this.controller,this.initialValue, this.focusBorder, this.onFieldSubmitted});
 
   final String? label;
   final String? hintText;
@@ -48,6 +48,7 @@ class CommonTextInput extends StatelessWidget {
   final EdgeInsets? padding;
   final TextEditingController? controller;
   final void Function(String?)? onChange;
+  final void Function(String?)? onFieldSubmitted;
   final void Function()? onTap;
   final InputBorder? customBorder;
   final InputBorder? focusBorder;

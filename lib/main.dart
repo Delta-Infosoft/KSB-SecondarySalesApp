@@ -8,9 +8,11 @@ import 'package:showcaseview/showcaseview.dart';
 import 'core/config/app_route.dart';
 import 'core/config/app_route_manager.dart';
 import 'core/utils/common_services/local_db.dart';
+import 'features/sales/view_model/sales_insert_controller.dart';
 
 Future<void> main() async {
   await initializeApp();
+  Get.put(SalesInsertController());
   runApp(const KSBSecondarySales());
 }
 

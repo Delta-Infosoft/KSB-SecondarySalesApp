@@ -62,9 +62,29 @@ class _ProfileState extends State<Profile> {
 
                 ListTile(
                     onTap: () {},
-                    title: const Text('User Name'),
+                    title: const Text('Customer Code'),
                     subtitle: Text('${controller.userData!['FirstName']+controller.userData!['LastName']}'),
                     trailing: const Icon(Icons.person)),
+                ListTile(
+                  onTap: () {},
+                  title: Text(
+                    'Registered Mobile : ${controller.userData?['MobileNo']?.toString().isNotEmpty == true ? controller.userData!['MobileNo'] : 'N/A'}',
+                  ),
+                ),
+                ListTile(
+                  onTap: () {},
+                  title: Text(
+                    'Customer Name: ${controller.userData?['CustomerName']?.toString().isNotEmpty == true ? controller.userData!['CustomerName'] : 'N/A'}',
+                  ),
+                ),
+
+                ListTile(
+                  onTap: () {},
+                  title: Text(
+                    'Email Id: ${controller.userData?['EmailId']?.toString().isNotEmpty == true ? controller.userData!['EmailId'] : 'N/A'}',
+                  ),
+                ),
+
                 ListTile(
                     onTap: () {
                       Get.dialog(const LogoutDialog());

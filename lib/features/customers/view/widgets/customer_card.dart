@@ -4,12 +4,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
+import 'package:ksb_secondary_sales/features/customers/view_model/customer_controller.dart';
 import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 
-class CustomerCard extends StatelessWidget {
+class CustomerCard extends StatefulWidget {
   const CustomerCard({super.key, required this.customer});
   final Customer customer;
+
+  @override
+  State<CustomerCard> createState() => _CustomerCardState();
+}
+
+class _CustomerCardState extends State<CustomerCard> {
+  CustomerViewController controller = Get.put(CustomerViewController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +26,7 @@ class CustomerCard extends StatelessWidget {
       closedColor: context.primaryColor.withOpacity(.1),
       closedElevation: 0,
       openElevation: 0,
-      closedShape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       middleColor: Colors.transparent,
       closedBuilder: (context, openContainer) => ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
@@ -31,17 +38,52 @@ class CustomerCard extends StatelessWidget {
           ),
           backgroundColor: context.primaryColor,
         ),
-        title: Text(customer.customerName),
-        trailing: const Icon(
-          Icons.arrow_forward_ios_rounded,
-          size: 15,
+        title: Text(widget.customer.customerName),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildStatusIcon(widget.customer),
+            const SizedBox(width: 10),
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 15,
+            ),
+          ],
         ),
-        subtitle: Text(customer.customerType),
+
+        subtitle: Text(widget.customer.customerType),
       ),
       openBuilder: (context, closeContainer) =>
-          CustomerDetailsScreen(customer: customer),
+          CustomerDetailsScreen(customer: widget.customer),
     );
   }
+
+  Widget _buildStatusIcon(Customer customer) {
+    final isApproved = customer.c4cId != null && customer.c4cId.isNotEmpty;
+    final isPending = !isApproved;
+
+    if (isPending) {
+      return  CircleAvatar(
+        radius: 12,
+        backgroundColor: Colors.orangeAccent,
+        child: Icon(Icons.access_time, color: Colors.white, size: 16),
+      );
+    } else if (isApproved) {
+      return  const Center(
+        child: Icon(
+          Icons.verified,
+          color: Colors.blueAccent,
+          size: 28,
+        ),
+      );
+
+    } else {
+      return const SizedBox();
+    }
+  }
+
+
 
   Widget _buildRichText(String title, String value) {
     return Padding(
@@ -82,7 +124,7 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
           _buildListTile(FontAwesomeIcons.userCircle, 'Customer Name',
               customer.customerName),
           divider(),
-          _buildListTile(FontAwesomeIcons.mapPin, 'Pin Code', customer.pinCode),
+          _buildListTile(FontAwesomeIcons.mapPin, 'Pin Code', customer.pincode),
           // divider(),
           // _buildListTile(
           //     FontAwesomeIcons.landmark, 'Landmark', customer.landMark),

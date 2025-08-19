@@ -1,9 +1,10 @@
 class ApiUrl {
   //dummy URLS
-   static const String baseUrl = 'http://59.144.126.25:90/ksbSecondarysalesAPI/api'; // galaxy link
+  //  static const String baseUrl = 'http://59.144.126.25:90/ksbSecondarysalesAPI/api'; // galaxy link
   // static const String baseUrl = 'http://192.168.0.98:90/ksbSecondarysalesAPI/api'; // local
-  //static const String baseUrl =
-   //   'http://59.144.126.25:90/ksbSecondarysalesAPI/api';
+
+   static const String baseUrl =
+     'http://59.144.126.25:90/ksbSecondarysalesAPI/api';   // Live Link
 
   // static const String baseUrl =
   //     'http://192.168.0.98:90/ksbSecondarysalesAPI/api';
@@ -14,11 +15,13 @@ class ApiUrl {
   static const String getUserByID = '$baseUrl/User/GetUserById';
   static const String textListApi = '$baseUrl/Common/TextList';
   static const String productionList = '$baseUrl/Common/TextList';
-  static const String getProductListUrl = '$baseUrl/KSBSalesInvoice/GetAll';
+  //static const String getProductListUrl = '$baseUrl/KSBSalesInvoice/GetAll';
+  static const String getProductListUrl = '$baseUrl/SalesEntry/GetPendingSalesInvoices';
   static const String getFilterProductsUrl =
       '$baseUrl/KSBSalesInvoice/GetFilteredKSBSalesInvoice';
   static const String insertSalesEntryUrl = '$baseUrl/SalesEntry/Insert';
   static const String salesList = '$baseUrl/SalesEntry/GetSalesEntryById';
+  static const String termsAndConditionPDF = '$baseUrl/TextLists/GetLatesFiles';
 }
 
 // aaa - 123

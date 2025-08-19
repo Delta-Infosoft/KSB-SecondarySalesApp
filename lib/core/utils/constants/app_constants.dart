@@ -5,4 +5,6 @@ class AppConstants{
   static const String rememberUserName = 'rememberUserName';
   static const String rememberPasswordKey = 'password';
   static const String isProductListSeenKey = 'isProductListSeen';
+  static String isTermsCondition = isTermsCondition;
+  static const String termsAcceptedDevicesKey = "accepted_devices";
 }

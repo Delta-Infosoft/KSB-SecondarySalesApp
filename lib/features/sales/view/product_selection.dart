@@ -152,96 +152,183 @@ class _ProductSelectionState extends State<ProductSelection> {
                 //     ],
                 //   )),
 
-                Expanded(
-                  child: () {
-                    if (controller.isProductLoading.value) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (controller.searchProducts.isEmpty) {
-                      return Stack(
-                        children: [
-                          RefreshIndicator(
-                            onRefresh: () async {
-                              await controller.getProductList();
-                            },
-                            child: SingleChildScrollView(
-                                child: SizedBox(
-                              height: context.screenHeight,
-                              width: context.screenWidth,
-                            )),
-                          ),
-                          const Center(
-                            child: Text('No Record Found'),
-                          ),
-                        ],
-                      );
-                    }
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: () async {
-                              await controller.getProductList();
-                            },
-                            child: AnimationLimiter(
-                              child: Scrollbar(
-                                child: ListView.separated(
-                                    physics:
-                                        const AlwaysScrollableScrollPhysics(),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    itemBuilder: (context, index) {
-                                      final product =
-                                          controller.searchProducts[index];
-                                      if (!controller.isProductListSeen &&
-                                          index == 0) {
-                                        return ProductCard(product, index);
-                                      }
+                Obx(() => Expanded(
+                      child: () {
+                        if (controller.isProductLoading.value) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        if (controller.searchProducts.isEmpty) {
+                          return Stack(
+                            children: [
+                              RefreshIndicator(
+                                onRefresh: () async {
+                                  await controller.getProductList();
+                                },
+                                child: SingleChildScrollView(
+                                  child: SizedBox(
+                                    height: context.screenHeight,
+                                    width: context.screenWidth,
+                                  ),
+                                ),
+                              ),
+                              const Center(child: Text('No Record Found')),
+                            ],
+                          );
+                        }
 
-                                      return AnimationConfiguration
-                                          .staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 375),
-                                        child: SlideAnimation(
-                                            verticalOffset: 50.0,
-                                            child: FadeInAnimation(
-                                                child: ProductCard(
-                                                    product, index))),
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) =>
-                                        AnimationConfiguration.staggeredList(
+                        return Column(
+                          children: [
+                            Expanded(
+                              child: RefreshIndicator(
+                                onRefresh: () async {
+                                  await controller.getProductList();
+                                },
+                                child: AnimationLimiter(
+                                  child: Scrollbar(
+                                    child: ListView.separated(
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 15),
+                                      itemCount:
+                                          controller.searchProducts.length,
+                                      itemBuilder: (context, index) {
+                                        final product =
+                                            controller.searchProducts[index];
+                                        if (!controller.isProductListSeen &&
+                                            index == 0) {
+                                          return ProductCard(product, index);
+                                        }
+                                        return AnimationConfiguration
+                                            .staggeredList(
                                           position: index,
                                           duration:
                                               const Duration(milliseconds: 375),
-                                          child: const SlideAnimation(
-                                              verticalOffset: 50.0,
-                                              child: FadeInAnimation(
-                                                  child: Divider())),
+                                          child: SlideAnimation(
+                                            verticalOffset: 50.0,
+                                            child: FadeInAnimation(
+                                              child:
+                                                  ProductCard(product, index),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      separatorBuilder: (context, index) =>
+                                          AnimationConfiguration.staggeredList(
+                                        position: index,
+                                        duration:
+                                            const Duration(milliseconds: 375),
+                                        child: const SlideAnimation(
+                                          verticalOffset: 50.0,
+                                          child:
+                                              FadeInAnimation(child: Divider()),
                                         ),
-                                    itemCount:
-                                        controller.searchProducts.length),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }(),
-                )
+                          ],
+                        );
+                      }(),
+                    )),
+
+                // Expanded(
+                //   child: () {
+                //     if (controller.isProductLoading.value) {
+                //       return const Center(
+                //         child: CircularProgressIndicator(),
+                //       );
+                //     }
+                //     if (controller.searchProducts.isEmpty) {
+                //       return Stack(
+                //         children: [
+                //           RefreshIndicator(
+                //             onRefresh: () async {
+                //               await controller.getProductList();
+                //             },
+                //             child: SingleChildScrollView(
+                //                 child: SizedBox(
+                //               height: context.screenHeight,
+                //               width: context.screenWidth,
+                //             )),
+                //           ),
+                //           const Center(
+                //             child: Text('No Record Found'),
+                //           ),
+                //         ],
+                //       );
+                //     }
+                //     return Column(
+                //       children: [
+                //         Expanded(
+                //           child: RefreshIndicator(
+                //             onRefresh: () async {
+                //               await controller.getProductList();
+                //             },
+                //             child: AnimationLimiter(
+                //               child: Scrollbar(
+                //                 child: ListView.separated(
+                //                     physics:
+                //                         const AlwaysScrollableScrollPhysics(),
+                //                     padding: const EdgeInsets.symmetric(
+                //                         horizontal: 10, vertical: 15),
+                //                     itemBuilder: (context, index) {
+                //                       final product =
+                //                           controller.searchProducts[index];
+                //                       if (!controller.isProductListSeen &&
+                //                           index == 0) {
+                //                         return ProductCard(product, index);
+                //                       }
+                //
+                //                       return AnimationConfiguration
+                //                           .staggeredList(
+                //                         position: index,
+                //                         duration:
+                //                             const Duration(milliseconds: 375),
+                //                         child: SlideAnimation(
+                //                             verticalOffset: 50.0,
+                //                             child: FadeInAnimation(
+                //                                 child: ProductCard(
+                //                                     product, index))),
+                //                       );
+                //                     },
+                //                     separatorBuilder: (context, index) =>
+                //                         AnimationConfiguration.staggeredList(
+                //                           position: index,
+                //                           duration:
+                //                               const Duration(milliseconds: 375),
+                //                           child: const SlideAnimation(
+                //                               verticalOffset: 50.0,
+                //                               child: FadeInAnimation(
+                //                                   child: Divider())),
+                //                         ),
+                //                     itemCount:
+                //                         controller.searchProducts.length),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     );
+                //   }(),
+                // )
               ],
             ),
             floatingActionButton: () {
               if (controller.isProductLoading.value ||
                   controller.searchProducts.isEmpty ||
-                  !(controller.isProductSelected.any(
-                    (element) => element.value,
-                  ))) {
+                  !(controller.isProductSelected
+                      .any((element) => element.value))) {
                 return null;
               }
+
+              final selectedCount = controller.isProductSelected
+                  .where((element) => element.value)
+                  .length;
+
               return FloatingActionButton.extended(
                 onPressed: () {
                   Get.toNamed(AppRoute.salesInsertRoute);
@@ -250,10 +337,157 @@ class _ProductSelectionState extends State<ProductSelection> {
                   Icons.arrow_forward_ios_rounded,
                   size: 15,
                 ),
-                icon: const Text('Next'),
+                icon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Selected Serial Item',
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(width: 6),
+                    Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.indigo,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 3,
+                            offset: const Offset(1, 2),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        '${selectedCount}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             }());
+
+        //
+        // floatingActionButton: () {
+        //   if (controller.isProductLoading.value ||
+        //       controller.searchProducts.isEmpty ||
+        //       !(controller.isProductSelected
+        //           .any((element) => element.value))) {
+        //     return null;
+        //   }
+        //
+        //   final selectedCount = controller.isProductSelected
+        //       .where((element) => element.value)
+        //       .length;
+        //
+        //   return FloatingActionButton.extended(
+        //     onPressed: () {
+        //       Get.toNamed(AppRoute.salesInsertRoute);
+        //     },
+        //     label: const Icon(
+        //       Icons.arrow_forward_ios_rounded,
+        //       size: 15,
+        //     ),
+        //     icon: Text('Selected Customer $selectedCount'),
+        //   );
+        // }());
+
+        // floatingActionButton: () {
+        //   if (controller.isProductLoading.value ||
+        //       controller.searchProducts.isEmpty ||
+        //       !(controller.isProductSelected.any(
+        //         (element) => element.value,
+        //       ))) {
+        //     return null;
+        //   }
+        //   return FloatingActionButton.extended(
+        //     onPressed: () {
+        //       Get.toNamed(AppRoute.salesInsertRoute);
+        //     },
+        //     label: const Icon(
+        //       Icons.arrow_forward_ios_rounded,
+        //       size: 15,
+        //     ),
+        //     icon:  Text('Select Customer'),
+        //   );
+        // }());
       }),
+    );
+  }
+
+  Widget buildProductList() {
+    if (controller.isProductLoading.value) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (controller.searchProducts.isEmpty) {
+      return Stack(
+        children: [
+          RefreshIndicator(
+            onRefresh: () async {
+              await controller.getProductList();
+            },
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: context.screenHeight,
+                width: context.screenWidth,
+              ),
+            ),
+          ),
+          const Center(child: Text('No Record Found')),
+        ],
+      );
+    }
+
+    return Column(
+      children: [
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await controller.getProductList();
+            },
+            child: AnimationLimiter(
+              child: Scrollbar(
+                child: ListView.separated(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                  itemCount: controller.searchProducts.length,
+                  itemBuilder: (context, index) {
+                    final product = controller.searchProducts[index];
+                    if (!controller.isProductListSeen && index == 0) {
+                      return ProductCard(product, index);
+                    }
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: ProductCard(product, index),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 375),
+                    child: const SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(child: Divider()),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

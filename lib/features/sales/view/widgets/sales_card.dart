@@ -8,11 +8,16 @@ import 'package:ksb_secondary_sales/core/utils/extentions/date_time_extention.da
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_data_model.dart';
 
-class SalesCard extends StatelessWidget {
+class SalesCard extends StatefulWidget {
   final SalesData data;
 
   const SalesCard({super.key, required this.data});
 
+  @override
+  State<SalesCard> createState() => _SalesCardState();
+}
+
+class _SalesCardState extends State<SalesCard> {
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
@@ -37,20 +42,20 @@ class SalesCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              data.customerName,
+              widget.data.customerName,
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            Text('Product Qty : ${data.products.length}')
+            Text('Product Qty : ${widget.data.products.length}')
           ],
         ),
         trailing: const Icon(
           Icons.arrow_forward_ios_rounded,
           size: 15,
         ),
-        subtitle: Text(data.salesDate.format('dd-MMM-yyyy hh:mm a')),
+        subtitle: Text(widget.data.salesDate.format('dd-MMM-yyyy hh:mm a')),
       ),
       openBuilder: (context, closeContainer) =>
-          SalesEntryDetailsScreen(data: data),
+          SalesEntryDetailsScreen(data: widget.data),
     );
   }
 
@@ -144,9 +149,26 @@ class SalesEntryDetailsScreen extends StatelessWidget {
     );
   }
 
+
   Widget _buildProductExpansionTile(Product product) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
+        _buildListTile(
+          FontAwesomeIcons.tag,
+          'Serial Number',
+          product.serialNumber,
+        ),
+
+        _buildListTile(
+          FontAwesomeIcons.clipboard,
+          'Product Description',
+          product.materialDescription,
+        ),
+
+
+
         ExpansionTile(
           shape: const RoundedRectangleBorder(
               side: BorderSide(color: Colors.transparent)),
@@ -157,24 +179,58 @@ class SalesEntryDetailsScreen extends StatelessWidget {
             size: 20,
           ),
           title: const Text(
-            'Material Number',
+            'More Info',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          subtitle: Text(
-            product.materialNumber,
-            style: const TextStyle(color: Colors.black54),
-          ),
           children: [
-            _buildListTile(FontAwesomeIcons.clipboard, 'Material Description',
-                product.materialDescription),
-            _buildListTile(
-                FontAwesomeIcons.tag, 'Serial Number', product.serialNumber),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              child: _buildListTile(
+                FontAwesomeIcons.barcode,
+                'Material Number',
+                product.materialNumber,
+              ),
+            ),
           ],
         ),
+
         _divider(),
       ],
     );
   }
+
+
+  // Widget _buildProductExpansionTile(Product product) {
+  //   return Column(
+  //     children: [
+  //       ExpansionTile(
+  //         shape: const RoundedRectangleBorder(
+  //             side: BorderSide(color: Colors.transparent)),
+  //         collapsedShape: const RoundedRectangleBorder(
+  //             side: BorderSide(color: Colors.transparent)),
+  //         leading: const Icon(
+  //           FontAwesomeIcons.boxOpen,
+  //           size: 20,
+  //         ),
+  //         title: const Text(
+  //           'Material Number',
+  //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  //         ),
+  //         subtitle: Text(
+  //           product.materialNumber,
+  //           style: const TextStyle(color: Colors.black54),
+  //         ),
+  //         children: [
+  //           _buildListTile(FontAwesomeIcons.clipboard, 'Material Description',
+  //               product.materialDescription),
+  //           _buildListTile(
+  //               FontAwesomeIcons.tag, 'Serial Number', product.serialNumber),
+  //         ],
+  //       ),
+  //       _divider(),
+  //     ],
+  //   );
+  // }
 
   Widget _divider() {
     return const Padding(

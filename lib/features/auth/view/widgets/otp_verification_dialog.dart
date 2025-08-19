@@ -86,9 +86,10 @@ class _OtpVerificationDialogState extends State<OtpVerificationDialog> {
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               Text(
-                '${widget.mobileNo}',
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                widget.mobileNo != null && widget.mobileNo.length >= 4
+                    ? 'xxxxxx${widget.mobileNo.substring(widget.mobileNo.length - 4)}'
+                    : '',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               20.heightGap,
               Center(

@@ -23,4 +23,12 @@ class LocalDb {
   static String getString(String key) {
     return _preferences.getString(key) ?? '';
   }
+
+  static List<String>? getStringList(String key) {
+    return _preferences.getStringList(key);
+  }
+
+  static Future<void> setStringList(String key, List<String> val) async {
+    await _preferences.setStringList(key, val);
+  }
 }

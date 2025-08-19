@@ -1,25 +1,49 @@
 import 'package:get/get.dart';
-import 'package:ksb_secondary_sales/features/customers/model/customer_repository.dart';
-import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
+import '../../home/view/screens/home.dart';
+import '../model/customer_repository.dart';
 
-class CustomerViewController extends GetxController{
+class CustomerViewController extends GetxController {
+  RxString selectedFilter = 'Approved'.obs;
+  RxBool isLoading = false.obs;
+
+  var customersList = <Customer>[].obs;
+  var filteredCustomers = <Customer>[].obs;
+  var pendingCustomers = <Customer>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-
     getCustomerList();
+  }
+  void filterCustomerList() {
+    final filter = selectedFilter.value.toLowerCase();
 
+    if (filter == 'approved') {
+      filteredCustomers.value = customersList
+          .where((e) => e.c4cId != null && e.c4cId.isNotEmpty)
+          .toList();
+    } else if (filter == 'pending') {
+      filteredCustomers.value = customersList
+          .where((e) => e.c4cId  == null || e.c4cId.isEmpty)
+          .toList();
+    } else {
+      filteredCustomers.value = customersList;
+    }
   }
 
-  RxBool isLoading = false.obs;
-  List<Customer> customersList = [];
 
   Future<void> getCustomerList() async {
-    isLoading.value=true;
-    customersList =await  CustomerRepository.getCustomerById();
-    customersList.sort((a, b) => b.insertedOn.compareTo(a.insertedOn));
-    isLoading.value=false;
-  }
+    isLoading.value = true;
 
+    List<Customer> response = await CustomerRepository.getCustomerById();
+
+    customersList.value = response;
+    filterCustomerList();
+
+    // optionally build pending list
+    pendingCustomers.value =
+        response.where((e) => e.c4cId.toLowerCase() == 'pending').toList();
+
+    isLoading.value = false;
+  }
 }

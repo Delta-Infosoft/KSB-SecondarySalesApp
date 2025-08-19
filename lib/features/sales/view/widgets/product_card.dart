@@ -88,21 +88,36 @@ class _ProductCardState extends State<ProductCard> {
           style: TextStyle(color: isSelected ? null : Colors.white),
         ),
       ),
-      title: isFirstItem
-          ? Showcase(
-              key: controller.materialNumberKey,
-              disposeOnTap: true,
-              onBarrierClick: ShowCaseWidget.of(context).next,
-              onTargetClick: ShowCaseWidget.of(context).next,
-              onToolTipClick: ShowCaseWidget.of(context).next,
-              description: 'Show Product Material No',
-              title: 'Material No',
-              child: _buildMaterialNumber(isSelected),
-            )
-          : _buildMaterialNumber(isSelected),
+      // title: isFirstItem
+      //     ? Showcase(
+      //         key: controller.materialNumberKey,
+      //         disposeOnTap: true,
+      //         onBarrierClick: ShowCaseWidget.of(context).next,
+      //         onTargetClick: ShowCaseWidget.of(context).next,
+      //         onToolTipClick: ShowCaseWidget.of(context).next,
+      //         description: 'Show Product Material No',
+      //         title: 'Material No',
+      //         child: _buildMaterialNumber(isSelected),
+      //       )
+      //     : _buildMaterialNumber(isSelected),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+          isFirstItem
+              ? Showcase(
+            key: controller.serialNoKey,
+            scrollLoadingWidget: const FlutterLogo(size: 50),
+            description: 'Show Product Serial No',
+            title: 'Product Serial No',
+            disposeOnTap: true,
+            onBarrierClick: controller.setProductListSeenTrue,
+            onTargetClick: controller.setProductListSeenTrue,
+            onToolTipClick: controller.setProductListSeenTrue,
+            child: _buildSerialNumber(isSelected),
+          )
+              : _buildSerialNumber(isSelected),
+
           isFirstItem
               ? Showcase(
                   key: controller.materialDescriptionKey,
@@ -116,50 +131,38 @@ class _ProductCardState extends State<ProductCard> {
                   child: _buildMaterialDescription(isSelected),
                 )
               : _buildMaterialDescription(isSelected),
-          isFirstItem
-              ? Showcase(
-                  key: controller.serialNoKey,
-                  scrollLoadingWidget: const FlutterLogo(size: 50),
-                  description: 'Show Product Serial No',
-                  title: 'Product Serial No',
-                  disposeOnTap: true,
-                  onBarrierClick: controller.setProductListSeenTrue,
-                  onTargetClick: controller.setProductListSeenTrue,
-                  onToolTipClick: controller.setProductListSeenTrue,
-                  child: _buildSerialNumber(isSelected),
-                )
-              : _buildSerialNumber(isSelected),
+
         ],
       ),
     );
   }
 
-  Widget _buildMaterialNumber(bool isSelected) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: widget.product.materialNo,
-            style: TextStyle(color: isSelected ? Colors.white : Colors.black),
-          )
-        ],
-        text: "Material No : ",
-        style: TextStyle(color: isSelected ? Colors.white : Colors.black),
-      ),
-    );
-  }
+  // Widget _buildMaterialNumber(bool isSelected) {
+  //   return RichText(
+  //     text: TextSpan(
+  //       children: [
+  //         TextSpan(
+  //           text: widget.product.materialNo,
+  //           style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+  //         )
+  //       ],
+  //       text: "Material No : ",
+  //       style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+  //     ),
+  //   );
+  // }
 
   Widget _buildMaterialDescription(bool isSelected) {
     return Text(
       widget.product.materialDescreption,
-      style: TextStyle(color: isSelected ? Colors.white : null),
+      style: TextStyle(color: isSelected ? Colors.white : null,fontSize: 15),
     );
   }
 
   Widget _buildSerialNumber(bool isSelected) {
     return Text(
       widget.product.serialNumber,
-      style: TextStyle(color: isSelected ? Colors.white : null),
+      style: TextStyle(color: isSelected ? Colors.white : null,fontSize: 15),
     );
   }
 
@@ -188,6 +191,9 @@ class _ProductCardState extends State<ProductCard> {
           'Invoice Date : ',
           DateTime.parse(widget.product.invoiceDate).format('dd-MMM-yyyy'),
           isSelected),
+      const SizedBox(height:5),
+      _buildRichText(
+          'PO Number : ', widget.product.poNumber, isSelected),
     ];
   }
 

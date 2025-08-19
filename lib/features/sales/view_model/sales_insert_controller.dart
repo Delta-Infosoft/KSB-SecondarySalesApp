@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -60,6 +62,12 @@ class SalesInsertController extends GetxController {
 
   RxList<Item> invoiceNumberList = <Item>[].obs;
 
+  RxList<Item> poNumberList = <Item>[].obs;
+
+  RxList<ProductModel> filteredList = <ProductModel>[].obs;
+
+  final poNumberSearchCtrl = TextEditingController();
+
   RxList<Item> serialNumberList = <Item>[].obs;
 
   List addressList = [];
@@ -67,6 +75,7 @@ class SalesInsertController extends GetxController {
   List<ProductModel> products = [];
   RxList<ProductModel> searchProducts = <ProductModel>[].obs;
   List<RxBool> isProductSelected = [];
+
   RxBool isProductLoading = false.obs;
   RxBool isPinCodeDataLoading = false.obs;
   RxBool isOtpSendToMobileIsLoading = false.obs;
@@ -194,40 +203,146 @@ class SalesInsertController extends GetxController {
     isProductLoading.value = false;
   }
 
+  void searchByPoNumber(String query) {
+    if (query.isEmpty) {
+      searchProducts.value = List.of(products);
+    } else {
+      searchProducts.value = products
+          .where((element) =>
+          (element.poNumber ?? '')
+              .toLowerCase()
+              .contains(query.toLowerCase()))
+          .toList();
+    }
+  }
+
+
   filterProductsRecords() async {
     Get.back();
     isProductLoading.value = true;
+
     String selectedSerialNumberIds = serialNumberList
         .where((p0) => p0.isSelected)
-        .map(
-          (e) => e.name,
-        )
+        .map((e) => e.name)
         .toList()
         .join(',');
+
     String selectedSalesOrderIds = salesNoList
         .where((p0) => p0.isSelected)
-        .map(
-          (e) => e.name,
-        )
+        .map((e) => e.name)
         .toList()
         .join(',');
+
     String selectedInvoiceNumberIds = invoiceNumberList
         .where((p0) => p0.isSelected)
-        .map(
-          (e) => e.name,
-        )
+        .map((e) => e.name)
         .toList()
         .join(',');
-    products = await SalesInsertRepository.getFiltersData(
-        selectedSerialNumberIds,
-        selectedSalesOrderIds,
-        selectedInvoiceNumberIds,
-        invoiceDateCtrl.text);
+
+    String poNumber = poNumberSearchCtrl.text;
+
+    searchProducts.clear();
+
+    final filtered = await SalesInsertRepository.getFiltersData(
+      selectedSerialNumberIds,
+      selectedSalesOrderIds,
+      selectedInvoiceNumberIds,
+      invoiceDateCtrl.text,
+      poNumber,
+    );
+
+    log('Filtered response: ${filtered.length}');
+    products = filtered;
+
     searchProducts.value = List.of(products);
-    // products = dummyProductData;
     isProductSelected = List.generate(products.length, (index) => false.obs);
     isProductLoading.value = false;
   }
+
+
+  // filterProductsRecords() async {
+  //   Get.back();
+  //   isProductLoading.value = true;
+  //
+  //   String selectedSerialNumberIds = serialNumberList
+  //       .where((p0) => p0.isSelected)
+  //       .map((e) => e.name)
+  //       .toList()
+  //       .join(',');
+  //
+  //   String selectedSalesOrderIds = salesNoList
+  //       .where((p0) => p0.isSelected)
+  //       .map((e) => e.name)
+  //       .toList()
+  //       .join(',');
+  //
+  //   String selectedInvoiceNumberIds = invoiceNumberList
+  //       .where((p0) => p0.isSelected)
+  //       .map((e) => e.name)
+  //       .toList()
+  //       .join(',');
+  //
+  //   String poNumber = poNumberSearchCtrl.text;
+  //
+  //   products = await SalesInsertRepository.getFiltersData(
+  //     selectedSerialNumberIds,
+  //     selectedSalesOrderIds,
+  //     selectedInvoiceNumberIds,
+  //     invoiceDateCtrl.text,
+  //     poNumber,
+  //   );
+  //
+  //   searchProducts.value = List.of(products);
+  //   searchProducts.refresh();
+  //   isProductSelected = List.generate(products.length, (index) => false.obs);
+  //   isProductLoading.value = false;
+  // }
+
+
+  // filterProductsRecords() async {
+  //   Get.back();
+  //   isProductLoading.value = true;
+  //   String selectedSerialNumberIds = serialNumberList
+  //       .where((p0) => p0.isSelected)
+  //       .map(
+  //         (e) => e.name,
+  //       )
+  //       .toList()
+  //       .join(',');
+  //   String selectedSalesOrderIds = salesNoList
+  //       .where((p0) => p0.isSelected)
+  //       .map(
+  //         (e) => e.name,
+  //       )
+  //       .toList()
+  //       .join(',');
+  //   String selectedInvoiceNumberIds = invoiceNumberList
+  //       .where((p0) => p0.isSelected)
+  //       .map(
+  //         (e) => e.name,
+  //       )
+  //       .toList()
+  //       .join(',');
+  //
+  //   String selectedPoNumberIds = poNumberList
+  //       .where((p0) => p0.isSelected)
+  //       .map((e) => e.name)
+  //       .toList()
+  //       .join(',');
+  //
+  //   products = await SalesInsertRepository.getFiltersData(
+  //       selectedSerialNumberIds,
+  //       selectedSalesOrderIds,
+  //       selectedInvoiceNumberIds,
+  //        selectedPoNumberIds,
+  //       invoiceDateCtrl.text);
+  //   searchProducts.value = List.of(products);
+  //   // products = dummyProductData;
+  //   isProductSelected = List.generate(products.length, (index) => false.obs);
+  //   isProductLoading.value = false;
+  // }
+
+
 
   Future<void> getCustomerList() async {
     isCustomerLoading.value = true;
@@ -271,6 +386,25 @@ class SalesInsertController extends GetxController {
         "insertedByUserId": LocalDb.getString(
             AppConstants.userIdKey), // Replace with actual user ID
       };
+
+      print("Selected Serial Numbers: $selectedProductIds");
+      print("Selected Product Ids: $selectedProductIds");
+      print(" Final selectedProductIds for other sales: $selectedProductIds");
+
+      print("Selected customerId $selectedCustomerId");
+      print("Selected gstno.: ${gstNoController.text}");
+      print("customerAddress: ${streetCtrl.text}");
+      print('Streeet: ${streetCtrl.text}');
+      print('City : ${cityCtrl.text}');
+      print('state :${stateCtrl.text}');
+      print('country : ${countryCtrl.text}');
+      print(('District ${districtCtrl.text}'));
+      print("insertedByUserId : ${LocalDb.getString(AppConstants.userIdKey)}");
+      print("pincode ${pinCodeCtrl.text}");
+      print("landMark: ${selectedLandMark.value}");
+      print("Selected Serial Numbers: ${selectedProductIds}");
+      print("Selected Contact Name: ${selectedContactName}");
+      print("Mobile: ${mobileNoCtrl.text}, Email: ${emailCtrl.text}");
 
       bool isInserted =
           await SalesInsertRepository.insertSalesRecord(salesData);
@@ -506,6 +640,7 @@ class ProductModel {
   String invoiceNumber;
   String serialNumber;
   String salesOrderNo;
+  String poNumber;
 
   ProductModel({
     required this.id,
@@ -515,6 +650,7 @@ class ProductModel {
     required this.serialNumber,
     required this.invoiceDate,
     required this.salesOrderNo,
+    required this.poNumber,
   });
 
   factory ProductModel.fromJson(dynamic json) {
@@ -526,6 +662,7 @@ class ProductModel {
       invoiceNumber: json['InvoiceNumber'],
       invoiceDate: json['InvoiceDate'],
       serialNumber: json['SerialNumber'],
+      poNumber: json["PONumber"] ?? '',
     );
   }
 
