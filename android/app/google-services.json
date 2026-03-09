@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "99982111098",
+    "project_id": "ksb-secondary-sales",
+    "storage_bucket": "ksb-secondary-sales.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99982111098:android:2c70414455e00173c266c3",
+        "android_client_info": {
+          "package_name": "com.delta.ksb_secondary_sales"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCstA1hTjj0Y2fjGFzT6L8NfD9IxtLXHXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -373,7 +373,7 @@ class LandingContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Welcome to KSB\nSecondary Sales App",
+            "Welcome to KSB\nSanchay",
             textAlign: TextAlign.start,
             style: Theme.of(context)
                 .textTheme

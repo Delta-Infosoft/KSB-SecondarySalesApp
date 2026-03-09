@@ -36,29 +36,78 @@ class CustomerRepository {
     }
   }
 
-  static Future<List<Customer>> getCustomerById() async {
-    // try {
+  static Future<List<Customer>> getCustomerById({String? approvalStatus}) async {
     print('getCustomerById');
     final response = await http.post(
       Uri.parse(ApiUrl.getCustomerById),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({'userId': LocalDb.getString(AppConstants.userIdKey)}),
+      body: jsonEncode({
+        'userId': LocalDb.getString(AppConstants.userIdKey),
+        'approvalStatus': approvalStatus, // can be null
+      }),
     );
+
     final data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      List<dynamic> jsonData = data['data'];
+      List<dynamic> jsonData = data['data'] ?? [];
       return jsonData.map((json) => Customer.fromJson(json)).toList();
     } else {
       return [];
     }
-    // } catch (e) {
-    //   print('e.toString()');
-    //   print(e.toString());
-    //   return [];
-    // }
   }
+
+
+  static Future<List<Customer>> getCustomerID({String? approvalStatus}) async {
+    print('getCustomerById');
+    final response = await http.post(
+      Uri.parse(ApiUrl.getCustomerList),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'customerId': null,
+        // 'approvalStatus': approvalStatus, // can be null
+      }),
+    );
+
+    final data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = data['data'] ?? [];
+      return jsonData.map((json) => Customer.fromJson(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
+
+  // static Future<List<Customer>> getCustomerById() async {
+  //   // try {
+  //   print('getCustomerById');
+  //   final response = await http.post(
+  //     Uri.parse(ApiUrl.getCustomerById),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: jsonEncode({
+  //       'userId': LocalDb.getString(AppConstants.userIdKey),
+  //       'approvalStatus' : "Approved"
+  //     }),
+  //   );
+  //   final data = jsonDecode(response.body);
+  //   if (response.statusCode == 200) {
+  //     List<dynamic> jsonData = data['data'];
+  //     return jsonData.map((json) => Customer.fromJson(json)).toList();
+  //   } else {
+  //     return [];
+  //   }
+  //   // } catch (e) {
+  //   //   print('e.toString()');
+  //   //   print(e.toString());
+  //   //   return [];
+  //   // }
+  // }
 
   static Future<List> getTestListFromGroup(String groupName) async {
     try {

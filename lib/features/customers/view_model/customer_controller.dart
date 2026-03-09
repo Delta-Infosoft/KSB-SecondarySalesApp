@@ -125,8 +125,29 @@ class CustomerController extends GetxController {
     addressList = [];
     List data = await SalesInsertRepository.getAddressFromPinCode(pinCode);
     addressList = data;
+
+    if (addressList.isNotEmpty) {
+      var first = addressList[0];
+
+      cityCtrl.text = first['Name'] ?? '';      // City-like info
+      districtCtrl.text = first['District'] ?? '';
+      stateCtrl.text = first['State'] ?? '';
+      countryCtrl.text = first['Country'] ?? '';
+    }
+
     isPinCodeDataLoading.value = false;
   }
+
+  // getDataFromPinCode(String pinCode) async {
+  //   isPinCodeDataLoading.value = true;
+  //   selectedLandMark.value = '';
+  //   landMarkDdKey.currentState?.reset();
+  //
+  //   addressList = [];
+  //   List data = await SalesInsertRepository.getAddressFromPinCode(pinCode);
+  //   addressList = data;
+  //   isPinCodeDataLoading.value = false;
+  // }
 
   Future<void> createCustomer() async {
     if (formKey.currentState!.validate()) {
@@ -152,7 +173,7 @@ class CustomerController extends GetxController {
       isSubmitLoading.value = true;
 
       final customer = CustomerInsertModel(
-        customerName: customerNameController.text,
+                customerName: customerNameController.text,
         gstNo: gstNoController.text,
         customerTypeId: selectedCustomerType.value,
         companyTypeId: selectedCompanyType.value,
@@ -225,8 +246,11 @@ class CustomerController extends GetxController {
         insertedByUserId: LocalDb.getString(
             AppConstants.userIdKey), // Replace with the actual user ID
         lastUpdatedByUserId: LocalDb.getString(
-            AppConstants.userIdKey), // Replace with the actual user ID
+            AppConstants.userIdKey),
+        // pointStatus: 'Active',
       );
+
+      print('Customer Data Request: ${customer.toJson()}');
       String response = await CustomerRepository.createCustomer(customer);
       if (response == 'Successfully') {
         Get.offAllNamed(AppRoute.dashboard);

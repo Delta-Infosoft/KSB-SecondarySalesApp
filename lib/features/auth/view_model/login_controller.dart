@@ -15,6 +15,7 @@ import 'package:open_file_plus/open_file_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pinput/pinput.dart';
 import 'package:unique_identifier/unique_identifier.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/config/app_route.dart';
@@ -34,9 +35,7 @@ class LoginController extends GetxController {
   String actualOtp = '';
   String imei = "";
 
-
   RxBool shouldShowTermsAndConditions = false.obs;
-
 
   @override
   void onInit() {
@@ -51,7 +50,8 @@ class LoginController extends GetxController {
     print("IMEI: $imei");
 
     final key = "$username|$imei";
-    final acceptedList = LocalDb.getStringList(AppConstants.termsAcceptedDevicesKey) ?? [];
+    final acceptedList =
+        LocalDb.getStringList(AppConstants.termsAcceptedDevicesKey) ?? [];
     final alreadyAccepted = acceptedList.contains(key);
 
     shouldShowTermsAndConditions.value = !alreadyAccepted;
@@ -60,9 +60,6 @@ class LoginController extends GetxController {
       isTermsConditionAccepted.value = true;
     }
   }
-
-
-
 
   verifyOtp(String actualOTP, String otp) {
     bool isSame = otp == actualOTP;
@@ -141,7 +138,6 @@ class LoginController extends GetxController {
   //   }
   // }
 
-
   onSubmitPress(BuildContext context) async {
     if (loginFormKey.currentState!.validate()) {
       isLoading.value = true;
@@ -153,6 +149,7 @@ class LoginController extends GetxController {
         passCtrl.text,
         isTermsConditionAccepted.value,
       );
+      print('PAssword >>>>${passCtrl.text}');
 
       if (userId == null) {
         isLoading.value = false;
@@ -171,13 +168,14 @@ class LoginController extends GetxController {
       }
 
       // Save accepted terms for user + device
-      if (isTermsConditionAccepted.value && shouldShowTermsAndConditions.value) {
+      if (isTermsConditionAccepted.value &&
+          shouldShowTermsAndConditions.value) {
         await saveAcceptedUserDevice(userNameCtrl.text, imei);
         shouldShowTermsAndConditions.value = false;
       }
 
       // Show OTP dialog
-      await showGeneralDialog(
+      /* await showGeneralDialog(
         context: context,
         pageBuilder: (context, animation, secondaryAnimation) {
           return OtpVerificationDialog(
@@ -198,7 +196,19 @@ class LoginController extends GetxController {
             child: child,
           );
         },
-      );
+      ); */
+
+      // Save current app version (used to detect app updates and force re-login)
+      try {
+        final pkgInfo = await PackageInfo.fromPlatform();
+        if (pkgInfo.version.isNotEmpty) {
+          await LocalDb.setString(AppConstants.lastAppVersionKey, pkgInfo.version);
+        }
+      } catch (e) {
+        debugPrint('Could not save app version: $e');
+      }
+
+      Get.offAllNamed(AppRoute.dashboard);
 
       isLoading.value = false;
     }
@@ -206,7 +216,8 @@ class LoginController extends GetxController {
 
   Future<void> saveAcceptedUserDevice(String username, String imei) async {
     final key = "$username|$imei";
-    final list = LocalDb.getStringList(AppConstants.termsAcceptedDevicesKey) ?? [];
+    final list =
+        LocalDb.getStringList(AppConstants.termsAcceptedDevicesKey) ?? [];
     if (!list.contains(key)) {
       list.add(key);
       await LocalDb.setStringList(AppConstants.termsAcceptedDevicesKey, list);
@@ -215,11 +226,10 @@ class LoginController extends GetxController {
 
   bool shouldShowTerms(String username, String imei) {
     final key = "$username|$imei";
-    final list = LocalDb.getStringList(AppConstants.termsAcceptedDevicesKey) ?? [];
+    final list =
+        LocalDb.getStringList(AppConstants.termsAcceptedDevicesKey) ?? [];
     return !list.contains(key); // true means show terms
   }
-
-
 
   Future<void> fetchTermsAndConditionPdf() async {
     try {
@@ -253,5 +263,4 @@ class LoginController extends GetxController {
       Get.snackbar('Error', 'Something went wrong');
     }
   }
-
 }

@@ -28,12 +28,10 @@ class CustomerListScreen extends GetView<CustomerViewController> {
         ),
       ),
       body: Obx(() {
-        if(controller.isLoading.value){
-          return const Center(child: CircularProgressIndicator(),);
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
         }
-        else if(controller.customersList.isEmpty){
-          return const Center(child: Text('No Record Found'),);
-        }
+
         return RefreshIndicator(
           onRefresh: () async {
             await controller.getCustomerList();
@@ -44,16 +42,17 @@ class CustomerListScreen extends GetView<CustomerViewController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildFilterButton('Approved',context),
-                  _buildFilterButton('Pending',context),
-                  _buildFilterButton('All',context),
+                  _buildFilterButton('Approved', context),
+                  _buildFilterButton('Pending', context),
+                  _buildFilterButton('All', context),
                 ],
               ),
               10.heightGap,
 
-              // Animated Customer List
-              Obx(() => AnimationLimiter(
-                child: Expanded(
+              Expanded(
+                child: controller.filteredCustomers.isEmpty
+                    ? const Center(child: Text('No Record Found'))
+                    : AnimationLimiter(
                   child: ListView.separated(
                     physics: const AlwaysScrollableScrollPhysics(),
                     separatorBuilder: (context, index) => 15.heightGap,
@@ -74,46 +73,43 @@ class CustomerListScreen extends GetView<CustomerViewController> {
                     },
                   ),
                 ),
-              )),
+              ),
             ],
           ),
-          // child: Column(
-          //   children: [
-          //     AnimationLimiter(
-          //       child: Expanded(
-          //         child: ListView.separated(
-          //           physics: const AlwaysScrollableScrollPhysics(),
-          //           separatorBuilder: (context, index) => 15.heightGap,
-          //           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-          //           itemCount: controller.customersList.length,
-          //           itemBuilder: (context, index) {
-          //             final customer = controller.customersList[index];
-          //             return AnimationConfiguration
-          //                 .staggeredList(
-          //               position: index,
-          //               duration:
-          //               const Duration(milliseconds: 375),
-          //               child: SlideAnimation(
-          //                   verticalOffset: 50.0,
-          //                   child: FadeInAnimation(child: CustomerCard(customer: customer))),
-          //             );
-          //           },
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         );
+      }),
 
-      },),
     );
   }
 
-  Widget _buildFilterButton(String label,BuildContext context) {
+  // Widget _buildFilterButton(String label,BuildContext context) {
+  //   return Obx(() => ElevatedButton(
+  //     onPressed: () {
+  //       controller.selectedFilter.value = label;
+  //       controller.filterCustomerList();
+  //     },
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: controller.selectedFilter.value == label
+  //           ? Theme.of(context).primaryColor
+  //           : Colors.grey.shade300,
+  //     ),
+  //     child: Text(
+  //       label,
+  //       style: TextStyle(
+  //         color: controller.selectedFilter.value == label
+  //             ? Colors.white
+  //             : Colors.black,
+  //       ),
+  //     ),
+  //   ));
+  // }
+
+
+  Widget _buildFilterButton(String label, BuildContext context) {
     return Obx(() => ElevatedButton(
       onPressed: () {
         controller.selectedFilter.value = label;
-        controller.filterCustomerList();
+        controller.getCustomerList(approvalStatus: label);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: controller.selectedFilter.value == label
@@ -130,6 +126,5 @@ class CustomerListScreen extends GetView<CustomerViewController> {
       ),
     ));
   }
-
 
 }

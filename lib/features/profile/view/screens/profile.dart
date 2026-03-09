@@ -49,49 +49,54 @@ class _ProfileState extends State<Profile> {
                 child: Text('No Record Found'),
               );
             }
-            return Column(
-              children: [
-                // 15.heightGap,
-                // const Center(
-                //   child: CircleAvatar(
-                //     radius: 50,
-                //     backgroundImage: NetworkImage(AppAssets.personImage),
-                //   ),
-                // ),
-                // 30.heightGap,
-
-                ListTile(
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  // 15.heightGap,
+                  // const Center(
+                  //   child: CircleAvatar(
+                  //     radius: 50,
+                  //     backgroundImage: NetworkImage(AppAssets.personImage),
+                  //   ),
+                  // ),
+                  // 30.heightGap,
+              
+                  ListTile(
+                      onTap: () {},
+                      title: const Text('Customer Code'),
+                      subtitle: Text('${controller.userData?['UserName'] ?? 'N/A'}'
+                      ),
+                      trailing: const Icon(Icons.person)),
+                  ListTile(
                     onTap: () {},
-                    title: const Text('Customer Code'),
-                    subtitle: Text('${controller.userData!['FirstName']+controller.userData!['LastName']}'),
-                    trailing: const Icon(Icons.person)),
-                ListTile(
-                  onTap: () {},
-                  title: Text(
-                    'Registered Mobile : ${controller.userData?['MobileNo']?.toString().isNotEmpty == true ? controller.userData!['MobileNo'] : 'N/A'}',
+                    title: Text(
+                      'Registered Mobile : ${controller.userData?['MobileNo']?.toString().isNotEmpty == true ? controller.userData!['MobileNo'] : 'N/A'}',
+                    ),
                   ),
-                ),
-                ListTile(
-                  onTap: () {},
-                  title: Text(
-                    'Customer Name: ${controller.userData?['CustomerName']?.toString().isNotEmpty == true ? controller.userData!['CustomerName'] : 'N/A'}',
+                  ListTile(
+                    onTap: () {},
+                    title: Text('Customer Name: ${controller.userData?['FirstName'] ?? ''} ${controller.userData?['LastName'] ?? ''}'
+                    ),
+                    // Text(
+                    //   'Customer Name: ${controller.userData?['CustomerName']?.toString().isNotEmpty == true ? controller.userData!['CustomerName'] : 'N/A'}',
+                    // ),
                   ),
-                ),
-
-                ListTile(
-                  onTap: () {},
-                  title: Text(
-                    'Email Id: ${controller.userData?['EmailId']?.toString().isNotEmpty == true ? controller.userData!['EmailId'] : 'N/A'}',
+              
+                  ListTile(
+                    onTap: () {},
+                    title: Text(
+                      'Email Id: ${controller.userData?['EmailId']?.toString().isNotEmpty == true ? controller.userData!['EmailId'] : 'N/A'}',
+                    ),
                   ),
-                ),
-
-                ListTile(
-                    onTap: () {
-                      Get.dialog(const LogoutDialog());
-                    },
-                    title: const Text('Log out'),
-                    trailing: const Icon(Icons.logout)),
-              ],
+              
+                  ListTile(
+                      onTap: () {
+                        Get.dialog(const LogoutDialog());
+                      },
+                      title: const Text('Log out'),
+                      trailing: const Icon(Icons.logout)),
+                ],
+              ),
             );
           },
         ));

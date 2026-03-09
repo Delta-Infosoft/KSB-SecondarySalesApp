@@ -4,7 +4,7 @@ class ApiUrl {
   // static const String baseUrl = 'http://192.168.0.98:90/ksbSecondarysalesAPI/api'; // local
 
    static const String baseUrl =
-     'http://59.144.126.25:90/ksbSecondarysalesAPI/api';   // Live Link
+     'https://adapp.ksbindia.co.in/ksbsecondarysalesapi/api';   // Live Link
 
   // static const String baseUrl =
   //     'http://192.168.0.98:90/ksbSecondarysalesAPI/api';
@@ -13,10 +13,15 @@ class ApiUrl {
   static const String insertCustomer = '$baseUrl/Customer/Insert';
   static const String getCustomerById = '$baseUrl/Customer/GetApprovedCustomers';
   static const String getUserByID = '$baseUrl/User/GetUserById';
+  static const String getCustomerList = '$baseUrl/Customer/GetCustomerById';
   static const String textListApi = '$baseUrl/Common/TextList';
   static const String productionList = '$baseUrl/Common/TextList';
-  //static const String getProductListUrl = '$baseUrl/KSBSalesInvoice/GetAll';
-  static const String getProductListUrl = '$baseUrl/SalesEntry/GetPendingSalesInvoices';
+  // static const String getProductListSerialNumber = '$baseUrl/KSBSalesInvoice/GetAll';
+  static const String getProductListSerialNumber = '$baseUrl/KSBSalesInvoice/GetAllPending';
+  // static const String getProductListSerialNumber = '$baseUrl/SalesEntry/GetPendingSalesInvoices';
+
+  static const String getProductListUrl = '$baseUrl/KSBSalesInvoice/GetKSBSalesInvoiceByUsername';
+
   static const String getFilterProductsUrl =
       '$baseUrl/KSBSalesInvoice/GetFilteredKSBSalesInvoice';
   static const String insertSalesEntryUrl = '$baseUrl/SalesEntry/Insert';

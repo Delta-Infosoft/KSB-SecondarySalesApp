@@ -7,4 +7,5 @@ class AppConstants{
   static const String isProductListSeenKey = 'isProductListSeen';
   static String isTermsCondition = isTermsCondition;
   static const String termsAcceptedDevicesKey = "accepted_devices";
+  static const String lastAppVersionKey = 'lastAppVersion';
 }

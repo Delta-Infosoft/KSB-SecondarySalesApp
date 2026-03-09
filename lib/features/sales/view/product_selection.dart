@@ -56,6 +56,23 @@ class _ProductSelectionState extends State<ProductSelection> {
             ),
             body: Column(
               children: [
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Products Invoiced to you after 1st Jan 2025 are available here, for older serial no's go to Search & Register section",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: context.primaryColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
                   color: Colors.white,
                   padding:
@@ -110,6 +127,7 @@ class _ProductSelectionState extends State<ProductSelection> {
                               RotateAnimatedText('Material Number'),
                               RotateAnimatedText('Serial Number'),
                               RotateAnimatedText('Material Description'),
+                              RotateAnimatedText('PO Number'),
                             ],
                             onTap: () {
                               print("Tap Event");

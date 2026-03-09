@@ -107,11 +107,11 @@ class SalesListView extends GetView<SalesViewController> {
                               children: [
                                 Text(
                                   "Total Entries: ",
-                                  style: const TextStyle(fontSize: 16),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                                 Text(
                                   "${controller.salesList.length}",
-                                  style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -126,12 +126,12 @@ class SalesListView extends GetView<SalesViewController> {
                               children: [
                                 Text(
                                   "Total Serial Numbers: ",
-                                  style: const TextStyle(fontSize: 16),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
 
                                 Text(
                                   "$totalSerials",
-                                  style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),

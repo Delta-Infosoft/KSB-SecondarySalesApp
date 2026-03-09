@@ -383,6 +383,14 @@ class _AddCustomerState extends State<AddCustomer> {
                         horizontal: 15,
                         vertical: 13,
                       ),
+                      onChange: (value) {
+                        if (value!.length == 6) {
+                          setState(() {
+                            controller.getDataFromPinCode(value);
+                          });
+
+                        }
+                      },
                       customBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.transparent),
@@ -734,13 +742,30 @@ class _AddCustomerState extends State<AddCustomer> {
                       ],
                     ),
                     15.heightGap,
-                    Text(
-                      'Contact Details',
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                          color: context.primaryColor),
+
+                    RichText(
+                      text: TextSpan(
+                          text: 'Contact Details',
+                          style: TextStyle(
+                              color: context.primaryColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 17),
+                          children: const [
+                            TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ]),
                     ),
+                    // Text(
+                    //   'Contact Details',
+                    //   style: TextStyle(
+                    //       fontSize: 17,
+                    //       fontWeight: FontWeight.w700,
+                    //       color: context.primaryColor),
+                    // ),
                     15.heightGap,
                     ...List.generate(
                       controller.contactCount.value,

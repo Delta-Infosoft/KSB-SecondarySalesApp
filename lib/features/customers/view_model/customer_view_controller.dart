@@ -31,19 +31,35 @@ class CustomerViewController extends GetxController {
     }
   }
 
-
-  Future<void> getCustomerList() async {
+  Future<void> getCustomerList({String? approvalStatus}) async {
     isLoading.value = true;
 
-    List<Customer> response = await CustomerRepository.getCustomerById();
+    List<Customer> response = await CustomerRepository.getCustomerById(
+      approvalStatus: approvalStatus == 'All' ? null : approvalStatus,
+    );
 
     customersList.value = response;
     filterCustomerList();
 
-    // optionally build pending list
     pendingCustomers.value =
         response.where((e) => e.c4cId.toLowerCase() == 'pending').toList();
 
     isLoading.value = false;
   }
+
+
+// Future<void> getCustomerList() async {
+  //   isLoading.value = true;
+  //
+  //   List<Customer> response = await CustomerRepository.getCustomerById();
+  //
+  //   customersList.value = response;
+  //   filterCustomerList();
+  //
+  //   // optionally build pending list
+  //   pendingCustomers.value =
+  //       response.where((e) => e.c4cId.toLowerCase() == 'pending').toList();
+  //
+  //   isLoading.value = false;
+  // }
 }

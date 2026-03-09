@@ -27,7 +27,7 @@ class Home extends GetView<HomeController> {
           children: [
             const Expanded(
                 child: Text(
-              'KSB Secondary Sales',
+              'KSB Sanchay',
               softWrap: true,
             )),
             SvgPicture.asset(
@@ -47,7 +47,7 @@ class Home extends GetView<HomeController> {
                     onTap: () {
                       Get.to(const AddCustomer());
                     },
-                    title: 'New Customer Creation',
+                    title: 'Register my customer',
                     icon: const Stack(
                       children: [
                         Padding(
@@ -63,7 +63,7 @@ class Home extends GetView<HomeController> {
                     onTap: () {
                       Get.to(const ProductSelection());
                     },
-                    title: 'Sales Entry',
+                    title: 'Register my product',
                     icon: const Stack(
                       children: [
                         Padding(
@@ -88,7 +88,7 @@ class Home extends GetView<HomeController> {
                     onTap: () {
                       Get.toNamed(AppRoute.customerView);
                     },
-                    title: 'My Customers',
+                    title: 'View my customer',
                     icon: const Icon(
                       Icons.groups,
                       size: 35,
@@ -98,7 +98,7 @@ class Home extends GetView<HomeController> {
                     onTap: () {
                       Get.toNamed(AppRoute.salesView);
                     },
-                    title: 'Sales Entry records',
+                    title: 'View my products',
                     icon: const Stack(
                       children: [
                         Padding(
@@ -130,7 +130,7 @@ class Home extends GetView<HomeController> {
                           controller.enableSerialDropdown();
                           Get.to(() => const SalesInsert(), arguments: {'showSerialDropdown': true});
                         },
-                        title: 'Other sales entries by Serial number',
+                        title: 'Search & Register',
                         icon: const Stack(
                           children: [
                             Padding(
@@ -252,9 +252,11 @@ class Customer {
   final String industryType;
   final DateTime insertedOn;
   final String c4cId;
+  final String approvalStatus;
   final List<Contact> contacts;
 
   Customer({
+    required this.approvalStatus,
     required this.customerId,
     required this.customerName,
     required this.gstNo,
@@ -297,6 +299,9 @@ class Customer {
     }
 
     return Customer(
+      approvalStatus: json['C4CId'] != null && json['C4CId'].toString().isNotEmpty
+          ? 'Approved'
+          : 'Pending',
       customerId: json['CustomerId'] ?? '',
       customerName: json['CustomerName'] ?? 'N/A',
       gstNo: json['GSTNo'] ?? 'N/A',
@@ -319,6 +324,7 @@ class Customer {
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = {
       'CustomerId': customerId,
+      'approvalStatus':approvalStatus,
       'CustomerName': customerName,
       'GSTNo': gstNo,
       'AddressName': addressName,

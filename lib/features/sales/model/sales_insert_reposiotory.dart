@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:ksb_secondary_sales/core/utils/common_services/local_db.dart';
 import 'package:ksb_secondary_sales/core/utils/constants/app_constants.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:ksb_secondary_sales/features/sales/model/get_all_pending_invoice_model.dart';
 import '../../../core/utils/constants/api_url.dart';
 import '../view_model/sales_insert_controller.dart';
 
@@ -46,8 +47,10 @@ class SalesInsertRepository {
       );
       final data = jsonDecode(response.body);
       if (data['isSuccessful'] == 200) {
+        print('Sales record inserted successfully: ${data['message']}');
         return true;
       } else {
+        print('Failed to insert sales record: ${data['message']}');
         return false;
       }
     } catch (e) {
@@ -56,6 +59,80 @@ class SalesInsertRepository {
     }
   }
 
+  static Future<List<GetAllPendingInvoiceData>> getProductListSerialNumber(String value) async {
+    try {
+      print("=== SERIAL API CALLED ===");
+      print("URL: ${ApiUrl.getProductListSerialNumber}");
+      print("Search Text: $value");
+
+      final response = await http.post(
+        Uri.parse(ApiUrl.getProductListSerialNumber),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'searchSerialNo': value,
+        }), // as you want
+      );
+
+      print("Status Code: ${response.statusCode}");
+      print("Raw Response: ${response.body}");
+
+      final data = jsonDecode(response.body);
+
+      print("Decoded isSuccessful: ${data['isSuccessful']}");
+      print("Decoded data length: ${(data['data'] as List?)?.length}");
+
+      if (data['isSuccessful'] == 200) {
+        return (data['data'] as List)
+            .map((e) => GetAllPendingInvoiceData.fromJson(e))
+            .toList();
+      }
+
+      return [];
+    } catch (e, stack) {
+      print("API ERROR: $e");
+      print("STACK TRACE: $stack");
+      return [];
+    }
+  }
+
+
+
+  // static Future<List<GetAllPendingInvoiceData>> getProductListSerialNumber(String value) async {
+  //   try {
+  //
+  //     print("API URL>>>>>>>: ${ApiUrl.getProductListSerialNumber}");
+  //     print("Request Serial Value>>>>>>>>: $value");
+  //
+  //     final response = await http.post(Uri.parse(ApiUrl.getProductListSerialNumber),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: jsonEncode(
+  //             {
+  //
+  //             }));
+  //
+  //     print("Status Code>>>: ${response.statusCode}");
+  //     print("Raw Response>>>>: ${response.body}");
+  //
+  //     final data = jsonDecode(response.body);
+  //     if (data['isSuccessful'] == 200) {
+  //       print('Pending Invoice Data>>>>>>: ${data['data']}');
+  //       return (data['data'] as List)
+  //           .map(
+  //             (e) => GetAllPendingInvoiceData.fromJson(e),
+  //       )
+  //           .toList();
+  //     }
+  //     return [];
+  //   } catch (e) {
+  //     return [];
+  //   }
+  // }
+
+
   static Future<List<ProductModel>> getProductList() async {
     try {
       final response = await http.post(Uri.parse(ApiUrl.getProductListUrl),
@@ -63,7 +140,10 @@ class SalesInsertRepository {
             'Content-Type': 'application/json',
           },
           body: jsonEncode(
-              {'UserName': LocalDb.getString(AppConstants.userNameKey)}));
+              {
+                'userName': LocalDb.getString(AppConstants.userNameKey),
+                'ksbSalesInvoiceId': '',
+              }));
       final data = jsonDecode(response.body);
       if (data['isSuccessful'] == 200) {
         return (data['data'] as List)
@@ -93,8 +173,11 @@ class SalesInsertRepository {
           headers: {
             'Content-Type': 'application/json',
           },
+
+          /// sold to code is user name
+
           body: jsonEncode({
-            'soldToCode': '',
+            'soldToCode': LocalDb.getString(AppConstants.userNameKey),
             'serialNumber': serialNo,
             'salesOrder': salesOrder,
             'invoiceNumber': invoiceNumber,

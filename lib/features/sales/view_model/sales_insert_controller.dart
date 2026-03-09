@@ -15,8 +15,10 @@ import 'package:ksb_secondary_sales/features/auth/model/repositories/login_repos
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
 import 'package:ksb_secondary_sales/features/customers/model/customer_repository.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
+import 'package:ksb_secondary_sales/features/sales/model/get_all_pending_invoice_model.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_data_model.dart';
 import 'package:ksb_secondary_sales/features/sales/model/sales_insert_reposiotory.dart';
+import 'package:ksb_secondary_sales/features/sales/model/serial_number_model.dart';
 import 'package:ksb_secondary_sales/features/sales/view/widgets/filter_item_selection_bottomsheet.dart';
 
 import '../../auth/view/widgets/otp_verification_dialog.dart';
@@ -40,6 +42,7 @@ class SalesInsertController extends GetxController {
   void onInit() {
     super.onInit();
     getProductList();
+    // getProductListSerialNumber();
     salesDateCtrl.text = DateFormat('dd-MMM-yyyy').format(DateTime.now());
     isProductListSeen = LocalDb.getBool(AppConstants.isProductListSeenKey);
     showSerialDropdown.value = Get.arguments?['showSerialDropdown'] == true;
@@ -69,6 +72,10 @@ class SalesInsertController extends GetxController {
   final poNumberSearchCtrl = TextEditingController();
 
   RxList<Item> serialNumberList = <Item>[].obs;
+  RxList<SerialNumberData>serialNumberAll = <SerialNumberData>[].obs;
+
+  List<GetAllPendingInvoiceData> serialProducts = [];
+  RxList<GetAllPendingInvoiceData> searchProductsSerial= <GetAllPendingInvoiceData>[].obs;
 
   List addressList = [];
   RxBool isSearchEnable = true.obs;
@@ -126,7 +133,8 @@ class SalesInsertController extends GetxController {
                   .contains(query.toLowerCase()) ||
               element.materialDescreption
                   .toLowerCase()
-                  .contains(query.toLowerCase());
+                  .contains(query.toLowerCase()) ||
+            element.poNumber.toLowerCase().contains(query.toLowerCase());
         },
       ));
     }
@@ -198,6 +206,45 @@ class SalesInsertController extends GetxController {
         .map(
           (e) => Item(name: e, isSelected: false),
         )
+        .toList();
+
+    isProductLoading.value = false;
+  }
+
+  Future<void> getProductListSerialNumber() async {
+    isProductLoading.value = true;
+    clearFilter();
+
+    serialProducts = await SalesInsertRepository.getProductListSerialNumber('');
+    searchProductsSerial.value = List.of(serialProducts);
+    // products = dummyProductData;
+    isProductSelected = List.generate(serialProducts.length, (index) => false.obs);
+
+    salesNoList.value = products
+        .map((e) => e.salesOrderNo)
+        .toSet()
+        .toList()
+        .map(
+          (e) => Item(name: e, isSelected: false),
+    )
+        .toList();
+
+    invoiceNumberList.value = products
+        .map((e) => e.invoiceNumber)
+        .toSet()
+        .toList()
+        .map(
+          (e) => Item(name: e, isSelected: false),
+    )
+        .toList();
+
+    serialNumberList.value = products
+        .map((e) => e.serialNumber)
+        .toSet()
+        .toList()
+        .map(
+          (e) => Item(name: e, isSelected: false),
+    )
         .toList();
 
     isProductLoading.value = false;
@@ -346,7 +393,7 @@ class SalesInsertController extends GetxController {
 
   Future<void> getCustomerList() async {
     isCustomerLoading.value = true;
-    customersList = await CustomerRepository.getCustomerById();
+    customersList = await CustomerRepository.getCustomerID();
     isCustomerLoading.value = false;
   }
 
@@ -414,6 +461,7 @@ class SalesInsertController extends GetxController {
         Fluttertoast.showToast(msg: 'Sales record inserted successfully');
         Get.offAllNamed(AppRoute.dashboard);
       } else {
+        print('Failed to insert sales record${salesData}');
         Fluttertoast.showToast(msg: 'Failed to insert sales record');
       }
     } else {
@@ -431,12 +479,21 @@ class SalesInsertController extends GetxController {
 */
   Future<void> submitOtherSalesEntry() async {
     if (formKey.currentState!.validate()) {
-      isSubmitLoading.value = true;
+      // isSubmitLoading.value = true;
 
       final selectedSerials = serialNumberList
           .where((item) => item.isSelected)
           .map((e) => e.name)
           .toList();
+
+      if (selectedSerials.isEmpty) {
+        Fluttertoast.showToast(msg: "Please select at least one serial number");
+        isSubmitLoading.value = false;
+        return;
+      }
+
+      isSubmitLoading.value = true;
+
 
       final selectedProducts = products
           .where((product) => selectedSerials.contains(product.serialNumber))
@@ -448,7 +505,7 @@ class SalesInsertController extends GetxController {
           .join(',');
 
       // Debug print
-      print("Selected Serial Numbers: $selectedProductIds");
+      // print("Selected Serial Numbers: $selectedProductIds");
       print("Selected Product Ids: $selectedProductIds");
       print("✅ Final selectedProductIds for other sales: $selectedProductIds");
 
@@ -468,7 +525,7 @@ class SalesInsertController extends GetxController {
       print("Mobile: ${mobileNoCtrl.text}, Email: ${emailCtrl.text}");
 
       Map<String, dynamic> salesData = {
-        "ksbSalesInvoiceId": selectedProductIds,
+        "ksbSalesInvoiceId": selectedSerials.join(','),
         "salesDate": DateTime.now().toIso8601String(),
         "customerId": selectedCustomerId.value,
         "gstNo": gstNoController.text,
@@ -485,6 +542,9 @@ class SalesInsertController extends GetxController {
         "district": districtCtrl.text,
         "insertedByUserId": LocalDb.getString(AppConstants.userIdKey),
       };
+
+
+
 
       print(" Final selectedProductIds for other sales: $selectedProductIds");
 
@@ -641,6 +701,13 @@ class ProductModel {
   String serialNumber;
   String salesOrderNo;
   String poNumber;
+  String SoldToCode = '';
+  String ShipToCode = '';
+  String SoldToName = '';
+  String ShipToName = '';
+  String SalesOrderItem = '';
+  String SubSerialNumber = '';
+
 
   ProductModel({
     required this.id,
@@ -651,18 +718,30 @@ class ProductModel {
     required this.invoiceDate,
     required this.salesOrderNo,
     required this.poNumber,
+    this.SoldToCode = '',
+    this.ShipToCode = '',
+    this.SoldToName = '',
+    this.ShipToName = '',
+    this.SalesOrderItem = '',
+    this.SubSerialNumber = '',
   });
 
   factory ProductModel.fromJson(dynamic json) {
     return ProductModel(
-      id: json['KSBSalesInvoiceId'],
-      materialDescreption: json['MaterialDescription'],
-      materialNo: json['MaterialNumber'],
-      salesOrderNo: json['SalesOrder'],
-      invoiceNumber: json['InvoiceNumber'],
-      invoiceDate: json['InvoiceDate'],
-      serialNumber: json['SerialNumber'],
-      poNumber: json["PONumber"] ?? '',
+      id: json['KSBSalesInvoiceId'] ?? '',
+      materialDescreption: json['MaterialDescription'] ?? '',
+      materialNo: json['MaterialNumber']  ?? '',
+      salesOrderNo: json['SalesOrder'] ?? '',
+      invoiceNumber: json['InvoiceNumber'] ?? '',
+      invoiceDate: json['InvoiceDate'] ?? '',
+      serialNumber: json['SerialNumber'] ?? '',
+      poNumber: json["CustomerPONumber"] ?? '',
+      SoldToCode: json["SoldToCode"] ?? '',
+      ShipToCode: json["ShipToCode"] ?? '',
+      SoldToName: json["SoldToName"] ?? '',
+      ShipToName: json["ShipToName"] ?? '',
+      SalesOrderItem: json["SalesOrderItem"] ?? '',
+      SubSerialNumber: json["SubSerialNumber"] ?? '',
     );
   }
 

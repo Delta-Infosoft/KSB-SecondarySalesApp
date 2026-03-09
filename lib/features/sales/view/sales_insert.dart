@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:ksb_secondary_sales/core/utils/common_services/app_date_time_controller.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
@@ -9,9 +13,15 @@ import 'package:ksb_secondary_sales/core/utils/widgets/common_button.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/tap_to_remove_keyboard_widget.dart';
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
+import 'package:ksb_secondary_sales/features/sales/model/get_all_pending_invoice_model.dart';
+import 'package:ksb_secondary_sales/features/sales/model/sales_data_model.dart';
 import 'package:ksb_secondary_sales/features/sales/view/widgets/filter_item_selection_bottomsheet.dart';
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
+import '../../../core/utils/common_services/local_db.dart';
 import '../../../core/utils/common_services/validator.dart';
+import '../../../core/utils/constants/api_url.dart';
+import '../../../core/utils/constants/app_constants.dart';
+import '../model/sales_insert_reposiotory.dart';
 
 class SalesInsert extends StatefulWidget {
   const SalesInsert({super.key});
@@ -155,100 +165,102 @@ class _SalesInsertState extends State<SalesInsert> {
                     //     }
                     //   },
                     // ),
-                  DropdownMenu(
-                    enableFilter: true,
+                    DropdownMenu(
+                      enableFilter: true,
 
-                    enabled: true,
-                    enableSearch: true,
-                    width: context.screenWidth * 0.92,
-                    menuHeight: 300,
-                    requestFocusOnTap: true,
-                    initialSelection:
-                        controller.selectedCustomerId.value.isNotEmpty
-                            ? controller.selectedCustomerId.value
-                            : null,
+                      enabled: true,
+                      enableSearch: true,
+                      width: context.screenWidth * 0.92,
+                      menuHeight: 300,
+                      requestFocusOnTap: true,
+                      initialSelection:
+                          controller.selectedCustomerId.value.isNotEmpty
+                              ? controller.selectedCustomerId.value
+                              : null,
 
-                    trailingIcon: controller.isCustomerLoading.value
-                        ? const SizedBox(
-                            height: 10,
-                            width: 10,
-                            child: Center(
-                                child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: CircularProgressIndicator(strokeWidth: 3),
-                            )))
-                        : null,
-                    label: RichText(
-                      text: TextSpan(
-                          text: 'Select Customer',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-
-                    // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
-                    inputDecorationTheme: InputDecorationTheme(
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 13),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
+                      trailingIcon: controller.isCustomerLoading.value
+                          ? const SizedBox(
+                              height: 10,
+                              width: 10,
+                              child: Center(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 3),
+                              )))
+                          : null,
+                      label: RichText(
+                        text: TextSpan(
+                            text: 'Select Customer',
+                            style: TextStyle(
+                                color: context.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15),
+                            children: const [
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15))
+                            ]),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      fillColor: context.primaryColor.withOpacity(.1),
-                    ),
-                    dropdownMenuEntries: controller.customersList.map((e) {
-                      return DropdownMenuEntry(
-                        value: e.customerId,
-                        label: e.customerName,
-                      );
-                    }).toList(),
-                    onSelected: (cId) {
-                      if (cId != null && cId.isNotEmpty) {
-                        controller.selectedCustomerId.value = cId;
-                        Customer? c = controller.customersList
-                            .firstWhereOrNull((c) => c.customerId == cId);
-                        if (c == null) return;
-                        // controller.contactDDKey.currentState?.reset();
-                        controller.contactList.clear();
-                        controller.selectedContactName = '';
-                        controller.mobileNoCtrl.clear();
-                        controller.emailCtrl.clear();
-                        controller.contactList = c.contacts
-                            .where(
-                              (element) => element.name.trim().isNotEmpty,
-                            )
-                            .toList();
-                        // controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
-                        // controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
-                        controller.gstNoController.text = c.gstNo;
-                        controller.nameCtrl.text = c.addressName;
-                        controller.pinCodeCtrl.text = c.pincode;
-                        controller.streetCtrl.text = c.street;
-                        controller.cityCtrl.text = c.city;
-                        controller.districtCtrl.text = c.district;
-                        controller.stateCtrl.text = c.state;
-                        controller.countryCtrl.text = c.country;
-                        controller.selectedLandMark.value = c.landMark;
-                        controller.getDataFromPinCode(c.pincode);
-                        setState(() {});
-                      }
-                    },
-                  ),
 
+                      // validator: (value) => nonEmptyValidator(value, 'Please select customer'),
+                      inputDecorationTheme: InputDecorationTheme(
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 13),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                        ),
+                        fillColor: context.primaryColor.withOpacity(.1),
+                      ),
+                      dropdownMenuEntries: controller.customersList.map((e) {
+                        return DropdownMenuEntry(
+                          value: e.customerId,
+                          label: e.customerName,
+                        );
+                      }).toList(),
+                      onSelected: (cId) {
+                        if (cId != null && cId.isNotEmpty) {
+                          controller.selectedCustomerId.value = cId;
+                          Customer? c = controller.customersList
+                              .firstWhereOrNull((c) => c.customerId == cId);
+                          if (c == null) return;
+                          // controller.contactDDKey.currentState?.reset();
+                          controller.contactList.clear();
+                          controller.selectedContactName = '';
+                          controller.mobileNoCtrl.clear();
+                          controller.emailCtrl.clear();
+                          controller.contactList = c.contacts
+                              .where(
+                                (element) => element.name.trim().isNotEmpty,
+                              )
+                              .toList();
+                          // controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
+                          // controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
+                          controller.gstNoController.text = c.gstNo;
+                          controller.nameCtrl.text = c.addressName;
+                          controller.pinCodeCtrl.text = c.pincode;
+                          controller.streetCtrl.text = c.street;
+                          controller.cityCtrl.text = c.city;
+                          controller.districtCtrl.text = c.district;
+                          controller.stateCtrl.text = c.state;
+                          controller.countryCtrl.text = c.country;
+                          controller.selectedLandMark.value = c.landMark;
+                          controller.getDataFromPinCode(c.pincode);
+                          setState(() {});
+                        }
+                      },
+                    ),
 
                   // DropdownMenu(
                   //   enableFilter: true,
@@ -346,10 +358,13 @@ class _SalesInsertState extends State<SalesInsert> {
 
                   InkWell(
                     onTap: () async {
-                      final selectedCustomer = await _showCustomerSelectionSheet(context);
+                      final selectedCustomer =
+                          await _showCustomerSelectionSheet(context);
                       if (selectedCustomer != null) {
-                        controller.selectedCustomerId.value = selectedCustomer.customerId;
-                        controller.selectedContactName = selectedCustomer.customerName;
+                        controller.selectedCustomerId.value =
+                            selectedCustomer.customerId;
+                        controller.selectedContactName =
+                            selectedCustomer.customerName;
 
                         // Fill other fields based on selected customer
                         controller.contactList.clear();
@@ -359,15 +374,18 @@ class _SalesInsertState extends State<SalesInsert> {
                             .where((element) => element.name.trim().isNotEmpty)
                             .toList();
 
-                        controller.gstNoController.text = selectedCustomer.gstNo;
+                        controller.gstNoController.text =
+                            selectedCustomer.gstNo;
                         controller.nameCtrl.text = selectedCustomer.addressName;
                         controller.pinCodeCtrl.text = selectedCustomer.pincode;
                         controller.streetCtrl.text = selectedCustomer.street;
                         controller.cityCtrl.text = selectedCustomer.city;
-                        controller.districtCtrl.text = selectedCustomer.district;
+                        controller.districtCtrl.text =
+                            selectedCustomer.district;
                         controller.stateCtrl.text = selectedCustomer.state;
                         controller.countryCtrl.text = selectedCustomer.country;
-                        controller.selectedLandMark.value = selectedCustomer.landMark;
+                        controller.selectedLandMark.value =
+                            selectedCustomer.landMark;
                         controller.getDataFromPinCode(selectedCustomer.pincode);
                         setState(() {});
                       }
@@ -381,7 +399,8 @@ class _SalesInsertState extends State<SalesInsert> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 13),
                       ),
                       child: Text(
                         controller.selectedCustomerId.value.isEmpty
@@ -391,45 +410,47 @@ class _SalesInsertState extends State<SalesInsert> {
                     ),
                   ),
 
-
                   15.heightGap,
                   // if(false)
-                  CommonTextInput(
-                    filled: true,
-                    filledColor: context.primaryColor.withOpacity(.1),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 13),
-                    customBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.transparent),
+                  IgnorePointer(
+                    child: CommonTextInput(
+                      filled: true,
+                      readOnly: true,
+                      enabled: false,
+                      filledColor: context.primaryColor.withOpacity(.1),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 13),
+                      customBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      controller: controller.gstNoController,
+                      validator: (p0) => lengthValidator(
+                          p0,
+                          15,
+                          'Please enter GST number',
+                          'GST number must be 15-digit alphanumeric code'),
+                      lableWidget: RichText(
+                        text: TextSpan(
+                            text: 'GST Number',
+                            style: TextStyle(
+                                color: context.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15),
+                            children: const [
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15))
+                            ]),
+                      ),
+                      labelStyle: TextStyle(
+                          color: context.primaryColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
                     ),
-                    controller: controller.gstNoController,
-                    maxLength: 15,
-                    validator: (p0) => lengthValidator(
-                        p0,
-                        15,
-                        'Please enter GST number',
-                        'GST number must be 15-digit alphanumeric code'),
-                    lableWidget: RichText(
-                      text: TextSpan(
-                          text: 'GST Number',
-                          style: TextStyle(
-                              color: context.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          children: const [
-                            TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15))
-                          ]),
-                    ),
-                    labelStyle: TextStyle(
-                        color: context.primaryColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
                   ),
 
                   // 15.heightGap,
@@ -664,6 +685,7 @@ class _SalesInsertState extends State<SalesInsert> {
                   15.heightGap,
                   IgnorePointer(
                     child: CommonTextInput(
+                      enabled: false,
                       filled: true,
                       readOnly: true,
                       filledColor: context.primaryColor.withOpacity(.1),
@@ -701,6 +723,7 @@ class _SalesInsertState extends State<SalesInsert> {
                   15.heightGap,
                   IgnorePointer(
                     child: CommonTextInput(
+                      enabled: false,
                       filled: true,
                       readOnly: true,
                       filledColor: context.primaryColor.withOpacity(.1),
@@ -856,6 +879,7 @@ class _SalesInsertState extends State<SalesInsert> {
 
                   IgnorePointer(
                     child: CommonTextInput(
+                      enabled: false,
                       filled: true,
                       readOnly: true,
                       filledColor: context.primaryColor.withOpacity(.1),
@@ -930,6 +954,7 @@ class _SalesInsertState extends State<SalesInsert> {
                   15.heightGap,
                   IgnorePointer(
                     child: CommonTextInput(
+                      enabled: false,
                       filled: true,
                       readOnly: true,
                       filledColor: context.primaryColor.withOpacity(.1),
@@ -967,6 +992,7 @@ class _SalesInsertState extends State<SalesInsert> {
                   15.heightGap,
                   IgnorePointer(
                     child: CommonTextInput(
+                      enabled: false,
                       filled: true,
                       readOnly: true,
                       filledColor: context.primaryColor.withOpacity(.1),
@@ -1008,6 +1034,7 @@ class _SalesInsertState extends State<SalesInsert> {
                       Expanded(
                         child: IgnorePointer(
                           child: CommonTextInput(
+                            enabled: false,
                             filled: true,
                             readOnly: true,
                             filledColor: context.primaryColor.withOpacity(.1),
@@ -1048,6 +1075,7 @@ class _SalesInsertState extends State<SalesInsert> {
                       Expanded(
                         child: IgnorePointer(
                           child: CommonTextInput(
+                            enabled: false,
                             filled: true,
                             readOnly: true,
                             filledColor: context.primaryColor.withOpacity(.1),
@@ -1183,12 +1211,14 @@ class _SalesInsertState extends State<SalesInsert> {
                   // }),
 
                   Obx(() {
-                    if (!controller.showSerialDropdown.value) return const SizedBox.shrink();
+                    if (!controller.showSerialDropdown.value)
+                      return const SizedBox.shrink();
 
                     return GestureDetector(
                       onTap: () => _showSerialNumberBottomSheet(context),
                       child: Container(
-                        padding: EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 15),
+                        padding: EdgeInsets.only(
+                            left: 15, right: 15, top: 15, bottom: 15),
                         decoration: BoxDecoration(
                           color: context.primaryColor.withOpacity(.1),
                           borderRadius: BorderRadius.circular(10),
@@ -1207,35 +1237,42 @@ class _SalesInsertState extends State<SalesInsert> {
                                 runSpacing: -8,
                                 children: selectedSerials.isEmpty
                                     ? [
-                                  Text(
-                                    'Select Serial Numbers',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey[600],
-                                    ),
-                                  )
-                                ]
+                                        Text(
+                                          'Select Serial Numbers',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.grey[600],
+                                          ),
+                                        )
+                                      ]
                                     : selectedSerials.map((serial) {
-                                  return Chip(
-                                    label: Text(
-                                      serial,
-                                      style: const TextStyle(color: Colors.white),
-                                    ),
-                                    backgroundColor: context.primaryColor,
-                                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                                    deleteIcon: const Icon(Icons.close, color: Colors.white),
-                                    onDeleted: () {
-                                      final idx = controller.serialNumberList.indexWhere(
-                                              (s) => s.name == serial && s.isSelected);
-                                      if (idx != -1) {
-                                        controller.serialNumberList[idx] = controller
-                                            .serialNumberList[idx]
-                                            .copyWith(isSelected: false);
-                                      }
-                                    },
-                                  );
-                                }).toList(),
-
+                                        return Chip(
+                                          label: Text(
+                                            serial,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                          backgroundColor: context.primaryColor,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          deleteIcon: const Icon(Icons.close,
+                                              color: Colors.white),
+                                          onDeleted: () {
+                                            final idx = controller
+                                                .serialNumberList
+                                                .indexWhere((s) =>
+                                                    s.name == serial &&
+                                                    s.isSelected);
+                                            if (idx != -1) {
+                                              controller.serialNumberList[idx] =
+                                                  controller
+                                                      .serialNumberList[idx]
+                                                      .copyWith(
+                                                          isSelected: false);
+                                            }
+                                          },
+                                        );
+                                      }).toList(),
                               ),
                               // const Align(
                               //   alignment: Alignment.topRight,
@@ -1246,7 +1283,6 @@ class _SalesInsertState extends State<SalesInsert> {
                         }),
                       ),
                     );
-
                   }),
 
                   15.heightGap,
@@ -1279,9 +1315,61 @@ class _SalesInsertState extends State<SalesInsert> {
   }
 
   void _showSerialNumberBottomSheet(BuildContext context) {
-    final products = controller.products;
     final TextEditingController searchController = TextEditingController();
-    final RxString searchQuery = ''.obs;
+    final RxBool isLoading = false.obs;
+    final RxBool hasSearched = false.obs;
+    final RxList<GetAllPendingInvoiceData> serialNumberList =
+        <GetAllPendingInvoiceData>[].obs;
+
+    final selectedSerials = controller.serialNumberList
+        .where((s) => s.isSelected)
+        .map((s) => s.name)
+        .toSet()
+        .obs;
+
+    /// 🔍 API Call
+    Future<void> _searchSerials() async {
+      final searchText = searchController.text.trim();
+
+      if (searchText.isEmpty) {
+        Fluttertoast.showToast(
+          msg: "Please enter serial number",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+        );
+        return;
+      }
+
+      try {
+        isLoading.value = true;
+        hasSearched.value = true;
+
+        print("Calling Serial API with search text...");
+
+        final list = await SalesInsertRepository
+            .getProductListSerialNumber(searchText);
+
+        print("Returned filtered list count: ${list.length}");
+
+
+        serialNumberList.assignAll(list);
+
+      } catch (e) {
+        print("API ERROR: $e");
+        Fluttertoast.showToast(
+          msg: "Failed to fetch serial numbers",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+        );
+      } finally {
+        isLoading.value = false;
+      }
+    }
+
 
     showModalBottomSheet(
       context: context,
@@ -1291,7 +1379,12 @@ class _SalesInsertState extends State<SalesInsert> {
       ),
       builder: (context) {
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            left: 16,
+            right: 16,
+            top: 16,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -1301,123 +1394,1585 @@ class _SalesInsertState extends State<SalesInsert> {
               ),
               const SizedBox(height: 10),
 
-              TextField(
-                controller: searchController,
-                onChanged: (value) {
-                  if (value.length >= 7 || value.isEmpty){
-                    setState(() {
-                      searchQuery.value = value;
-                    });
-                  }
-                },
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: 'Search...',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              /// 🔍 Search bar
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      textInputAction: TextInputAction.search,
+                      keyboardType: TextInputType.number,
+                      onSubmitted: (_) => _searchSerials(),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: 'Enter serial number',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  SizedBox(
+                    height: 45,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 5,
+                        backgroundColor: context.primaryColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(8)),
+                        ),
+                      ),
+                      onPressed: _searchSerials,
+                      child: const Text(
+                        'Search',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
+                ],
               ),
 
               const SizedBox(height: 10),
 
+              /// 📋 Serial list
               Obx(() {
-                final query = searchQuery.value;
+                if (isLoading.value) {
+                  return const SizedBox(
+                    height: 300,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
 
-                if (query.length < 7) {
+                if (!hasSearched.value) {
                   return const SizedBox(
                     height: 300,
                     child: Center(
                       child: Text(
-                        'Type at least 7 characters to search',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        'Enter serial number and press Search',
+                        style:
+                        TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                     ),
                   );
                 }
 
-                final filteredProducts = products.where((product) {
-                  return product.serialNumber
-                      .toLowerCase()
-                      .contains(query.toLowerCase());
-                }).toList();
+                if (serialNumberList.isEmpty) {
+                  return const SizedBox(
+                    height: 300,
+                    child: Center(
+                      child: Text(
+                        'No serial numbers found',
+                        style:
+                        TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                    ),
+                  );
+                }
 
                 return SizedBox(
                   height: 300,
-                  child: filteredProducts.isEmpty
-                      ? const Center(
-                    child: Text(
-                      'No serial numbers found',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  )
-                      : ListView.builder(
-                    itemCount: filteredProducts.length,
+                  child: ListView.builder(
+                    itemCount: serialNumberList.length,
                     itemBuilder: (context, index) {
-                      final product = filteredProducts[index];
+                      final item = serialNumberList[index];
+                      final serialNo = item.serialNumber ?? '';
 
-                      return Obx(() {
-                        final isChecked = controller.serialNumberList.any(
-                              (s) =>
-                          s.name == product.serialNumber && s.isSelected,
-                        );
-
-                        return CheckboxListTile(
-                          title: Text(product.serialNumber),
-                          value: isChecked,
-                          onChanged: (val) {
-                            final idx = controller.serialNumberList.indexWhere(
-                                    (s) => s.name == product.serialNumber);
-                            if (idx != -1) {
-                              final updated =
-                              controller.serialNumberList[idx].copyWith(
-                                isSelected: val ?? false,
-                              );
-                              controller.serialNumberList[idx] = updated;
-                            }
-                          },
-                        );
-                      });
+                      return Obx(() => CheckboxListTile(
+                        title: Text(serialNo),
+                        value: selectedSerials.contains(serialNo),
+                        onChanged: (val) {
+                          if (val == true) {
+                            selectedSerials.add(serialNo);
+                          } else {
+                            selectedSerials.remove(serialNo);
+                          }
+                        },
+                      ));
                     },
                   ),
                 );
               }),
 
-
               const SizedBox(height: 10),
 
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: context.primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+              /// ✅ Done button
+              SafeArea(
+                maintainBottomViewPadding: true,
+                child: SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: context.primaryColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(8)),
+                      ),
                     ),
-                  ),
-                  onPressed: () {
-                    final firstSelected = controller.serialNumberList
-                        .firstWhereOrNull((s) => s.isSelected);
-                    if (firstSelected != null) {
-                      controller.selectedContactName = firstSelected.name;
-                    }
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Done',
-                    style: TextStyle(color: Colors.white),
+                    onPressed: () {
+                      controller.serialNumberList.assignAll(
+                        selectedSerials
+                            .map((e) =>
+                            Item(name: e, isSelected: true))
+                            .toList(),
+                      );
+
+                      final firstSelected =
+                      controller.serialNumberList
+                          .firstWhereOrNull(
+                              (s) => s.isSelected);
+
+                      if (firstSelected != null) {
+                        controller.selectedContactName =
+                            firstSelected.name;
+                      }
+
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Done',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
 
-              12.heightGap,
+              const SizedBox(height: 12),
             ],
           ),
         );
       },
     );
   }
+
+
+
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final TextEditingController searchController = TextEditingController();
+  //   final RxString searchQuery = ''.obs;
+  //   final RxBool isLoading = false.obs;
+  //
+  //   final RxList<GetAllPendingInvoiceData> masterSerialList = <GetAllPendingInvoiceData>[].obs;
+  //   final RxList<GetAllPendingInvoiceData> serialNumberList = <GetAllPendingInvoiceData>[].obs;
+  //
+  //   final selectedSerials = controller.serialNumberList
+  //       .where((s) => s.isSelected)
+  //       .map((s) => s.name)
+  //       .toSet()
+  //       .obs;
+  //
+  //   // 🔹 Load all serials once from API
+  //   Future<void> _loadSerials() async {
+  //     isLoading.value = true;
+  //     final list = await SalesInsertRepository.getProductListSerialNumber('');
+  //     masterSerialList.assignAll(list);       // Keep full list
+  //     serialNumberList.clear();               // Only show after user types
+  //     isLoading.value = false;
+  //   }
+  //
+  //   // 🔹 Filter locally
+  //   void _filterSerials(String query) {
+  //     if (query.length < 7) {
+  //       serialNumberList.clear();
+  //       return;
+  //     }
+  //     final filtered = masterSerialList
+  //         .where((s) => s.serialNumber != null && s.serialNumber!.toLowerCase().contains(query.toLowerCase()))
+  //         .toList();
+  //     serialNumberList.assignAll(filtered);
+  //   }
+  //
+  //   _loadSerials();
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: EdgeInsets.only(
+  //           bottom: MediaQuery.of(context).viewInsets.bottom,
+  //           left: 16,
+  //           right: 16,
+  //           top: 16,
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             // 🔍 Search bar
+  //             Row(
+  //               children: [
+  //                 Expanded(
+  //                   child: TextField(
+  //                     controller: searchController,
+  //                     decoration: InputDecoration(
+  //                       prefixIcon: const Icon(Icons.search),
+  //                       hintText: 'Search serial number',
+  //                       border: OutlineInputBorder(
+  //                         borderRadius: BorderRadius.circular(10),
+  //                       ),
+  //                     ),
+  //                     onChanged: (value) {
+  //                       searchQuery.value = value;
+  //                       _filterSerials(value);
+  //                     },
+  //                   ),
+  //                 ),
+  //                 SizedBox(
+  //                   width: 8,
+  //                 ),
+  //                 Container(
+  //                   height: 45,
+  //                   child: ElevatedButton(
+  //                     style: ElevatedButton.styleFrom(
+  //                       backgroundColor: context.primaryColor,
+  //                       elevation: 5,
+  //                       shape: const RoundedRectangleBorder(
+  //                         borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                       ),),
+  //                       onPressed: () {
+  //
+  //                   }, child: Text('Search',style: TextStyle(
+  //                     color: Colors.white,
+  //                   ),)),
+  //                 )
+  //               ],
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // 📋 Serial list
+  //             Obx(() {
+  //                 final query = searchQuery.value;
+  //
+  //                 if (isLoading.value) {
+  //                   return const SizedBox(
+  //                     height: 300,
+  //                     child: Center(child: CircularProgressIndicator()),
+  //                   );
+  //                 }
+  //
+  //                 // Show prompt before search
+  //                 if (query.isEmpty || query.length < 7) {
+  //                   return const SizedBox(
+  //                     height: 300,
+  //                     child: Center(
+  //                       child: Text(
+  //                         'Type at least 7 characters to search',
+  //                         style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                       ),
+  //                     ),
+  //                   );
+  //                 }
+  //
+  //                 // Show "No serial numbers found" only if search has 7+ chars and nothing matches
+  //                 if (serialNumberList.isEmpty) {
+  //                   return const SizedBox(
+  //                     height: 300,
+  //                     child: Center(
+  //                       child: Text(
+  //                         'No serial numbers found',
+  //                         style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                       ),
+  //                     ),
+  //                   );
+  //                 }
+  //
+  //                 // Show filtered list
+  //
+  //
+  //               return SizedBox(
+  //                 height: 300,
+  //                 child: ListView.builder(
+  //                   itemCount: serialNumberList.length,
+  //                   itemBuilder: (context, index) {
+  //                     final item = serialNumberList[index];
+  //                     final serialNo = item.serialNumber ?? '';
+  //
+  //                     return Obx(() => CheckboxListTile(
+  //                       title: Text(serialNo),
+  //                       value: selectedSerials.contains(serialNo),
+  //                       onChanged: (val) {
+  //                         if (val == true) {
+  //                           selectedSerials.add(serialNo);
+  //                         } else {
+  //                           selectedSerials.remove(serialNo);
+  //                         }
+  //                       },
+  //                     ));
+  //                   },
+  //                 ),
+  //               );
+  //             }),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             SafeArea(
+  //               maintainBottomViewPadding: true,
+  //               child: SizedBox(
+  //                 height: 50,
+  //                 width: double.infinity,
+  //                 child: ElevatedButton(
+  //                   style: ElevatedButton.styleFrom(
+  //                     backgroundColor: context.primaryColor,
+  //                     shape: const RoundedRectangleBorder(
+  //                       borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                     ),
+  //                   ),
+  //                   onPressed: () {
+  //                     controller.serialNumberList.assignAll(
+  //                       selectedSerials
+  //                           .map((e) => Item(name: e, isSelected: true))
+  //                           .toList(),
+  //                     );
+  //
+  //                     final firstSelected = controller.serialNumberList
+  //                         .firstWhereOrNull((s) => s.isSelected);
+  //                     if (firstSelected != null) {
+  //                       controller.selectedContactName = firstSelected.name;
+  //                     }
+  //
+  //                     Navigator.pop(context);
+  //                   },
+  //                   child: const Text(
+  //                     'Done',
+  //                     style: TextStyle(color: Colors.white),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final TextEditingController searchController = TextEditingController();
+  //   final RxString searchQuery = ''.obs;
+  //   final RxBool isLoading = false.obs;
+  //
+  //   // Master list from API
+  //   final RxList<GetAllPendingInvoiceData> masterSerialList = <GetAllPendingInvoiceData>[].obs;
+  //
+  //   // List shown in the bottom sheet (filtered)
+  //   final RxList<GetAllPendingInvoiceData> serialNumberList = <GetAllPendingInvoiceData>[].obs;
+  //
+  //   // Keep track of selected serials
+  //   final selectedSerials = controller.serialNumberList
+  //       .where((s) => s.isSelected)
+  //       .map((s) => s.name)
+  //       .toSet()
+  //       .obs;
+  //
+  //   // 🔹 Load all serials once from API
+  //   Future<void> _loadSerials() async {
+  //     isLoading.value = true;
+  //     final list = await SalesInsertRepository.getProductListSerialNumber('');
+  //     masterSerialList.assignAll(list);        // keep master copy
+  //     serialNumberList.assignAll(list);        // show all initially
+  //     isLoading.value = false;
+  //   }
+  //
+  //   // 🔹 Filter serials locally on search
+  //   void _filterSerials(String query) {
+  //     if (query.length < 7) {
+  //       serialNumberList.assignAll([]);  // show nothing until 7 chars
+  //       return;
+  //     }
+  //
+  //     final filtered = masterSerialList.where((s) =>
+  //     s.serialNumber != null &&
+  //         s.serialNumber!.toLowerCase().contains(query.toLowerCase())
+  //     ).toList();
+  //
+  //     serialNumberList.assignAll(filtered);
+  //   }
+  //
+  //   // Load serials initially
+  //   _loadSerials();
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: EdgeInsets.only(
+  //           bottom: MediaQuery.of(context).viewInsets.bottom,
+  //           left: 16,
+  //           right: 16,
+  //           top: 16,
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             // 🔍 Search bar
+  //             TextField(
+  //               controller: searchController,
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Search serial number (min 7 chars)...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //               onChanged: (value) {
+  //                 searchQuery.value = value;
+  //                 _filterSerials(value);
+  //               },
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // 📋 Reactive list
+  //             Obx(() {
+  //               final query = searchQuery.value;
+  //
+  //               if (isLoading.value) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(child: CircularProgressIndicator()),
+  //                 );
+  //               }
+  //
+  //               if (query.isNotEmpty && query.length < 7) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'Type at least 7 characters to search',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               if (serialNumberList.isEmpty) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'No serial numbers found',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               return SizedBox(
+  //                 height: 300,
+  //                 child: ListView.builder(
+  //                   itemCount: serialNumberList.length,
+  //                   itemBuilder: (context, index) {
+  //                     final item = serialNumberList[index];
+  //                     final serialNo = item.serialNumber ?? '';
+  //
+  //                     return Obx(() => CheckboxListTile(
+  //                       title: Text(serialNo),
+  //                       value: selectedSerials.contains(serialNo),
+  //                       onChanged: (val) {
+  //                         if (val == true) {
+  //                           selectedSerials.add(serialNo);
+  //                         } else {
+  //                           selectedSerials.remove(serialNo);
+  //                         }
+  //                       },
+  //                     ));
+  //                   },
+  //                 ),
+  //               );
+  //             }),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // ✅ Done button
+  //             SizedBox(
+  //               height: 50,
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: context.primaryColor,
+  //                   shape: const RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                   ),
+  //                 ),
+  //                 onPressed: () {
+  //                   // Update controller list with selected serials
+  //                   controller.serialNumberList.assignAll(
+  //                     selectedSerials
+  //                         .map((e) => Item(name: e, isSelected: true))
+  //                         .toList(),
+  //                   );
+  //
+  //                   // Optionally set first selected for display
+  //                   final firstSelected = controller.serialNumberList
+  //                       .firstWhereOrNull((s) => s.isSelected);
+  //                   if (firstSelected != null) {
+  //                     controller.selectedContactName = firstSelected.name;
+  //                   }
+  //
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: const Text(
+  //                   'Done',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final TextEditingController searchController = TextEditingController();
+  //   final RxString searchQuery = ''.obs;
+  //   final RxBool isLoading = false.obs;
+  //   final RxList<GetAllPendingInvoiceData> serialNumberList =
+  //       <GetAllPendingInvoiceData>[].obs;
+  //
+  //   // Keep track of selected serials from controller
+  //   final selectedSerials = controller.serialNumberList
+  //       .where((s) => s.isSelected)
+  //       .map((s) => s.name)
+  //       .toSet()
+  //       .obs;
+  //
+  //   // 🔹 Fetch serials by API when search ≥ 7 chars
+  //   // Future<void> _fetchSerialBySearch(String query) async {
+  //   //   if (query.length < 7) return;
+  //   //   isLoading.value = true;
+  //   //   try {
+  //   //     final response = await http.post(
+  //   //       Uri.parse(ApiUrl.getProductListSerialNumber),
+  //   //       headers: {'Content-Type': 'application/json'},
+  //   //       body: jsonEncode({
+  //   //         'searchKey': query, // or whatever your API expects
+  //   //       }),
+  //   //     );
+  //   //
+  //   //     final data = jsonDecode(response.body);
+  //   //     if (data['isSuccessful'] == 200) {
+  //   //       final list = (data['data'] as List)
+  //   //           .map((e) => GetAllPendingInvoiceData.fromJson(e))
+  //   //           .toList();
+  //   //       serialNumberList.assignAll(list);
+  //   //     } else {
+  //   //       serialNumberList.clear();
+  //   //     }
+  //   //   } catch (e) {
+  //   //     serialNumberList.clear();
+  //   //   } finally {
+  //   //     isLoading.value = false;
+  //   //   }
+  //   // }
+  //
+  //   // No initial load (only search)
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: EdgeInsets.only(
+  //           bottom: MediaQuery.of(context).viewInsets.bottom,
+  //           left: 16,
+  //           right: 16,
+  //           top: 16,
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             // 🔍 Search bar
+  //             TextField(
+  //               controller: searchController,
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Search serial number (min 7 chars)...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //               onChanged: (value) async {
+  //                 searchQuery.value = value;
+  //                 if (value.length >= 7) {
+  //                   await SalesInsertRepository.getProductListSerialNumber(controller.searchProducts.toString());
+  //                 } else {
+  //                   serialNumberList.clear();
+  //                 }
+  //               },
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // 📋 Reactive list
+  //             Obx(() {
+  //               final query = searchQuery.value;
+  //
+  //               if (query.isEmpty || query.length < 7) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'Type at least 7 characters to search',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               if (isLoading.value) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(child: CircularProgressIndicator()),
+  //                 );
+  //               }
+  //
+  //               if (serialNumberList.isEmpty) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'No serial numbers found',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               return SizedBox(
+  //                 height: 300,
+  //                 child: ListView.builder(
+  //                   itemCount: serialNumberList.length,
+  //                   itemBuilder: (context, index) {
+  //                     final item = serialNumberList[index];
+  //                     final serialNo = item.serialNumber ?? '';
+  //
+  //                     return Obx(() => CheckboxListTile(
+  //                       title: Text(serialNo),
+  //                       value: selectedSerials.contains(serialNo),
+  //                       onChanged: (val) {
+  //                         if (val == true) {
+  //                           selectedSerials.add(serialNo);
+  //                         } else {
+  //                           selectedSerials.remove(serialNo);
+  //                         }
+  //                       },
+  //                     ));
+  //                   },
+  //                 ),
+  //               );
+  //             }),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // ✅ Done button
+  //             SizedBox(
+  //               height: 50,
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: context.primaryColor,
+  //                   shape: const RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                   ),
+  //                 ),
+  //                 onPressed: () {
+  //                   // Update controller list with selected serials
+  //                   controller.serialNumberList.assignAll(
+  //                     selectedSerials
+  //                         .map((e) => Item(name: e, isSelected: true))
+  //                         .toList(),
+  //                   );
+  //
+  //                   // Optionally set first selected for display
+  //                   final firstSelected = controller.serialNumberList
+  //                       .firstWhereOrNull((s) => s.isSelected);
+  //                   if (firstSelected != null) {
+  //                     controller.selectedContactName = firstSelected.name;
+  //                   }
+  //
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: const Text(
+  //                   'Done',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final RxList<GetAllPendingInvoiceData> serialNumberList = <GetAllPendingInvoiceData>[].obs;
+  //   final RxList<String> selectedSerials = <String>[].obs;
+  //   final TextEditingController searchCtrl = TextEditingController();
+  //   final RxBool isLoading = false.obs;
+  //
+  //   // Load all serial numbers (new API)
+  //   Future<void> _loadAllSerials() async {
+  //     isLoading.value = true;
+  //     final list = await SalesInsertRepository.getProductListSerialNumber();
+  //     serialNumberList.assignAll(list);
+  //     isLoading.value = false;
+  //   }
+  //
+  //   // Search API call (when user types 7 chars)
+  //   Future<void> _searchSerials(String query) async {
+  //     if (query.length < 7) return;
+  //     isLoading.value = true;
+  //     try {
+  //       final response = await http.post(
+  //         Uri.parse(ApiUrl.getProductListSerialNumber), // your search API endpoint
+  //         headers: {'Content-Type': 'application/json'},
+  //         body: jsonEncode({
+  //           'userName': LocalDb.getString(AppConstants.userNameKey),
+  //           'searchKey': query,
+  //         }),
+  //       );
+  //
+  //       final data = jsonDecode(response.body);
+  //       if (data['isSuccessful'] == 200) {
+  //         final list = (data['data'] as List)
+  //             .map((e) => GetAllPendingInvoiceData.fromJson(e))
+  //             .toList();
+  //         serialNumberList.assignAll(list);
+  //       } else {
+  //         serialNumberList.clear();
+  //       }
+  //     } catch (_) {
+  //       serialNumberList.clear();
+  //     } finally {
+  //       isLoading.value = false;
+  //     }
+  //   }
+  //
+  //   // Start initial load
+  //   _loadAllSerials();
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: EdgeInsets.only(
+  //           bottom: MediaQuery.of(context).viewInsets.bottom,
+  //           left: 16,
+  //           right: 16,
+  //           top: 16,
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             // 🔍 Search field
+  //             TextField(
+  //               controller: searchCtrl,
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Search serial number (min 7 chars)...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //               onChanged: (value) async {
+  //                 if (value.length >= 7) {
+  //                   await _searchSerials(value);
+  //                 } else if (value.isEmpty) {
+  //                   await _loadAllSerials();
+  //                 }
+  //               },
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // 📋 Serial number list
+  //             Obx(() {
+  //               if (isLoading.value) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(child: CircularProgressIndicator()),
+  //                 );
+  //               }
+  //
+  //               if (serialNumberList.isEmpty) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'No serial numbers found',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               return SizedBox(
+  //                 height: 300,
+  //                 child: ListView.builder(
+  //                   itemCount: serialNumberList.length,
+  //                   itemBuilder: (context, index) {
+  //                     final serial = serialNumberList[index];
+  //                     final serialNo = serial.serialNumber ?? '-';
+  //                     final isSelected = selectedSerials.contains(serialNo);
+  //
+  //                     return CheckboxListTile(
+  //                       title: Text(serialNo),
+  //                       value: isSelected,
+  //                       onChanged: (val) {
+  //                         if (val == true) {
+  //                           selectedSerials.add(serialNo);
+  //                         } else {
+  //                           selectedSerials.remove(serialNo);
+  //                         }
+  //                       },
+  //                     );
+  //                   },
+  //                 ),
+  //               );
+  //             }),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //         SizedBox(
+  //                         height: 50,
+  //                         width: double.infinity,
+  //                         child: ElevatedButton(
+  //                           style: ElevatedButton.styleFrom(
+  //                             backgroundColor: context.primaryColor,
+  //                             shape: const RoundedRectangleBorder(
+  //                               borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                             ),
+  //                           ),
+  //                           onPressed: () {
+  //                             final firstSelected = controller.serialNumberList
+  //                                 .firstWhereOrNull((s) => s.isSelected);
+  //                             if (firstSelected != null) {
+  //                               controller.selectedContactName = firstSelected.name;
+  //                             }
+  //                             Navigator.pop(context);
+  //                           },
+  //                           child: const Text(
+  //                             'Done',
+  //                             style: TextStyle(color: Colors.white),
+  //                           ),
+  //                         ),
+  //                       ),
+  //
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final TextEditingController searchController = TextEditingController();
+  //   final RxString searchQuery = ''.obs;
+  //   final RxList<Product> serialNumberList = <Product>[].obs;
+  //   final Rxn<Future<List<GetAllPendingInvoiceData>>> futureProducts = Rxn<Future<List<GetAllPendingInvoiceData>>>();
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: const EdgeInsets.all(16.0),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             // Search field
+  //             TextField(
+  //               controller: searchController,
+  //               onChanged: (value) {
+  //                 searchQuery.value = value;
+  //
+  //                 if (value.length >= 7) {
+  //                   // Call API only when 7 or more characters are entered
+  //                   futureProducts.value = SalesInsertRepository.getProductListSerialNumber();
+  //                 } else {
+  //                   futureProducts.value = null; // Reset if less than 7 chars
+  //                   serialNumberList.clear();
+  //                 }
+  //               },
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Enter at least 7 characters...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // Dynamic result area
+  //             Obx(() {
+  //               final query = searchQuery.value;
+  //
+  //               if (query.length < 7) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'Type at least 7 characters to search',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               return FutureBuilder<List<GetAllPendingInvoiceData>>(
+  //                 future: futureProducts.value,
+  //                 builder: (context, snapshot) {
+  //                   if (snapshot.connectionState == ConnectionState.waiting) {
+  //                     return const SizedBox(
+  //                       height: 300,
+  //                       child: Center(child: CircularProgressIndicator()),
+  //                     );
+  //                   }
+  //
+  //                   if (snapshot.hasError ||
+  //                       snapshot.data == null ||
+  //                       snapshot.data!.isEmpty) {
+  //                     return const SizedBox(
+  //                       height: 300,
+  //                       child: Center(
+  //                         child: Text(
+  //                           'No serial numbers found',
+  //                           style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                         ),
+  //                       ),
+  //                     );
+  //                   }
+  //
+  //                   // Filter results based on query
+  //                   final products = snapshot.data!
+  //                       .where((p) => p.serialNumber
+  //                       !.toLowerCase()
+  //                       .contains(query.toLowerCase()))
+  //                       .toList();
+  //
+  //                   serialNumberList.clear();
+  //                   serialNumberList.addAll(products.map((e) => Product(
+  //                     serialNumber: e.serialNumber ?? '',
+  //                     materialNumber: '',
+  //                     materialDescription: '',
+  //                   )));
+  //
+  //                   if (serialNumberList.isEmpty) {
+  //                     return const SizedBox(
+  //                       height: 300,
+  //                       child: Center(
+  //                         child: Text(
+  //                           'No serial numbers found',
+  //                           style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                         ),
+  //                       ),
+  //                     );
+  //                   }
+  //
+  //                   return SizedBox(
+  //                     height: 300,
+  //                     child: ListView.builder(
+  //                       itemCount: serialNumberList.length,
+  //                       shrinkWrap: true,
+  //                       itemBuilder: (context, index) {
+  //                         final serial = serialNumberList[index];
+  //
+  //                         return Obx(() {
+  //                           final isChecked = controller.serialNumberList.any(
+  //                                 (s) =>
+  //                             s.name == serial.serialNumber && s.isSelected,
+  //                           );
+  //
+  //                           return CheckboxListTile(
+  //                             title: Text(serial.serialNumber),
+  //                             value: isChecked,
+  //                             onChanged: (val) {
+  //                               final idx = controller.serialNumberList
+  //                                   .indexWhere((s) =>
+  //                               s.name == serial.serialNumber);
+  //
+  //                               if (idx != -1) {
+  //                                 // Update existing
+  //                                 final updated = controller
+  //                                     .serialNumberList[idx]
+  //                                     .copyWith(isSelected: val ?? false);
+  //                                 controller.serialNumberList[idx] = updated;
+  //                               } else {
+  //                                 // Add new selected serial
+  //                                 controller.serialNumberList.add(
+  //                                   Item(name: controller.serialNumberAll.toString(), isSelected: false
+  //
+  //                                   ),
+  //                                 );
+  //                               }
+  //                             },
+  //                           );
+  //                         });
+  //                       },
+  //                     ),
+  //                   );
+  //                 },
+  //               );
+  //             }),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // Done button
+  //             SizedBox(
+  //               height: 50,
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: context.primaryColor,
+  //                   shape: const RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                   ),
+  //                 ),
+  //                 onPressed: () {
+  //                   final firstSelected = controller.serialNumberList
+  //                       .firstWhereOrNull((s) => s.isSelected);
+  //                   if (firstSelected != null) {
+  //                     controller.selectedContactName = firstSelected.name;
+  //                   }
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: const Text(
+  //                   'Done',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final RxList<Product> serialNumberList = <Product>[].obs;
+  //   final Rxn<Future<List<ProductModel>>> futureProducts = Rxn<Future<List<ProductModel>>>();
+  //
+  //   // Load all serial numbers immediately
+  //   futureProducts.value = SalesInsertRepository.getProductList();
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: const EdgeInsets.all(16.0),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             // Optional search bar
+  //             TextField(
+  //               onChanged: (value) {
+  //                 // Filter dynamically if you want
+  //               },
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Search serial number...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             Obx(() {
+  //               return FutureBuilder<List<ProductModel>>(
+  //                 future: futureProducts.value,
+  //                 builder: (context, snapshot) {
+  //                   if (snapshot.connectionState == ConnectionState.waiting) {
+  //                     return const SizedBox(
+  //                       height: 300,
+  //                       child: Center(child: CircularProgressIndicator()),
+  //                     );
+  //                   }
+  //
+  //                   if (snapshot.hasError || snapshot.data == null || snapshot.data!.isEmpty) {
+  //                     return const SizedBox(
+  //                       height: 300,
+  //                       child: Center(
+  //                         child: Text(
+  //                           'No serial numbers found',
+  //                           style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                         ),
+  //                       ),
+  //                     );
+  //                   }
+  //
+  //                   if (serialNumberList.isEmpty) {
+  //                     for (var product in snapshot.data!) {
+  //                       serialNumberList.add(Product(serialNumber: product.serialNumber, materialNumber: '', materialDescription: ''));
+  //                     }
+  //                   }
+  //
+  //                   return SizedBox(
+  //                     height: 300,
+  //                     child: ListView.builder(
+  //                         itemCount: serialNumberList.length,
+  //                         shrinkWrap: true,
+  //                         itemBuilder: (context, index) {
+  //                           final serial = serialNumberList[index];
+  //                           return Obx(() {
+  //                                   final isChecked = controller.serialNumberList.any(
+  //                                         (s) =>
+  //                                     s.name == serial.serialNumber &&
+  //                                         s.isSelected,
+  //                                   );
+  //
+  //                                   return CheckboxListTile(
+  //                                     title: Text(serial.serialNumber),
+  //                                     value: isChecked,
+  //                                     onChanged: (val) {
+  //                                       final idx = controller.serialNumberList
+  //                                           .indexWhere((s) =>
+  //                                       s.name == serial.serialNumber);
+  //                                       if (idx != -1) {
+  //                                         final updated =
+  //                                         controller.serialNumberList[idx]
+  //                                             .copyWith(
+  //                                           isSelected: val ?? false,
+  //                                         );
+  //                                         controller.serialNumberList[idx] = updated;
+  //                                       }
+  //                                     },
+  //                                   );
+  //                                 });
+  //                               },
+  //
+  //
+  //                        ),
+  //                   );},
+  //               );
+  //             }),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             SizedBox(
+  //               height: 50,
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: context.primaryColor,
+  //                   shape: const RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                   ),
+  //                 ),
+  //       onPressed: () {
+  //                         final firstSelected = controller.serialNumberList
+  //                             .firstWhereOrNull((s) => s.isSelected);
+  //                         if (firstSelected != null) {
+  //                           controller.selectedContactName = firstSelected.name;
+  //                         }
+  //                         Navigator.pop(context);
+  //                       },
+  //                 child: const Text(
+  //                   'Done',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final TextEditingController searchController = TextEditingController();
+  //   final RxString searchQuery = ''.obs;
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: const EdgeInsets.all(16.0),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             TextField(
+  //               controller: searchController,
+  //               onChanged: (value) {
+  //                 if (value.length >= 7 || value.isEmpty) {
+  //                   searchQuery.value = value;
+  //                 }
+  //               },
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Search...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             // Use FutureBuilder to fetch serial numbers
+  //             FutureBuilder<List<ProductModel>>(
+  //               future: SalesInsertRepository.getProductListSerialNumber(),
+  //               builder: (context, snapshot) {
+  //                 if (snapshot.connectionState == ConnectionState.waiting) {
+  //                   return const SizedBox(
+  //                     height: 300,
+  //                     child: Center(child: CircularProgressIndicator()),
+  //                   );
+  //                 }
+  //
+  //                 if (snapshot.hasError || snapshot.data == null || snapshot.data!.isEmpty) {
+  //                   return const SizedBox(
+  //                     height: 300,
+  //                     child: Center(
+  //                       child: Text(
+  //                         'No serial numbers found',
+  //                         style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                       ),
+  //                     ),
+  //                   );
+  //                 }
+  //
+  //                 final products = snapshot.data!;
+  //
+  //                 return Obx(() {
+  //                   final query = searchQuery.value;
+  //
+  //                   final filteredProducts = query.length >= 7
+  //                       ? products
+  //                       .where((product) => product.serialNumber
+  //                       .toLowerCase()
+  //                       .contains(query.toLowerCase()))
+  //                       .toList()
+  //                       : [];
+  //
+  //                   if (query.isNotEmpty && query.length < 7) {
+  //                     return const SizedBox(
+  //                       height: 300,
+  //                       child: Center(
+  //                         child: Text(
+  //                           'Type at least 7 characters to search',
+  //                           style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                         ),
+  //                       ),
+  //                     );
+  //                   }
+  //
+  //                   return SizedBox(
+  //                     height: 300,
+  //                     child: filteredProducts.isEmpty
+  //                         ? const Center(
+  //                       child: Text(
+  //                         'No serial numbers found',
+  //                         style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                       ),
+  //                     )
+  //                         : ListView.builder(
+  //                       itemCount: filteredProducts.length,
+  //                       itemBuilder: (context, index) {
+  //                         final product = filteredProducts[index];
+  //
+  //                         return Obx(() {
+  //                           final isChecked = controller.serialNumberList.any(
+  //                                 (s) =>
+  //                             s.name == product.serialNumber &&
+  //                                 s.isSelected,
+  //                           );
+  //
+  //                           return CheckboxListTile(
+  //                             title: Text(product.serialNumber),
+  //                             value: isChecked,
+  //                             onChanged: (val) {
+  //                               final idx = controller.serialNumberList
+  //                                   .indexWhere((s) =>
+  //                               s.name == product.serialNumber);
+  //                               if (idx != -1) {
+  //                                 final updated =
+  //                                 controller.serialNumberList[idx]
+  //                                     .copyWith(
+  //                                   isSelected: val ?? false,
+  //                                 );
+  //                                 controller.serialNumberList[idx] = updated;
+  //                               }
+  //                             },
+  //                           );
+  //                         });
+  //                       },
+  //                     ),
+  //                   );
+  //                 });
+  //               },
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             SizedBox(
+  //               height: 50,
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: context.primaryColor,
+  //                   shape: const RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                   ),
+  //                 ),
+  //                 onPressed: () {
+  //                   final firstSelected = controller.serialNumberList
+  //                       .firstWhereOrNull((s) => s.isSelected);
+  //                   if (firstSelected != null) {
+  //                     controller.selectedContactName = firstSelected.name;
+  //                   }
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: const Text(
+  //                   'Done',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 12),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // void _showSerialNumberBottomSheet(BuildContext context) {
+  //   final products = controller.products;
+  //   final TextEditingController searchController = TextEditingController();
+  //   final RxString searchQuery = ''.obs;
+  //
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: const EdgeInsets.all(16.0),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             const Text(
+  //               'Select Serial Numbers',
+  //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //             ),
+  //             const SizedBox(height: 10),
+  //
+  //             TextField(
+  //               controller: searchController,
+  //               onChanged: (value) {
+  //                 if (value.length >= 7 || value.isEmpty){
+  //                   setState(() {
+  //                     searchQuery.value = value;
+  //                   });
+  //                 }
+  //               },
+  //               decoration: InputDecoration(
+  //                 prefixIcon: const Icon(Icons.search),
+  //                 hintText: 'Search...',
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             Obx(() {
+  //               final query = searchQuery.value;
+  //
+  //               if (query.length < 7) {
+  //                 return const SizedBox(
+  //                   height: 300,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'Type at least 7 characters to search',
+  //                       style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
+  //
+  //               final filteredProducts = products.where((product) {
+  //                 return product.serialNumber
+  //                     .toLowerCase()
+  //                     .contains(query.toLowerCase());
+  //               }).toList();
+  //
+  //               return SizedBox(
+  //                 height: 300,
+  //                 child: filteredProducts.isEmpty
+  //                     ? const Center(
+  //                   child: Text(
+  //                     'No serial numbers found',
+  //                     style: TextStyle(fontSize: 16, color: Colors.grey),
+  //                   ),
+  //                 )
+  //                     : ListView.builder(
+  //                   itemCount: filteredProducts.length,
+  //                   itemBuilder: (context, index) {
+  //                     final product = filteredProducts[index];
+  //
+  //                     return Obx(() {
+  //                       final isChecked = controller.serialNumberList.any(
+  //                             (s) =>
+  //                         s.name == product.serialNumber && s.isSelected,
+  //                       );
+  //
+  //                       return CheckboxListTile(
+  //                         title: Text(product.serialNumber),
+  //                         value: isChecked,
+  //                         onChanged: (val) {
+  //                           final idx = controller.serialNumberList.indexWhere(
+  //                                   (s) => s.name == product.serialNumber);
+  //                           if (idx != -1) {
+  //                             final updated =
+  //                             controller.serialNumberList[idx].copyWith(
+  //                               isSelected: val ?? false,
+  //                             );
+  //                             controller.serialNumberList[idx] = updated;
+  //                           }
+  //                         },
+  //                       );
+  //                     });
+  //                   },
+  //                 ),
+  //               );
+  //             }),
+  //
+  //
+  //             const SizedBox(height: 10),
+  //
+  //             SizedBox(
+  //               height: 50,
+  //               width: double.infinity,
+  //               child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: context.primaryColor,
+  //                   shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.all(Radius.circular(8)),
+  //                   ),
+  //                 ),
+  //                 onPressed: () {
+  //                   final firstSelected = controller.serialNumberList
+  //                       .firstWhereOrNull((s) => s.isSelected);
+  //                   if (firstSelected != null) {
+  //                     controller.selectedContactName = firstSelected.name;
+  //                   }
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: const Text(
+  //                   'Done',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //
+  //             12.heightGap,
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   // void _showContactFilterSheet(BuildContext context) {
   //   showModalBottomSheet(
@@ -1603,9 +3158,11 @@ class _SalesInsertState extends State<SalesInsert> {
                         final contact = filteredList[index];
                         return ListTile(
                           title: Text(contact.customerName),
-                          subtitle: Text('${contact.city}, ${contact.state} • ${contact.pincode}'),
+                          subtitle: Text(
+                              '${contact.city}, ${contact.state} • ${contact.pincode}'),
                           onTap: () {
-                            controller.selectedContactName = contact.customerName;
+                            controller.selectedContactName =
+                                contact.customerName;
                             controller.gstNoController.text = contact.gstNo;
                             controller.nameCtrl.text = contact.addressName;
                             controller.pinCodeCtrl.text = contact.pincode;
@@ -1614,8 +3171,10 @@ class _SalesInsertState extends State<SalesInsert> {
                             controller.cityCtrl.text = contact.city;
                             controller.districtCtrl.text = contact.district;
                             controller.countryCtrl.text = contact.country;
-                            controller.mobileNoCtrl.text = contact.contacts[index].phone;
-                            controller.emailCtrl.text = contact.contacts[index].email;
+                            controller.mobileNoCtrl.text =
+                                contact.contacts[index].phone;
+                            controller.emailCtrl.text =
+                                contact.contacts[index].email;
                             Navigator.pop(context);
                           },
                         );
@@ -1631,9 +3190,8 @@ class _SalesInsertState extends State<SalesInsert> {
     );
   }
 
-
-
-  Widget _buildFilterChip(String label, String selectedFilter, ValueChanged<String> onSelected) {
+  Widget _buildFilterChip(
+      String label, String selectedFilter, ValueChanged<String> onSelected) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: ChoiceChip(
@@ -1743,7 +3301,6 @@ class _SalesInsertState extends State<SalesInsert> {
   // }
 
   Future<Customer?> _showCustomerSelectionSheet(BuildContext context) async {
-
     final searchController = TextEditingController();
     String searchQuery = '';
     String selectedFilter = 'Name';
@@ -1763,35 +3320,6 @@ class _SalesInsertState extends State<SalesInsert> {
 
         return StatefulBuilder(
           builder: (context, setState) {
-            final query = searchQuery.toLowerCase();
-
-            final filteredList = controller.customersList.where((c) {
-              if (query.isEmpty) return true;
-
-              switch (selectedFilter) {
-                case 'Name':
-                  return c.customerName.toLowerCase().contains(query);
-                case 'C4CId':
-                  return c.c4cId.toLowerCase().contains(query);
-                case 'Pincode':
-                  return c.pincode.toLowerCase().contains(query);
-                case 'City':
-                  return c.city.toLowerCase().contains(query);
-                case 'State':
-                  return c.state.toLowerCase().contains(query);
-                case 'All':
-                  return c.c4cId.toLowerCase().contains(query) ||
-                      c.customerName.toLowerCase().contains(query) ||
-                      c.pincode.toLowerCase().contains(query) ||
-                      c.city.toLowerCase().contains(query) ||
-                      c.state.toLowerCase().contains(query);
-
-
-                default:
-                  return false;
-              }
-            }).toList();
-
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -1803,7 +3331,6 @@ class _SalesInsertState extends State<SalesInsert> {
                       _buildFilterChip('Name', selectedFilter, (val) {
                         setState(() => selectedFilter = val);
                       }),
-
                       _buildFilterChip('C4CId', selectedFilter, (val) {
                         setState(() => selectedFilter = val);
                       }),
@@ -1837,26 +3364,197 @@ class _SalesInsertState extends State<SalesInsert> {
                   ),
                   const SizedBox(height: 16),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: filteredList.length,
-                      itemBuilder: (context, index) {
-                        final customer = filteredList[index];
-                        return ListTile(
-                          title: Text(customer.customerName),
-                          subtitle: Text('${customer.city}, ${customer.state}, ${customer.pincode}'),
-                          onTap: () => Navigator.pop(context, customer),
-                        );
-                      },
-                    ),
+                    child: Obx(() {
+                      if (controller.isCustomerLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      final query = searchQuery.toLowerCase();
+
+                      final approvedOnly = controller.customersList
+                          .where((c) =>
+                              c.approvalStatus.toLowerCase() == 'approved')
+                          .toList();
+
+                      final filteredList = approvedOnly.where((c) {
+                        if (query.isEmpty) return true;
+
+                        switch (selectedFilter) {
+                          case 'Name':
+                            return c.customerName.toLowerCase().contains(query);
+                          case 'C4CId':
+                            return c.c4cId.toLowerCase().contains(query);
+                          case 'Pincode':
+                            return c.pincode.toLowerCase().contains(query);
+                          case 'City':
+                            return c.city.toLowerCase().contains(query);
+                          case 'State':
+                            return c.state.toLowerCase().contains(query);
+                          case 'All':
+                            return c.c4cId.toLowerCase().contains(query) ||
+                                c.customerName.toLowerCase().contains(query) ||
+                                c.pincode.toLowerCase().contains(query) ||
+                                c.city.toLowerCase().contains(query) ||
+                                c.state.toLowerCase().contains(query);
+                          default:
+                            return false;
+                        }
+                      }).toList();
+
+                      if (filteredList.isEmpty) {
+                        return const Center(child: Text("No customers found"));
+                      }
+
+                      return ListView.builder(
+                        itemCount: filteredList.length,
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.only(bottom: 40),
+                        itemBuilder: (context, index) {
+                          final customer = filteredList[index];
+                          return ListTile(
+                            title: Text(customer.customerName),
+                            subtitle: Text(
+                              '${customer.city}, ${customer.state}, ${customer.pincode}',
+                            ),
+                            onTap: () => Navigator.pop(context, customer),
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ],
               ),
             );
           },
         );
+
+        // return StatefulBuilder(
+        //   builder: (context, setState) {
+        //     final query = searchQuery.toLowerCase();
+        //
+        //     final approvedOnly = controller.customersList
+        //         .where((c) => c.approvalStatus.toLowerCase() == 'approved')
+        //         .toList();
+        //
+        //     final filteredList = approvedOnly.where((c) {
+        //       if (query.isEmpty) return true;
+        //
+        //     // final filteredList = controller.customersList.where((c) {
+        //     //   if (query.isEmpty) return true;
+        //
+        //       switch (selectedFilter) {
+        //         case 'Name':
+        //           return c.customerName.toLowerCase().contains(query);
+        //         case 'C4CId':
+        //           return c.c4cId.toLowerCase().contains(query);
+        //         case 'Pincode':
+        //           return c.pincode.toLowerCase().contains(query);
+        //         case 'City':
+        //           return c.city.toLowerCase().contains(query);
+        //         case 'State':
+        //           return c.state.toLowerCase().contains(query);
+        //         case 'All':
+        //           return c.c4cId.toLowerCase().contains(query) ||
+        //               c.customerName.toLowerCase().contains(query) ||
+        //               c.pincode.toLowerCase().contains(query) ||
+        //               c.city.toLowerCase().contains(query) ||
+        //               c.state.toLowerCase().contains(query);
+        //
+        //
+        //         default:
+        //           return false;
+        //       }
+        //     }).toList();
+        //
+        //     return Padding(
+        //       padding: const EdgeInsets.all(16.0),
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           Wrap(
+        //             spacing: 8,
+        //             children: [
+        //               _buildFilterChip('Name', selectedFilter, (val) {
+        //                 setState(() => selectedFilter = val);
+        //               }),
+        //
+        //               _buildFilterChip('C4CId', selectedFilter, (val) {
+        //                 setState(() => selectedFilter = val);
+        //               }),
+        //               _buildFilterChip('Pincode', selectedFilter, (val) {
+        //                 setState(() => selectedFilter = val);
+        //               }),
+        //               _buildFilterChip('City', selectedFilter, (val) {
+        //                 setState(() => selectedFilter = val);
+        //               }),
+        //               _buildFilterChip('State', selectedFilter, (val) {
+        //                 setState(() => selectedFilter = val);
+        //               }),
+        //               _buildFilterChip('All', selectedFilter, (val) {
+        //                 setState(() => selectedFilter = val);
+        //               }),
+        //             ],
+        //           ),
+        //           const SizedBox(height: 16),
+        //           TextField(
+        //             controller: searchController,
+        //             decoration: const InputDecoration(
+        //               labelText: 'Search',
+        //               prefixIcon: Icon(Icons.search),
+        //               border: OutlineInputBorder(),
+        //             ),
+        //             onChanged: (value) {
+        //               if (value.length >= 3 || value.isEmpty) {
+        //                 setState(() => searchQuery = value);
+        //               }
+        //             },
+        //           ),
+        //           const SizedBox(height: 16),
+        //
+        //           Expanded(
+        //             child: Obx(() {
+        //               if (controller.isCustomerLoading.value) {
+        //                 return const Center(child: CircularProgressIndicator());
+        //               }
+        //
+        //               if (filteredList.isEmpty) {
+        //                 return const Center(child: Text("No customers found"));
+        //               }
+        //
+        //               return ListView.builder(
+        //                 itemCount: filteredList.length,
+        //                 itemBuilder: (context, index) {
+        //                   final customer = filteredList[index];
+        //                   return ListTile(
+        //                     title: Text(customer.customerName),
+        //                     subtitle: Text('${customer.city}, ${customer.state}, ${customer.pincode}'),
+        //                     onTap: () => Navigator.pop(context, customer),
+        //                   );
+        //                 },
+        //               );
+        //             }),
+        //           ),
+        //
+        //
+        //           // Expanded(
+        //           //   child: ListView.builder(
+        //           //     itemCount: filteredList.length,
+        //           //     itemBuilder: (context, index) {
+        //           //       final customer = filteredList[index];
+        //           //       return ListTile(
+        //           //         title: Text(customer.customerName),
+        //           //         subtitle: Text('${customer.city}, ${customer.state}, ${customer.pincode}'),
+        //           //         onTap: () => Navigator.pop(context, customer),
+        //           //       );
+        //           //     },
+        //           //   ),
+        //           // ),
+        //         ],
+        //       ),
+        //     );
+        //   },
+        // );
       },
     );
   }
-
-
 }

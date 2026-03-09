@@ -1,5 +1,6 @@
 class CustomerInsertModel {
   String customerId;
+  String pointStatus;
   String customerName;
   String gstNo;
   String customerTypeId;
@@ -46,6 +47,7 @@ class CustomerInsertModel {
   CustomerInsertModel({
      this.customerId='',
     required this.customerName,
+     this.pointStatus = 'Active',
     required this.gstNo,
     required this.customerTypeId,
     required this.companyTypeId,
@@ -92,6 +94,7 @@ class CustomerInsertModel {
   Map<String, dynamic> toJson() {
     return {
       'customerName': customerName,
+      'pointStatus': pointStatus,
       'gstNo': gstNo,
       'customerTypeId': customerTypeId,
       'companyTypeId': companyTypeId,
