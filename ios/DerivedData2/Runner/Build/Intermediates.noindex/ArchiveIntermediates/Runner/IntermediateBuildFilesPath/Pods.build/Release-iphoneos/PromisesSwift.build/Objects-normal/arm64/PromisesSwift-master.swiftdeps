@@ -1,0 +1,42 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "8aa5acb6d7e376dfac6eff38be3f8c00bce3d5ff371928998369b851346d9dee"
+build_start_time: [1773639369, 934598000]
+build_end_time: [1773639374, 492801000]
+inputs:
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+All.swift"
+  : [1773639199, 67017267]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Always.swift"
+  : [1773639199, 66529516]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Any.swift"
+  : [1773639199, 66134015]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Async.swift"
+  : [1773639199, 65927764]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Await.swift"
+  : [1773639199, 66273515]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Catch.swift"
+  : [1773639199, 65796847]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Delay.swift"
+  : [1773639199, 67548810]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Do.swift"
+  : [1773639199, 66803809]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Race.swift"
+  : [1773639199, 65487263]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Recover.swift"
+  : [1773639199, 65363763]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Reduce.swift"
+  : [1773639199, 65231679]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Retry.swift"
+  : [1773639199, 64438552]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Testing.swift"
+  : [1773639199, 64618469]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Then.swift"
+  : [1773639199, 67806770]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Timeout.swift"
+  : [1773639199, 66665725]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Validate.swift"
+  : [1773639199, 67412269]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise+Wrap.swift"
+  : [1773639199, 68517188]
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/Promise.swift": [1773639199, 67270810]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/PromisesSwift/Sources/Promises/PromiseError.swift"
+  : [1773639199, 66399432]

@@ -1,0 +1,21 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-maccatalyst/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-master.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-maccatalyst/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-master.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-maccatalyst/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-master-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-maccatalyst/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-master-emit-module.dia",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-maccatalyst/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-master.swiftdeps"
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/Launcher.swift" : {
+
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/URLLaunchSession.swift" : {
+
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/URLLauncherPlugin.swift" : {
+
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/messages.g.swift" : {
+
+  }
+}

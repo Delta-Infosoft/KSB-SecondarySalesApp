@@ -1,0 +1,13 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "8e324bfb4f3593acb52b1f91f621fc52247c16a6d5703e03b537ef6f5058bc48"
+build_start_time: [1773639346, 708077000]
+build_end_time: [1773639347, 515599000]
+inputs:
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseRemoteConfig/Interop/RemoteConfigConstants.swift"
+  : [1770805182, 51552853]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseRemoteConfig/Interop/RemoteConfigInterop.swift"
+  : [1770805182, 51625562]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseRemoteConfig/Interop/RolloutAssignment.swift"
+  : [1770805182, 51689688]
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseRemoteConfig/Interop/RolloutsStateSubscriber.swift"
+  : [1770805182, 51762355]

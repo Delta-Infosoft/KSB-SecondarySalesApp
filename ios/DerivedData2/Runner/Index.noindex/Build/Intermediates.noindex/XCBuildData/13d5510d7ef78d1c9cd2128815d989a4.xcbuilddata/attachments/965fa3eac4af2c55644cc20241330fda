@@ -1,0 +1,27 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseFirestoreCombineSwift.build/Objects-normal/arm64/FirebaseFirestoreCombineSwift-master.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseFirestoreCombineSwift.build/Objects-normal/arm64/FirebaseFirestoreCombineSwift-master.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseFirestoreCombineSwift.build/Objects-normal/arm64/FirebaseFirestoreCombineSwift-master-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseFirestoreCombineSwift.build/Objects-normal/arm64/FirebaseFirestoreCombineSwift-master-emit-module.dia",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseFirestoreCombineSwift.build/Objects-normal/arm64/FirebaseFirestoreCombineSwift-master.swiftdeps"
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCombineSwift/Sources/Firestore/CollectionReference+Combine.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCombineSwift/Sources/Firestore/DocumentReference+Combine.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCombineSwift/Sources/Firestore/Firestore+Combine.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCombineSwift/Sources/Firestore/Query+Combine.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCombineSwift/Sources/Firestore/Transaction+Combine.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCombineSwift/Sources/Firestore/WriteBatch+Combine.swift" : {
+
+  }
+}

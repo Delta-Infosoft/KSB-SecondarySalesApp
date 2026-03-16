@@ -1,0 +1,37 @@
+dependencies: \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Handlers/FIRCLSException.mm \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Handlers/FIRCLSException.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Private/FIRExceptionModel_Private.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Public/FirebaseCrashlytics/FIRExceptionModel.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Public/FirebaseCrashlytics/FIRStackFrame.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Private/FIRStackFrame_Private.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSApplication.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSContext.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSBinaryImage.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSFeatures.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSFile.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Shared/FIRCLSMachO/FIRCLSMachO.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSHost.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Handlers/FIRCLSMachException.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Handlers/FIRCLSSignal.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSAllocate.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSInternalLogging.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSLogger.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSGlobals.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSProcess.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Handlers/FIRCLSHandler.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Controllers/FIRCLSReportManager_Private.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Controllers/FIRCLSReportManager.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Public/FirebaseCrashlytics/FIRCrashlytics.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Public/FirebaseCrashlytics/FIRCrashlyticsReport.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSProfiling.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Controllers/FIRCLSReportUploader.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Models/FIRCLSLaunchMarkerModel.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Models/FIRCLSFileManager.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Models/FIRCLSExecutionIdentifierModel.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Models/FIRCLSInternalReport.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Operations/Symbolication/FIRCLSDemangleOperation.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Operations/Symbolication/FIRCLSThreadArrayOperation.h

@@ -1,0 +1,9 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "972eb2fa63bdbb8d4c334eb4ea063558b88cc1f7fa49642c4c147ac94c1eaa21"
+build_start_time: [1773639342, 967402000]
+build_end_time: [1773639344, 150108000]
+inputs:
+  ? "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.2/darwin/shared_preferences_foundation/Sources/shared_preferences_foundation/SharedPreferencesPlugin.swift"
+  : [1767086662, 210766916]
+  ? "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.2/darwin/shared_preferences_foundation/Sources/shared_preferences_foundation/messages.g.swift"
+  : [1767086662, 211977072]

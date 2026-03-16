@@ -1,0 +1,81 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/SwiftProtobuf.build/Debug-iphoneos/protoc-gen-swift.build/Objects-normal/arm64/protoc-gen-swift-master.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/SwiftProtobuf.build/Debug-iphoneos/protoc-gen-swift.build/Objects-normal/arm64/protoc-gen-swift-master.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/SwiftProtobuf.build/Debug-iphoneos/protoc-gen-swift.build/Objects-normal/arm64/protoc-gen-swift-master-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/SwiftProtobuf.build/Debug-iphoneos/protoc-gen-swift.build/Objects-normal/arm64/protoc-gen-swift-master-emit-module.dia",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/SwiftProtobuf.build/Debug-iphoneos/protoc-gen-swift.build/Objects-normal/arm64/protoc-gen-swift-master.swiftdeps"
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/BytecodeWriter.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/CommandLine+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/Descriptor+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/EnumGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/ExtensionSetGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/FieldGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/FileGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/FileIo.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/GenerationError.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/GeneratorOptions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/Google_Protobuf_FileDescriptorProto+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/MessageFieldGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/MessageGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/MessageStorageClassGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/MessageStorageDecision.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/OneofGenerator.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/ProtoNameInstructionWriter.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/ProvidesDeprecationComment+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/ProvidesSourceCodeLocation+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/Range+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/StringUtils.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/SwiftGeneratorPlugin.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/SwiftProtobufNamer+Extensions.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/swift-protobuf/Sources/protoc-gen-swift/Version.swift" : {
+
+  }
+}

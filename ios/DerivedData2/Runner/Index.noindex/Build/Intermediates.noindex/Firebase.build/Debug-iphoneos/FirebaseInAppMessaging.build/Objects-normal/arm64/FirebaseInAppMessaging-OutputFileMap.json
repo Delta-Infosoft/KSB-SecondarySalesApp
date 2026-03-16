@@ -1,0 +1,18 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseInAppMessaging.build/Objects-normal/arm64/FirebaseInAppMessaging-master.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseInAppMessaging.build/Objects-normal/arm64/FirebaseInAppMessaging-master.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseInAppMessaging.build/Objects-normal/arm64/FirebaseInAppMessaging-master-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseInAppMessaging.build/Objects-normal/arm64/FirebaseInAppMessaging-master-emit-module.dia",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Firebase.build/Debug-iphoneos/FirebaseInAppMessaging.build/Objects-normal/arm64/FirebaseInAppMessaging-master.swiftdeps"
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseInAppMessaging/Swift/Source/CustomInAppMessageDisplayViewModifier.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseInAppMessaging/Swift/Source/SPMSwiftHeaderWorkaround.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseInAppMessaging/Swift/Source/SwiftUIPreviewHelpers.swift" : {
+
+  }
+}

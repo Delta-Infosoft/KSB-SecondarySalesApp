@@ -1,0 +1,5 @@
+dependencies: \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/FirebaseCoreExtension/FirebaseCoreExtension.framework/Modules/module.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreExtension/FirebaseCore/Extension/dummy.m \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/Target\ Support\ Files/FirebaseCoreExtension/FirebaseCoreExtension-prefix.pch \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework/Modules/module.modulemap

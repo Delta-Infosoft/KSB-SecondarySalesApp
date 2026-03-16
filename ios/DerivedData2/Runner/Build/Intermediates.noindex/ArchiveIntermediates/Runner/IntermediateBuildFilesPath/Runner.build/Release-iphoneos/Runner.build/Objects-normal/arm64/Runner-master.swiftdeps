@@ -1,0 +1,9 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "23b4d73741627b327a2d3203f2a08340531f0d854ced1d4da79f3ec2477b7132"
+build_start_time: [1773639410, 294982000]
+build_end_time: [1773639415, 228951000]
+inputs:
+  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/Runner.build/Release-iphoneos/Runner.build/DerivedSources/GeneratedAssetSymbols.swift"
+  : [1773639410, 286560875]
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Runner/AppDelegate.swift": [1770805290, 250929707]
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Runner/Dummy.swift": [1756452821, 76917456]

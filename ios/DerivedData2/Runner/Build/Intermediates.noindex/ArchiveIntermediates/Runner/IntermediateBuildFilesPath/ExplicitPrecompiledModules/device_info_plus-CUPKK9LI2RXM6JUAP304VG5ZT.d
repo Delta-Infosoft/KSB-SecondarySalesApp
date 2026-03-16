@@ -1,0 +1,6 @@
+moduledependenciestarget: \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/UninstalledProducts/iphoneos/device_info_plus.framework/Modules/module.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/UninstalledProducts/iphoneos/device_info_plus.framework/Headers/device_info_plus-umbrella.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/UIKit.framework/Modules/module.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/UninstalledProducts/iphoneos/device_info_plus.framework/Headers/FPPDeviceInfoPlusPlugin.h \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/Flutter.framework/Modules/module.modulemap
