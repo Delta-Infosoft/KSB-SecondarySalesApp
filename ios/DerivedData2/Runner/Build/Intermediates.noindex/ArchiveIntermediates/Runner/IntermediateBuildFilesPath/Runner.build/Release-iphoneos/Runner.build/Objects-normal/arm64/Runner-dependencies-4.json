@@ -1,0 +1,652 @@
+[
+  {
+    "isFramework" : true,
+    "moduleName" : "Accessibility",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Accessibility.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "Combine",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Combine.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "CoreAudio",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreAudio.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "CoreData",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreData.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "CoreFoundation",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreFoundation.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "CoreGraphics",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreGraphics.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "CoreImage",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreImage.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "CoreMedia",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreMedia.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "CoreText",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreText.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "CoreTransferable",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreTransferable.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "CoreVideo",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/CoreVideo.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "Darwin",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Darwin.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "DataDetection",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/DataDetection.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "DeveloperToolsSupport",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/DeveloperToolsSupport.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "Dispatch",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Dispatch.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "FileProvider",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/FileProvider.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "Foundation",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Foundation.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "Metal",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Metal.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "OSLog",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/OSLog.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "ObjectiveC",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/ObjectiveC.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "Observation",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Observation.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "QuartzCore",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/QuartzCore.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "Spatial",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Spatial.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "Swift",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Swift.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "SwiftUI",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/SwiftUI.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "SwiftUICore",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/SwiftUICore.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "Symbols",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/Symbols.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "System",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/System.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : true,
+    "moduleName" : "UIKit",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/UIKit.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "UniformTypeIdentifiers",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/UniformTypeIdentifiers.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "XPC",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/XPC.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "_Builtin_float",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/_Builtin_float.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "_Concurrency",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/_Concurrency.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "_DarwinFoundation1",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/_DarwinFoundation1.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "_DarwinFoundation2",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/_DarwinFoundation2.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "_DarwinFoundation3",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/_DarwinFoundation3.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "_StringProcessing",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/_StringProcessing.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "os",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/os.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "isFramework" : false,
+    "moduleName" : "simd",
+    "modulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/swift\/iphoneos\/prebuilt-modules\/26.4\/simd.swiftmodule\/arm64e-apple-ios.swiftmodule"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/Accessibility.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Accessibility-1MPEPWM61HXMDVOM483ZWL7PE.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Accessibility"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CFNetwork.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CFNetwork-5HF9RCDKBE57JC6004EQGX97I.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CFNetwork"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreAudio.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreAudio-D88FR8YA9AZPG7F1Y7M2RAM51.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreAudio"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreAudioTypes.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreAudioTypes-A7N8LHTQHCEBA0MGS3DAHV20F.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreAudioTypes"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreData.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreData-KFWYXA0PY0XQDX3G61KMJFJL.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreData"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreFoundation.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreFoundation-13U3E24D45OOOJ7ZEB643KLNG.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreFoundation"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreGraphics.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreGraphics-ED8BHSYBG4Y8C7TIUFN67KUSC.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreGraphics"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreImage.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreImage-566S2O9UEZH5JZZHC31NZD0FP.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreImage"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreMedia.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreMedia-1LLMX4DLPGVUF4FOCT8GBELQT.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreMedia"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreText.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreText-1BJOC2F16116KMVB371YY3WI4.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreText"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreTransferable.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreTransferable-CS652Z53MTS7CFMPNVDD8NRP6.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreTransferable"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/CoreVideo.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/CoreVideo-3HPBLIUEKB72NL82VB2OSUGK6.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "CoreVideo"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/Darwin.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Darwin-6VS8FR76OM75GDXQEOMBNWI5D.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Darwin"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/DataDetection.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/DataDetection-704F20TST6708UZXB9G4S5URJ.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "DataDetection"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/DeveloperToolsSupport.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/DeveloperToolsSupport-466V7J1W87BNR4OHIAHMVD8ZS.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "DeveloperToolsSupport"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/dispatch.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Dispatch-ANTD17F0TGCOOEUXOT6P3D8NK.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Dispatch"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/FileProvider.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/FileProvider-7OGIO5Y44UBS2PRN0CKGYY0EH.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "FileProvider"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/Pods\/Firebase\/CoreOnly\/Sources\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/SwiftExplicitPrecompiledModules\/Firebase-31ZLS0Q3LSO7SC2Y0GCLEEDUM.pcm",
+    "isBridgingHeaderDependency" : true,
+    "isFramework" : false,
+    "moduleName" : "Firebase"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/UninstalledProducts\/iphoneos\/FirebaseCore.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/SwiftExplicitPrecompiledModules\/FirebaseCore-9GOXIPMDVLEFBE3NEAWU6XWY5.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "FirebaseCore"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/UninstalledProducts\/iphoneos\/FirebaseCrashlytics.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/SwiftExplicitPrecompiledModules\/FirebaseCrashlytics-B47ZAUURDG70KQK4DK3ZYNMSZ.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "FirebaseCrashlytics"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/UninstalledProducts\/iphoneos\/FirebaseInstallations.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/SwiftExplicitPrecompiledModules\/FirebaseInstallations-BBOZNC50V34SHQI6SBUAL9U10.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "FirebaseInstallations"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/UninstalledProducts\/iphoneos\/FirebaseMessaging.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/SwiftExplicitPrecompiledModules\/FirebaseMessaging-5BSZE6S5MFDKIO908D24M7UNT.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "FirebaseMessaging"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/BuildProductsPath\/Release-iphoneos\/Flutter.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/Runner\/Build\/Intermediates.noindex\/ArchiveIntermediates\/Runner\/IntermediateBuildFilesPath\/SwiftExplicitPrecompiledModules\/Flutter-7CY1PY0V16EH1HUM7TNGHIH96.pcm",
+    "isBridgingHeaderDependency" : true,
+    "isFramework" : false,
+    "moduleName" : "Flutter"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/Foundation.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Foundation-4IO29DCZCN2UHVVVC7R9TVXMF.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Foundation"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/IOSurface.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/IOSurface-EEOEJ97HJBXZI1AJNQYGBTCPL.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "IOSurface"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/ImageIO.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/ImageIO-BA2UQ0RS5K4RAS1MC8IWJK5LW.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "ImageIO"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/DarwinBasic.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/MachO-9TM9QU4IMFTY40PDU6N2SCAZK.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "MachO"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/Metal.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Metal-A4QJL8U44X0IIBAA48ACQXPVZ.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Metal"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/OSLog.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/OSLog-DUZBHOX4SSWRZER3BDTUGMS37.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "OSLog"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/ObjectiveC.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/ObjectiveC-2SPT0YMIKYULJFO9QJL0MEZVG.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "ObjectiveC"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/OpenGLES.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/OpenGLES-2S7LER6JDUPD4U9T5TWXTQQFM.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "OpenGLES"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/QuartzCore.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/QuartzCore-F4QW3TF1Z2THWU87MKTZ2KNEO.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "QuartzCore"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/Security.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Security-88DRC31ZF2KONH2PIVDAUQSYP.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Security"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/Spatial\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Spatial-GN1PRVN9OF2G88EL4E7ZV0HN.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Spatial"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/lib\/swift\/shims\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/SwiftShims-AXS3WC2RXR90BX8B28BG4HVYE.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "SwiftShims"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/SwiftUI.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/SwiftUI-86329KXDD8M0TZ3YLZ97HAEAT.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "SwiftUI"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/SwiftUICore.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/SwiftUICore-5BF3EYW7NRNRC6B9LKZSEFSQ5.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "SwiftUICore"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/Symbols.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/Symbols-8QGMA41HKCIH0E19S1QNMVD24.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "Symbols"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/UIKit.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/UIKit-6DTNA94V297Z70LZ60SP60LK5.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "UIKit"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/SubFrameworks\/UIUtilities.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/UIUtilities-9WYWJJR3RE1X56KISKJ73YQH2.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "UIUtilities"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/UniformTypeIdentifiers.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/UniformTypeIdentifiers-4D890XH1TU42GOTDJ56F5Q2LV.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "UniformTypeIdentifiers"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/System\/Library\/Frameworks\/UserNotifications.framework\/Modules\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/UserNotifications-BL2ZWORDEKON9JQ3AJL63GRB4.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "UserNotifications"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/xpc.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/XPC-DDRJ3UQ6LJP8LHFH0N1UA26E9.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "XPC"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/DarwinFoundation1.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_AvailabilityInternal-DNNQFALFQSZR2XFO1XJZMOC94.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_AvailabilityInternal"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_float-DEABYM9NWMCXY3AHDS1E6QLC3.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_float"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_intrinsics-DLZ9IUORNL88KOMV4H99RIKUZ.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_intrinsics"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_inttypes-8ZSHD8B3260F2VB4UIDDXVZFU.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_inttypes"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_limits-F1SQ009WPS7EG2FSO8WRIRTI1.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_limits"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_stdarg-3S42S37YDS3U0WNZD0V3NB6PC.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_stdarg"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_stdatomic-2AK3IZGYRB6TFZT9IKLA1N2C3.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_stdatomic"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_stdbool-2NJ7UVCNPSA3DIFDD5Q2ZPIUU.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_stdbool"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_stddef-1F3Q62YXJ0V0B6G43Q7YBTME3.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_stddef"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_stdint-8IWS598Y3Q2P589MWGZEGA5YC.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_stdint"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_Builtin_tgmath-BEH28X5CJIEXMWJFCDWWTHG87.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_Builtin_tgmath"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/DarwinFoundation1.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_DarwinFoundation1-C37HHPH3WNB3MZFFCHGQ5JH0H.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_DarwinFoundation1"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/DarwinFoundation2.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_DarwinFoundation2-19FHXSM9YZCRJHWX1V1Q0UR4X.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_DarwinFoundation2"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/DarwinFoundation3.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_DarwinFoundation3-AFQPOSY9CY3WS4RHVON6FA93S.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_DarwinFoundation3"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/lib\/swift\/shims\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/_SwiftConcurrencyShims-8WFMWFW87DIUHLWEBXX0WHCJD.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "_SwiftConcurrencyShims"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/os.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/os-80C9OPTJWX46TVSPITNT2P63S.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "os"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/os.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/os_object-69MX11NO3SKR4U6SD3MSSUATI.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "os_object"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/os.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/os_workgroup-A138NABQ7DXE3C375IRRVQEZP.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "os_workgroup"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/ptrauth-7RQDVQUGW27Y1K1O29M8VZ7FQ.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "ptrauth"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Toolchains\/XcodeDefault.xctoolchain\/usr\/lib\/clang\/21\/include\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/ptrcheck-72YQG8O0H5M2RB5WK382RJLD4.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "ptrcheck"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/simd\/module.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/simd-8AMT92SPRP0819GANBTS5GV45.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "simd"
+  },
+  {
+    "clangModuleMapPath" : "\/Volumes\/Mac Mini Secoundry Drive\/Xcode.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/SDKs\/iPhoneOS.sdk\/usr\/include\/DarwinFoundation2.modulemap",
+    "clangModulePath" : "\/Volumes\/Mac Mini Secoundry Drive\/Flutter Projects\/KSB-SecondarySalesApp\/ios\/DerivedData2\/ModuleCache.noindex\/sys_types-7UTQCQJ0HUUMPXG30WJLU8Z4E.pcm",
+    "isBridgingHeaderDependency" : false,
+    "isFramework" : false,
+    "moduleName" : "sys_types"
+  }
+]

@@ -1480,9 +1480,14 @@ class _SalesInsertState extends State<SalesInsert> {
                     itemBuilder: (context, index) {
                       final item = serialNumberList[index];
                       final serialNo = item.serialNumber ?? '';
+                      final pumpDesc = item.materialDescription ?? '';
+                      print('Pump Desc>>>>>: $pumpDesc');
 
                       return Obx(() => CheckboxListTile(
                         title: Text(serialNo),
+                        subtitle: pumpDesc.trim().isNotEmpty
+                            ? Text(pumpDesc)
+                            : null,
                         value: selectedSerials.contains(serialNo),
                         onChanged: (val) {
                           if (val == true) {

@@ -5,11 +5,10 @@ dependencies: \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Controllers/FIRCLSNotificationManager.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Foundation.framework/Modules/module.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreFoundation.framework/Modules/module.modulemap \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/TargetConditionals.modulemap \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinBasic.modulemap \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinFoundation.modulemap \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/module.modulemap \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/c_standard_library.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinFoundation1.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include/module.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinFoundation2.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinFoundation3.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/dispatch.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSApplication.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSGlobals.h \
@@ -19,7 +18,7 @@ dependencies: \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Helpers/FIRCLSFile.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Shared/FIRCLSMachO/FIRCLSMachO.h \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/MachO.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinBasic.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSHost.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCrashlytics/Crashlytics/Crashlytics/Handlers/FIRCLSException.h \

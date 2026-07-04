@@ -1,0 +1,10 @@
+{
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Runner/AppDelegate.swift" : {
+    "abi-baseline-json" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphoneos/Runner.build/Objects-normal/arm64/Runner.abi.json",
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphoneos/Runner.build/Objects-normal/arm64/Runner-primary.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphoneos/Runner.build/Objects-normal/arm64/Runner-primary.dia",
+    "objc-header" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphoneos/Runner.build/Objects-normal/arm64/Runner-Swift.h",
+    "swiftdoc" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphoneos/Runner.build/Objects-normal/arm64/Runner.swiftdoc",
+    "swiftsourceinfo" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphoneos/Runner.build/Objects-normal/arm64/Runner.swiftsourceinfo"
+  }
+}

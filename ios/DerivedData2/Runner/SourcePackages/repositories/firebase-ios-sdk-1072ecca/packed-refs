@@ -4,8 +4,6 @@ f25eda58236c2408302bf0f981ac59e951264cea refs/heads/6.32-spm-beta
 c26f513c90cc59b5303af2f535b71ba0ca8fe6cb refs/heads/6.33-spm-beta
 70b54ba972e5768fe84f69f700ae362c8fbf8e8b refs/heads/6.34-spm-beta
 ab758f2ac842b12560354af0526e21d73235d4d3 refs/heads/7.0-spm-beta
-ad6652b79d61b4b49a92fe1479115e7356ab1e68 refs/heads/add-remoteconfig-objc-tests
-af6463a97e9f0cd77befe18346db81c0ab5a3604 refs/heads/add-response-modalities
 ebad68e5547d5099475e1945b6d2ec4fa99b022a refs/heads/ah/ai-partsrep-sendable
 e065e596e0b633cb63646228ed7fbf1d6494e61f refs/heads/ah/appcheck-lite
 99961264cd6fdfe83c0df277bdd9868e8a50d845 refs/heads/ah/appcheck-logger
@@ -44,8 +42,6 @@ bce47be2603891c112e25eb6a6740c9c2876541b refs/heads/better-log
 95146e270702ae8e17fbdecef2f999ea99f15455 refs/heads/cheryllin/FirebaseLogger
 a540383781fecad62cca3185ebcc6e8b20b1a1be refs/heads/cheryllin/ReplaceRelativePath
 35f936acf875bb1b50dfc30cf467d9114c001ff8 refs/heads/cheryllin/c++17upgrade
-b707cb24005e3f5052a2cbec9c44fa8b8c81b0f5 refs/heads/cheryllin/c++17upgradeSPM
-3a31be727778f8ef41381e443791cac2b01c89b0 refs/heads/cheryllin/c++17upgradepods
 dca4a71c0038c145315651873825eac1921c6932 refs/heads/cheryllin/debuglog
 3e6d668a3728ebd1c02cf5ff40908d639a9156a2 refs/heads/cheryllin/firestoreSwiftCpp
 752f0d6b15b3fafb3bbea3c54f789efec6da6154 refs/heads/crashlytics-dev-mode
@@ -57,7 +53,6 @@ ce9fb346b6be0f04b5c05d15254fdaee6b7173c8 refs/heads/dataconnect
 33241936a6369cc111ce0b7b8c7e31190d55a629 refs/heads/dconeybe/ThreadSafeMemoizerMemoryLeakFix_FullSolution
 fb7c8293527576128032d0bcf461ac544c345a6d refs/heads/emulator-testapp
 da974fef26335135704e9a9d3e07d172cdbf5036 refs/heads/fad/in-app-feedback
-3326218a54be0cd17441a9f4081baeda04f98585 refs/heads/feat/add-chat-history-tests
 1ff36347fa69558d7e04e17ba8a5a7b9638db3f9 refs/heads/fill-in-session-proto-update
 15e6b03e5b56466cae27792a2ccbdc221e05044d refs/heads/firebase-ai
 204f48322594c3904b05c814b4d2e001a2284ae0 refs/heads/firebase7-main
@@ -67,7 +62,6 @@ da974fef26335135704e9a9d3e07d172cdbf5036 refs/heads/fad/in-app-feedback
 970cf68b83fa56e820e8c8a2193199a9cc8f38b3 refs/heads/inlined.httpsCallableNoLabel
 1b4912d08cbd2a743e6b2ed6cf5a15b4b956da13 refs/heads/inlined.increment-optimization
 7c57ed0c7f65fb1edf8ab1f526b4781c5436b15f refs/heads/instance-identifier-extraction
-798bd3a24b0082f42839e2520a06a8c6f020d0fd refs/heads/internal-content-modality
 95570e5e143e79d939b4f5f89a93ee7587c96ad6 refs/heads/ios-recaptchaenterprise
 3b95d753dc434a5d9a5391907e30346c70de0110 refs/heads/jamxl-mock-perf-release
 cbdb603e7dfd579d2aaafbcaaab08dc572550bca refs/heads/jw/186169497
@@ -93,7 +87,6 @@ a275042693f1d4b29117c19352ebff4604e62dcc refs/heads/mm/fis-games
 8ee46b5e75111558d567ef688bb6892e3b25f42b refs/heads/nc/recaptcha-spm
 6aa0d52661b0d500057c8b5a56c216a49b5f2081 refs/heads/ncooke3-patch-1
 474b671b6b7a366e0bc2e470baaaf25526c5c20a refs/heads/new-prev-sess
-bf03b50297ff1e72ca502b75e2d6cf97b6a489fb refs/heads/odm2-open-beta
 d51c75b356ff90af029f60911f070aaa705cfab2 refs/heads/passkey
 d2c8abeae144d76a636bb6094b50138f043902a4 refs/heads/passkey-api-proposal
 550268a9ba153de698458ba4bd3cfc72da0b72f0 refs/heads/passkey-base
@@ -240,14 +233,10 @@ cfa854c9c1073c4d1b83b20dfcb1ef7ceb85388b refs/heads/release-9.0
 7f31a43f8c49bd4a1723bc9fecdfaa4411dd9f36 refs/heads/release-9.5
 5095015905b7478dfafd067380085d968c4e755a refs/heads/revert-4512-wuandy/SpecTestsLimitToLast
 4b314d9dc26a806343ae210dc2101e2313ba120d refs/heads/rewrite-remote-config-swift
-a89fb06db5ffcb4417a3ddc7097a9fd6e8b60810 refs/heads/rw-auth-rpcs
 e769198cdd1f4f80d0f188748c05dff2bbc5c3ac refs/heads/rw-fix-master
 bdabdaf4a79fd6c30793c0f8759cbb8bb3332d1c refs/heads/rw-messaging-changelog
-27b0f6f0a424ca269608bade9c7eb1561d853993 refs/heads/rw-output-modality2
-98ddafd59e161c87fbf7217fba976e9f7a380c56 refs/heads/rw-remove-admob-zip-build
 c8a4bfe0a06d74012c3750b0c2d4968e9838e84b refs/heads/rw-swiftui-updates
 db3e24b3213a7fe12fb530c726346555b8fb1681 refs/heads/rw-tv-code
-3e3a9b90d941d6c6d05503109abd387be4cc782c refs/heads/rw-visionos
 843dc9c37dc5dcf0bdd370add955ad045c6c9fcd refs/heads/rw-watchos-pr
 b62d41633d30ddb9bc1dc35f2d4504dcd2fbb162 refs/heads/rw-watchos-version-drop
 c017b467b53d170670da57a5b536511fcd998c2a refs/heads/rw-zip-xcframeworks
@@ -270,9 +259,7 @@ d324c104746db70d2e09de67fb3d3c90689ecd28 refs/heads/upload-symbols-warning
 4726a21aa5802dcb0381756740c326782a24b745 refs/heads/varconst/fst-transaction2
 239ef8f039c658c0fa7d9ad8cc69e39ce4f9e667 refs/heads/vertex-ai
 f807fe79053e88ce3a8e175b9b51d59f901a2936 refs/heads/vertex-imagen
-1158eac3efd48b3a2a89030b6555b0c40ff77608 refs/heads/vertexai-api-version
 c8239063783af37fe6847a247898dd2eb9551659 refs/heads/vertexai-bug-bash
-e56d6840ee899a6f9c34026148dac7c473a2511a refs/heads/vertexai-endpoint-version
 61ced2e796a91f1644891a2a4a8c174f21a7be08 refs/heads/vertexai-preview-0.1.0
 65ab3e838cb9830a8414de358f03ce8a3fbd12a0 refs/heads/vertexai-release
 9a9980b66e8795a40a39773e89de98ea4ab9f6b0 refs/heads/watchos-sample
@@ -2280,7 +2267,6 @@ ff9b72a43662cbfa2de77c9596fd463759ed9206 refs/pull/12966/head
 0e12fa30919e80fb6600ad1be64a53c602a6dda6 refs/pull/12970/head
 b7458423a17180de0eae0fa96422f2387ee8c4e8 refs/pull/12971/head
 2ad60bdf1d6ff281cf490f89bbfa8ed532984747 refs/pull/12972/head
-7c73b3683b0a761a12215607d591c3c2b4cb5665 refs/pull/12972/merge
 d067004b445a164573956cb9854cbed0dfbd40cf refs/pull/12973/head
 3a5e64d8b138e82208506a08ec1ee5449606b484 refs/pull/12977/head
 81ed99fa1f1519479c056945c254eebd5248fdfb refs/pull/12978/head
@@ -2635,7 +2621,6 @@ feae3e363ed0ec11297077e00d122922385727bd refs/pull/13445/head
 7b15f30df4ec0f855ad5fa8a6836961517bfbbeb refs/pull/13446/head
 d6cc0dd123d1ee5a232f56033e2a0ec6f4b60188 refs/pull/13447/head
 d9eea7a58c2edf8fa0e5ad09aa83f6ff8a2e1400 refs/pull/13448/head
-681ce730f4eaf606699d91096f31cf7c1e3f251c refs/pull/13448/merge
 5e9893530ca6f92d52cb9a2c5a4eb2a05741f270 refs/pull/13449/head
 e7f8105954ef7b21358db8889cdcbd5c3da3c6f3 refs/pull/13450/head
 efeda41a5d3fdd4dd6e2cf038560da9c7686b101 refs/pull/13453/head
@@ -3830,7 +3815,6 @@ f7bc0242a0869273c31e7e9166c8c3dd3dd064f4 refs/pull/15069/head
 2f6614129c7ba96bff7adf4e2341d90e719b0a6f refs/pull/15070/head
 d3f39935032a5b0e7820ee4d0d63268827d53431 refs/pull/15071/head
 b707cb24005e3f5052a2cbec9c44fa8b8c81b0f5 refs/pull/15072/head
-da53391019abaab28a33062dda21663532dbc56f refs/pull/15072/merge
 6fc4726627e438615277f16286ff83964da7d412 refs/pull/15073/head
 35f936acf875bb1b50dfc30cf467d9114c001ff8 refs/pull/15074/head
 0f3c85a43e450744b14f817bfa132e270c892567 refs/pull/15074/merge
@@ -3843,7 +3827,6 @@ ad5fd580db10dfe42cd317465e78e2a19134230f refs/pull/15076/head
 544c29ed7f3a36c8ed5d62257ad0f6ed2ed5c925 refs/pull/15081/head
 42668501f2eec0d189a9c699bce989f975a265b2 refs/pull/15082/head
 3a31be727778f8ef41381e443791cac2b01c89b0 refs/pull/15083/head
-506879ea38c5381ca998d07025382fbc9cd89616 refs/pull/15083/merge
 a76b3963d576ab7d46b9bf3f617c8bc3ad45c8ea refs/pull/15084/head
 005276ec0a3f48271ac6b47c917388d2a91b648c refs/pull/15088/head
 1c80405baf6fb179cff3cf9817e35e646b554bbb refs/pull/15089/head

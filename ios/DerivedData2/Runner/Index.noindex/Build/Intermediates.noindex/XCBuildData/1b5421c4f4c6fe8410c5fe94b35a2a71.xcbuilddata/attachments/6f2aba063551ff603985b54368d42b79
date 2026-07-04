@@ -1,0 +1,46 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/FirebaseCoreInternal.build/Objects-normal/arm64/FirebaseCoreInternal-primary.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/FirebaseCoreInternal.build/Objects-normal/arm64/FirebaseCoreInternal-primary.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/FirebaseCoreInternal.build/Objects-normal/arm64/FirebaseCoreInternal-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/FirebaseCoreInternal.build/Objects-normal/arm64/FirebaseCoreInternal-primary-emit-module.dia",
+    "pch" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/FirebaseCoreInternal.build/Objects-normal/arm64/FirebaseCoreInternal-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/FirebaseCoreInternal.build/Objects-normal/arm64/FirebaseCoreInternal-primary.swiftdeps"
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Heartbeat.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatController.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatLoggingTestUtils.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatStorage.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsBundle.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsPayload.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/RingBuffer.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Storage.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/StorageFactory.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/WeakContainer.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatController.swift" : {
+
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatsPayload.swift" : {
+
+  }
+}

@@ -1,0 +1,4 @@
+
+module unique_identifier.__Swift {
+  exclude header "unique_identifier-Swift.h"
+}

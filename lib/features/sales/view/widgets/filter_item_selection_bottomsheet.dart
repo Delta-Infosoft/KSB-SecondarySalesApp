@@ -4,6 +4,8 @@ import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart
 import 'package:ksb_secondary_sales/core/utils/widgets/common_button.dart';
 import 'package:ksb_secondary_sales/core/utils/widgets/common_text_input.dart';
 
+import '../../view_model/sales_insert_controller.dart';
+
 class FilterItemSelectionBottomSheet extends StatefulWidget {
   const FilterItemSelectionBottomSheet({
     super.key,
@@ -25,6 +27,7 @@ class _FilterItemSelectionBottomSheetState
     extends State<FilterItemSelectionBottomSheet> {
   late List<Item> items;
   late List<Item> _filteredItems;
+  ProductModel? product;
   late ScrollController scrollController;
   TextEditingController searchController = TextEditingController();
   RxBool isSearching = false.obs;
@@ -60,9 +63,9 @@ class _FilterItemSelectionBottomSheetState
       _filteredItems = items.map((item) {
         final filteredItem = _filteredItems.firstWhere(
           (filtered) => filtered.name == item.name,
-          orElse: () => Item(name: item.name, isSelected: item.isSelected),
+          orElse: () => item.copyWith(isSelected: item.isSelected),
         );
-        return Item(name: item.name, isSelected: filteredItem.isSelected);
+        return item.copyWith(isSelected: filteredItem.isSelected);
       }).toList();
     } else {
       isSearching.value = true;
@@ -72,9 +75,9 @@ class _FilterItemSelectionBottomSheetState
           .map((item) {
         final filteredItem = _filteredItems.firstWhere(
           (filtered) => filtered.name == item.name,
-          orElse: () => Item(name: item.name, isSelected: item.isSelected),
+          orElse: () => item.copyWith(isSelected: item.isSelected),
         );
-        return Item(name: item.name, isSelected: filteredItem.isSelected);
+        return item.copyWith(isSelected: filteredItem.isSelected);
       }).toList();
     }
     setState(() {});
@@ -115,12 +118,12 @@ class _FilterItemSelectionBottomSheetState
                             .any((element) => !element.isSelected)) {
                           isCheckedAll.value = true;
                           _filteredItems = _filteredItems
-                              .map((e) => Item(name: e.name, isSelected: true))
+                              .map((e) => e.copyWith(isSelected: true))
                               .toList();
                         } else {
                           isCheckedAll.value = false;
                           _filteredItems = _filteredItems
-                              .map((e) => Item(name: e.name, isSelected: false))
+                              .map((e) => e.copyWith(isSelected: false))
                               .toList();
                         }
                         setState(() {});
@@ -159,8 +162,7 @@ class _FilterItemSelectionBottomSheetState
                               borderRadius: BorderRadius.circular(5)),
                           onChanged: (bool? value) {
                             setState(() {
-                              _filteredItems[index] = Item(
-                                  name: item.name, isSelected: value ?? false);
+                              _filteredItems[index] = item.copyWith(isSelected: value ?? false);
                               // Update the original list as well
                               final originalIndex = items.indexWhere(
                                   (element) => element.name == item.name);
@@ -168,13 +170,14 @@ class _FilterItemSelectionBottomSheetState
                                 if (!(value ?? false))
                                   isCheckedAll.value = false;
 
-                                items[originalIndex] = Item(
-                                    name: item.name,
-                                    isSelected: value ?? false);
+                                items[originalIndex] = item.copyWith(isSelected: value ?? false);
                               }
                             });
                           },
                           title: Text(item.name),
+                          subtitle: item.materialDescription?.trim().isNotEmpty == true
+                              ? Text(item.materialDescription!)
+                              : null,
                         );
                       },
                     ),
@@ -210,19 +213,24 @@ class _FilterItemSelectionBottomSheetState
 
 class Item {
   String name;
+  String? materialDescription;
   String? productId;
   bool isSelected;
 
   Item({
     required this.name,
+    this.materialDescription,
     this.productId,
     required this.isSelected,
+
   });
 
   Item copyWith({String? name, String? productId, bool? isSelected}) {
     return Item(
       name: name ?? this.name,
       productId: productId ?? this.productId,
+      materialDescription:
+      materialDescription ?? this.materialDescription,
       isSelected: isSelected ?? this.isSelected,
     );
   }

@@ -1,0 +1,22 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-primary.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-primary.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-primary-emit-module.dia",
+    "pch" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/url_launcher_ios.build/Objects-normal/arm64/url_launcher_ios-primary.swiftdeps"
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/Launcher.swift" : {
+
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/URLLaunchSession.swift" : {
+
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/URLLauncherPlugin.swift" : {
+
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.3/ios/url_launcher_ios/Sources/url_launcher_ios/messages.g.swift" : {
+
+  }
+}

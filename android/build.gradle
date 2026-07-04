@@ -33,6 +33,25 @@ subprojects {
             android {
                 compileSdkVersion = 34
 
+                if (namespace == null) {
+                    try {
+                        def manifestFile = project.file("src/main/AndroidManifest.xml")
+                        if (manifestFile.exists()) {
+                            def manifest = new XmlParser().parse(manifestFile)
+                            def pkg = manifest.attribute("package")
+                            if (pkg) {
+                                namespace = pkg
+                            }
+                        }
+                    } catch (Exception e) {
+                        // Fallback if parsing fails
+                    }
+                }
+
+                if (namespace == null) {
+                    namespace = "com.example.${project.name.replaceAll(/[^a-zA-Z0-9_]/, '_')}"
+                }
+
                 compileOptions {
                     sourceCompatibility JavaVersion.VERSION_17
                     targetCompatibility JavaVersion.VERSION_17

@@ -1,4 +1,0 @@
-module AppCheckCore {
-umbrella header "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/app-check/AppCheckCore/Sources/Public/AppCheckCore/AppCheckCore.h"
-export *
-}

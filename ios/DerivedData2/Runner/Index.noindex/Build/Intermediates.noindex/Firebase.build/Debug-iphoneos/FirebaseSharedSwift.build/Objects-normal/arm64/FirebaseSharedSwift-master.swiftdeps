@@ -1,9 +1,0 @@
-version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
-options: "9892bbb41c7038a615f97b73dd0f96606f71bc3563925c97d68dee73554fddd0"
-build_start_time: [1773639347, 708592000]
-build_end_time: [1773639347, 942302000]
-inputs:
-  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift"
-  : [1770805182, 75815363]
-  ? "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseSharedSwift/Sources/third_party/FirebaseDataEncoder/FirebaseDataEncoder.swift"
-  : [1770805182, 76112825]

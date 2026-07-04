@@ -142,14 +142,20 @@
 // }
 
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
+import 'package:version/version.dart';
 import 'package:upgrader/upgrader.dart';
 
 import 'login_form.dart';
+
+import 'package:http/http.dart' as http;
+
+
 
 class OnboardContent extends StatefulWidget {
   const OnboardContent({super.key});
@@ -177,10 +183,17 @@ class _OnboardContentState extends State<OnboardContent> {
     _pageController.hasClients ? (_pageController.page ?? 0) : 0;
 
     return UpgradeAlert(
+
       upgrader: Upgrader(
-        durationUntilAlertAgain: const Duration(days: 1),
-        debugLogging: true,
+        durationUntilAlertAgain: const Duration(days: 0),
+        debugLogging: kDebugMode,
         debugDisplayAlways: false, // 👈 force show every time (for testing)
+        storeController: UpgraderStoreController(
+          onAndroid: () => CustomPlayStore(),
+          oniOS: () => UpgraderAppStore(),
+        ),
+
+
       ),
       barrierDismissible: false,
       shouldPopScope: () => false,
@@ -297,6 +310,69 @@ class _OnboardContentState extends State<OnboardContent> {
         );
       }),
     );
+  }
+}
+
+
+
+
+
+class CustomPlayStore extends UpgraderPlayStore {
+  @override
+  Future<UpgraderVersionInfo> getVersionInfo({
+    required UpgraderState state,
+    required Version installedVersion,
+    required String? country,
+    required String? language,
+  }) async {
+    final packageName = state.packageInfo?.packageName ?? '';
+    final storeVersion = await _fetchPlayStoreVersion(packageName);
+
+    debugPrint('✅ CustomPlayStore fetched version: $storeVersion');
+
+    if (storeVersion == null) {
+      return super.getVersionInfo(
+        state: state,
+        installedVersion: installedVersion,
+        country: country,
+        language: language,
+      );
+    }
+
+    return UpgraderVersionInfo(
+      appStoreListingURL:
+      'https://play.google.com/store/apps/details?id=$packageName',
+      appStoreVersion: Version.parse(storeVersion),
+      installedVersion: installedVersion,
+    );
+  }
+
+  Future<String?> _fetchPlayStoreVersion(String packageName) async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+          'https://play.google.com/store/apps/details?id=$packageName&hl=en&gl=IN',
+        ),
+        headers: {
+          'User-Agent':
+          'Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 Chrome/96.0 Mobile Safari/537.36',
+        },
+      );
+      if (response.statusCode == 200) {
+        final patterns = [
+          RegExp(r'\[\[\["(\d+\.\d+\.\d+)"'),
+          RegExp(r'"(\d+\.\d+\.\d+)"'),
+          RegExp(r'Current Version.*?(\d+\.\d+\.\d+)'),
+        ];
+        for (final pattern in patterns) {
+          final match = pattern.firstMatch(response.body);
+          if (match != null) return match.group(1);
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ Play Store fetch error: $e');
+    }
+    return null;
   }
 }
 

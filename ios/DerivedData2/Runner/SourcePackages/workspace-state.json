@@ -2,7 +2,11 @@
   "object" : {
     "artifacts" : [
       {
-        "kind" : "xcframework",
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
         "packageRef" : {
           "identity" : "abseil-cpp-binary",
           "kind" : "remoteSourceControl",
@@ -18,23 +22,11 @@
         "targetName" : "absl"
       },
       {
-        "kind" : "xcframework",
-        "packageRef" : {
-          "identity" : "firebase-ios-sdk",
-          "kind" : "remoteSourceControl",
-          "location" : "https://github.com/firebase/firebase-ios-sdk",
-          "name" : "firebase-ios-sdk"
+        "kind" : {
+          "xcframework" : {
+
+          }
         },
-        "path" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/artifacts/firebase-ios-sdk/FirebaseFirestoreInternal/FirebaseFirestoreInternal.xcframework",
-        "source" : {
-          "checksum" : "e7add08e9044ef45f7923d0b9ea5518ddc66b090d3f7e9455382f769e74c48c4",
-          "type" : "remote",
-          "url" : "https://dl.google.com/firebase/ios/bin/firestore/12.0.0/rc0/FirebaseFirestoreInternal.zip"
-        },
-        "targetName" : "FirebaseFirestoreInternal"
-      },
-      {
-        "kind" : "xcframework",
         "packageRef" : {
           "identity" : "firebase-ios-sdk",
           "kind" : "remoteSourceControl",
@@ -50,7 +42,31 @@
         "targetName" : "FirebaseAnalytics"
       },
       {
-        "kind" : "xcframework",
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
+        "packageRef" : {
+          "identity" : "firebase-ios-sdk",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/firebase/firebase-ios-sdk",
+          "name" : "firebase-ios-sdk"
+        },
+        "path" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/artifacts/firebase-ios-sdk/FirebaseFirestoreInternal/FirebaseFirestoreInternal.xcframework",
+        "source" : {
+          "checksum" : "e7add08e9044ef45f7923d0b9ea5518ddc66b090d3f7e9455382f769e74c48c4",
+          "type" : "remote",
+          "url" : "https://dl.google.com/firebase/ios/bin/firestore/12.0.0/rc0/FirebaseFirestoreInternal.zip"
+        },
+        "targetName" : "FirebaseFirestoreInternal"
+      },
+      {
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
         "packageRef" : {
           "identity" : "google-ads-on-device-conversion-ios-sdk",
           "kind" : "remoteSourceControl",
@@ -66,7 +82,11 @@
         "targetName" : "GoogleAdsOnDeviceConversion"
       },
       {
-        "kind" : "xcframework",
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
         "packageRef" : {
           "identity" : "googleappmeasurement",
           "kind" : "remoteSourceControl",
@@ -82,7 +102,11 @@
         "targetName" : "GoogleAppMeasurement"
       },
       {
-        "kind" : "xcframework",
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
         "packageRef" : {
           "identity" : "googleappmeasurement",
           "kind" : "remoteSourceControl",
@@ -98,39 +122,11 @@
         "targetName" : "GoogleAppMeasurementIdentitySupport"
       },
       {
-        "kind" : "xcframework",
-        "packageRef" : {
-          "identity" : "grpc-binary",
-          "kind" : "remoteSourceControl",
-          "location" : "https://github.com/google/grpc-binary.git",
-          "name" : "grpc-binary"
+        "kind" : {
+          "xcframework" : {
+
+          }
         },
-        "path" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/artifacts/grpc-binary/openssl_grpc/openssl_grpc.xcframework",
-        "source" : {
-          "checksum" : "52494719d0dda77fa9a65c62207f22814c7799d522b4ae73d1244dbe61cf2b89",
-          "type" : "remote",
-          "url" : "https://dl.google.com/firebase/ios/bin/grpc/1.69.1/rc0/openssl_grpc.zip"
-        },
-        "targetName" : "openssl_grpc"
-      },
-      {
-        "kind" : "xcframework",
-        "packageRef" : {
-          "identity" : "grpc-binary",
-          "kind" : "remoteSourceControl",
-          "location" : "https://github.com/google/grpc-binary.git",
-          "name" : "grpc-binary"
-        },
-        "path" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/artifacts/grpc-binary/grpcpp/grpcpp.xcframework",
-        "source" : {
-          "checksum" : "c965a70fc06c1323d631d909168ba801fb783df964e3625ca922250dd625b197",
-          "type" : "remote",
-          "url" : "https://dl.google.com/firebase/ios/bin/grpc/1.69.1/rc0/grpcpp.zip"
-        },
-        "targetName" : "grpcpp"
-      },
-      {
-        "kind" : "xcframework",
         "packageRef" : {
           "identity" : "grpc-binary",
           "kind" : "remoteSourceControl",
@@ -146,7 +142,53 @@
         "targetName" : "grpc"
       },
       {
-        "kind" : "artifactsArchive",
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
+        "packageRef" : {
+          "identity" : "grpc-binary",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/google/grpc-binary.git",
+          "name" : "grpc-binary"
+        },
+        "path" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/artifacts/grpc-binary/openssl_grpc/openssl_grpc.xcframework",
+        "source" : {
+          "checksum" : "52494719d0dda77fa9a65c62207f22814c7799d522b4ae73d1244dbe61cf2b89",
+          "type" : "remote",
+          "url" : "https://dl.google.com/firebase/ios/bin/grpc/1.69.1/rc0/openssl_grpc.zip"
+        },
+        "targetName" : "openssl_grpc"
+      },
+      {
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
+        "packageRef" : {
+          "identity" : "grpc-binary",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/google/grpc-binary.git",
+          "name" : "grpc-binary"
+        },
+        "path" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/artifacts/grpc-binary/grpcpp/grpcpp.xcframework",
+        "source" : {
+          "checksum" : "c965a70fc06c1323d631d909168ba801fb783df964e3625ca922250dd625b197",
+          "type" : "remote",
+          "url" : "https://dl.google.com/firebase/ios/bin/grpc/1.69.1/rc0/grpcpp.zip"
+        },
+        "targetName" : "grpcpp"
+      },
+      {
+        "kind" : {
+          "typedArtifactsArchive" : {
+            "_0" : [
+
+            ]
+          }
+        },
         "packageRef" : {
           "identity" : "swift-protobuf",
           "kind" : "remoteSourceControl",
@@ -401,7 +443,10 @@
         },
         "subpath" : "swift-protobuf"
       }
+    ],
+    "prebuilts" : [
+
     ]
   },
-  "version" : 6
+  "version" : 7
 }

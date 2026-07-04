@@ -1,4 +1,0 @@
-module GoogleAppMeasurementIdentitySupportTarget {
-umbrella "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/GoogleAppMeasurement/GoogleAppMeasurementIdentitySupportWrapper/include"
-export *
-}

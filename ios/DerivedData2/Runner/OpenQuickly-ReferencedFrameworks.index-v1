@@ -13,11 +13,11 @@
 	<string>fluttertoast</string>
 	<string>FirebaseDatabase</string>
 	<string>open</string>
-	<string>Firebase</string>
 	<string>FirebaseAppCheck</string>
+	<string>Firebase</string>
 	<string>FirebaseFunctions</string>
-	<string>url</string>
 	<string>Promises</string>
+	<string>url</string>
 	<string>SafariServices</string>
 	<string>FirebaseMessaging</string>
 	<string>AVFoundation</string>
@@ -32,11 +32,11 @@
 	<string>package</string>
 	<string>Cocoa</string>
 	<string>FirebasePerformance</string>
-	<string>FirebaseCoreInternal</string>
-	<string>FirebaseAppDistribution</string>
-	<string>PhotosUI</string>
-	<string>sqlite3</string>
 	<string>FirebaseSessions</string>
+	<string>PhotosUI</string>
+	<string>FirebaseCoreInternal</string>
+	<string>sqlite3</string>
+	<string>FirebaseAppDistribution</string>
 	<string>FirebaseSessionsObjC</string>
 	<string>device</string>
 	<string>XCTest</string>
@@ -59,13 +59,13 @@
 	<string>unique</string>
 	<string>objc</string>
 	<string>FirebaseDynamicLinks</string>
-	<string>UIKit</string>
 	<string>UserNotifications</string>
+	<string>UIKit</string>
 	<string>CoreTelephony</string>
 	<string>Foundation</string>
+	<string>path</string>
 	<string>Flutter</string>
 	<string>sys</string>
-	<string>path</string>
 	<string>nanopb</string>
 	<string>FirebaseFirestore</string>
 	<string>FlutterMacOS</string>

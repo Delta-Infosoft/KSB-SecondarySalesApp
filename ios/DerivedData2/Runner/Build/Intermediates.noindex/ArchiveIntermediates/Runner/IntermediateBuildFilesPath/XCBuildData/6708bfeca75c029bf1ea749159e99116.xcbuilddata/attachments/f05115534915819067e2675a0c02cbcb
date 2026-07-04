@@ -1,0 +1,4 @@
+
+module unique_identifier.Swift {
+  header "unique_identifier-Swift.h"
+}

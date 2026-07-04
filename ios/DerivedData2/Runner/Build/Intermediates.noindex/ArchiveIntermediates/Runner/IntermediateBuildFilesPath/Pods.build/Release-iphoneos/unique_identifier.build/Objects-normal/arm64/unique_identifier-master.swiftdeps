@@ -1,6 +1,0 @@
-version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
-options: "bbc79095518c00d3e3f66ce75a726b5ba6e33b51a8eb45f5892912709a38c4b7"
-build_start_time: [1773639369, 927076000]
-build_end_time: [1773639374, 375596000]
-inputs:
-  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/unique_identifier-0.3.0/ios/Classes/SwiftUniqueIdentifierPlugin.swift": [1767086666, 713562676]

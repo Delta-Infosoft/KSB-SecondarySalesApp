@@ -1,4 +1,0 @@
-module FirebaseMessagingInterop {
-umbrella "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/SourcePackages/checkouts/firebase-ios-sdk/FirebaseMessaging/Interop"
-export *
-}

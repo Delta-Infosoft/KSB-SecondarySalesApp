@@ -1,0 +1,13 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/unique_identifier.build/Objects-normal/arm64/unique_identifier-primary.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/unique_identifier.build/Objects-normal/arm64/unique_identifier-primary.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/unique_identifier.build/Objects-normal/arm64/unique_identifier-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/unique_identifier.build/Objects-normal/arm64/unique_identifier-primary-emit-module.dia",
+    "pch" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/unique_identifier.build/Objects-normal/arm64/unique_identifier-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/unique_identifier.build/Objects-normal/arm64/unique_identifier-primary.swiftdeps"
+  },
+  "/Users/deltainfosoft/.pub-cache/hosted/pub.dev/unique_identifier-0.3.0/ios/Classes/SwiftUniqueIdentifierPlugin.swift" : {
+
+  }
+}

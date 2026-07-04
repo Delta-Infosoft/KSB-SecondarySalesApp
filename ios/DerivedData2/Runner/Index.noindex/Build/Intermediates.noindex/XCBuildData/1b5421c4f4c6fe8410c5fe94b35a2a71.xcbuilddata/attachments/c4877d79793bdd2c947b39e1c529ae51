@@ -1,0 +1,13 @@
+{
+  "" : {
+    "dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphonesimulator/RunnerTests.build/Objects-normal/arm64/RunnerTests-primary.d",
+    "diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphonesimulator/RunnerTests.build/Objects-normal/arm64/RunnerTests-primary.dia",
+    "emit-module-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphonesimulator/RunnerTests.build/Objects-normal/arm64/RunnerTests-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphonesimulator/RunnerTests.build/Objects-normal/arm64/RunnerTests-primary-emit-module.dia",
+    "pch" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphonesimulator/RunnerTests.build/Objects-normal/arm64/RunnerTests-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Index.noindex/Build/Intermediates.noindex/Runner.build/Debug-iphonesimulator/RunnerTests.build/Objects-normal/arm64/RunnerTests-primary.swiftdeps"
+  },
+  "/Volumes/Mac Mini Secoundry Drive/Flutter Projects/KSB-SecondarySalesApp/ios/RunnerTests/RunnerTests.swift" : {
+
+  }
+}

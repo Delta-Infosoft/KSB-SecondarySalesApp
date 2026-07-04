@@ -3,52 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>logFormatVersion</key>
-	<integer>11</integer>
+	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>59306811-EFFA-407A-B272-0B2ABF1BABD8</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>59306811-EFFA-407A-B272-0B2ABF1BABD8.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Cleaning workspace Runner with scheme Runner</string>
-			<key>timeStartedRecording</key>
-			<real>795331938.06965196</real>
-			<key>timeStoppedRecording</key>
-			<real>795331945.87335503</real>
-			<key>title</key>
-			<string>Cleaning workspace Runner with scheme Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>59306811-EFFA-407A-B272-0B2ABF1BABD8</string>
-		</dict>
-		<key>8FDB27D9-ED2E-41CB-814D-84260CC4100D</key>
+		<key>336A3966-2534-427E-9233-FCF27F87099B</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -57,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>8FDB27D9-ED2E-41CB-814D-84260CC4100D.xcactivitylog</string>
+			<string>336A3966-2534-427E-9233-FCF27F87099B.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -71,7 +29,7 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>26</integer>
+				<integer>53</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Runner project</string>
@@ -82,55 +40,13 @@
 			<key>signature</key>
 			<string>Build Runner</string>
 			<key>timeStartedRecording</key>
-			<real>795332168.55224395</real>
+			<real>802782381.05359495</real>
 			<key>timeStoppedRecording</key>
-			<real>795332215.27588904</real>
+			<real>802782422.26141202</real>
 			<key>title</key>
 			<string>Build Runner</string>
 			<key>uniqueIdentifier</key>
-			<string>8FDB27D9-ED2E-41CB-814D-84260CC4100D</string>
-		</dict>
-		<key>B5E633A8-B0DC-41C3-A204-6652E1159D2A</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>B5E633A8-B0DC-41C3-A204-6652E1159D2A.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Clean Runner</string>
-			<key>timeStartedRecording</key>
-			<real>795332136.64746106</real>
-			<key>timeStoppedRecording</key>
-			<real>795332136.93253195</real>
-			<key>title</key>
-			<string>Clean Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>B5E633A8-B0DC-41C3-A204-6652E1159D2A</string>
+			<string>336A3966-2534-427E-9233-FCF27F87099B</string>
 		</dict>
 	</dict>
 </dict>

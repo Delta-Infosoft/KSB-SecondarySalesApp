@@ -1,7 +1,7 @@
 dependencies: \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/DerivedData2/Runner/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/GoogleUtilities/GoogleUtilities.framework/Modules/module.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULAppDelegateSwizzler.m \
-  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/TargetConditionals.modulemap \
+  /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/DarwinFoundation1.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Flutter\ Projects/KSB-SecondarySalesApp/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULAppDelegateSwizzler_Private.h \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Foundation.framework/Modules/module.modulemap \
   /Volumes/Mac\ Mini\ Secoundry\ Drive/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/dispatch.modulemap \

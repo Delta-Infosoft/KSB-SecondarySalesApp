@@ -45,26 +45,26 @@ class SalesData {
 
   factory SalesData.fromJson(Map<String, dynamic> json) {
     return SalesData(
-      salesEntryId: json['salesEntryId'],
-      customerName: json['customerName'],
+      salesEntryId: json['salesEntryId'] ?? '',
+      customerName: json['customerName'] ?? '',
       ksbSalesInvoiceId: json['ksbSalesInvoiceId'].toString() ?? '',
-      salesDate: DateTime.parse(json['salesDate']),
-      customerId: json['customerId'],
+      salesDate: DateTime.parse(json['salesDate']) ?? DateTime.now(),
+      customerId: json['customerId'] ?? '',
       gstNo: json['gstNo'].toString() ?? '',
-      customerContactName: json['customerContactName'],
-      customerMobileNo: json['customerMobileNo'],
-      customerEmailId: json['customerEmailId'],
-      customerAddress: json['customerAddress'],
-      pincode: json['pincode'],
-      landMark: json['landMark'],
-      street: json['street'],
-      city: json['city'],
-      state: json['state'],
-      country: json['country'],
-      district: json['district'],
-      insertedByUserId: json['insertedByUserId'],
+      customerContactName: json['customerContactName'] ?? '',
+      customerMobileNo: json['customerMobileNo'] ?? '',
+      customerEmailId: json['customerEmailId'] ?? '',
+      customerAddress: json['customerAddress'] ?? '',
+      pincode: json['pincode'] ?? '',
+      landMark: json['landMark'] ?? '',
+      street: json['street'] ?? '',
+      city: json['city'] ?? '',
+      state: json['state'] ?? '',
+      country: json['country'] ?? '',
+      district: json['district'] ?? '',
+      insertedByUserId: json['insertedByUserId'] ?? '',
       products: List<Product>.from(
-          json['materialData'].map((data) => Product.fromJson(data))),
+          json['materialData'].map((data) => Product.fromJson(data)) ?? []),
     );
   }
 }
@@ -82,9 +82,9 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      materialNumber: json['materialNumber'],
-      materialDescription: json['materialDescription'],
-      serialNumber: json['serialNumber'],
+      materialNumber: json['materialNumber'] ?? '',
+      materialDescription: json['materialDescription'] ?? '',
+      serialNumber: json['serialNumber'] ?? '',
     );
   }
 

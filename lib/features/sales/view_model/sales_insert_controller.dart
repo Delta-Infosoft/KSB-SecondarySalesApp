@@ -155,7 +155,12 @@ class SalesInsertController extends GetxController {
         .toList();
     serialNumberList.value = serialNumberList.value
         .map(
-          (e) => Item(name: e.name, isSelected: false),
+          (e) => Item(
+            name: e.name,
+            materialDescription: e.materialDescription,
+            productId: e.productId,
+            isSelected: false,
+          ),
         )
         .toList();
 
@@ -204,7 +209,15 @@ class SalesInsertController extends GetxController {
         .toSet()
         .toList()
         .map(
-          (e) => Item(name: e, isSelected: false),
+          (e) {
+            final p = products.firstWhere((element) => element.serialNumber == e);
+            return Item(
+              name: e,
+              materialDescription: p.materialDescreption,
+              productId: p.id,
+              isSelected: false,
+            );
+          },
         )
         .toList();
 
@@ -243,7 +256,15 @@ class SalesInsertController extends GetxController {
         .toSet()
         .toList()
         .map(
-          (e) => Item(name: e, isSelected: false),
+          (e) {
+            final p = products.firstWhere((element) => element.serialNumber == e);
+            return Item(
+              name: e,
+              materialDescription: p.materialDescreption,
+              productId: p.id,
+              isSelected: false,
+            );
+          },
     )
         .toList();
 

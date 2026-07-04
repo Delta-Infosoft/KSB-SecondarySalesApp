@@ -72,6 +72,7 @@ class SalesInsertRepository {
         },
         body: jsonEncode({
           'searchSerialNo': value,
+          // 'searchMaterialNumber':value
         }), // as you want
       );
 
