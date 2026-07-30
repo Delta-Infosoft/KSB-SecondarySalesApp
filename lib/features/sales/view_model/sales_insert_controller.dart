@@ -111,7 +111,8 @@ class SalesInsertController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> mobileNoKey = GlobalKey<FormState>();
   GlobalKey<FormState> emailKey = GlobalKey<FormState>();
-  String selectedContactName = '';
+  String selectedCustomerName = ''; // displayed in Select Customer field
+  String selectedContactName = '';  // used for Select Customer Contact dropdown & API
   List<String> selectedSerialNos = [];
 
   final GlobalKey<FormFieldState<String>> landMarkDdKey =

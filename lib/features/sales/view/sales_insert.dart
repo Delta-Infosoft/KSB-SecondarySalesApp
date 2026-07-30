@@ -244,7 +244,12 @@ class _SalesInsertState extends State<SalesInsert> {
                               .where(
                                 (element) => element.name.trim().isNotEmpty,
                               )
-                              .toList();
+                              .fold<List<Contact>>([], (acc, element) {
+                                if (!acc.any((e) => e.name == element.name)) {
+                                  acc.add(element);
+                                }
+                                return acc;
+                              });
                           // controller.mobileNoCtrl.text = c.contacts.firstOrNull?.phone??'';
                           // controller.emailCtrl.text = c.contacts.firstOrNull?.email??'';
                           controller.gstNoController.text = c.gstNo;
@@ -363,7 +368,8 @@ class _SalesInsertState extends State<SalesInsert> {
                       if (selectedCustomer != null) {
                         controller.selectedCustomerId.value =
                             selectedCustomer.customerId;
-                        controller.selectedContactName =
+                        // Store company name for the Select Customer display field
+                        controller.selectedCustomerName =
                             selectedCustomer.customerName;
 
                         // Fill other fields based on selected customer
@@ -372,7 +378,22 @@ class _SalesInsertState extends State<SalesInsert> {
                         controller.emailCtrl.clear();
                         controller.contactList = selectedCustomer.contacts
                             .where((element) => element.name.trim().isNotEmpty)
-                            .toList();
+                            .fold<List<Contact>>([], (acc, element) {
+                              if (!acc.any((e) => e.name == element.name)) {
+                                acc.add(element);
+                              }
+                              return acc;
+                            });
+
+                        // Auto-select ContactName1 in the dropdown
+                        if (controller.contactList.isNotEmpty) {
+                          final firstContact = controller.contactList.first;
+                          controller.selectedContactName = firstContact.name;
+                          controller.mobileNoCtrl.text = firstContact.phone;
+                          controller.emailCtrl.text = firstContact.email;
+                        } else {
+                          controller.selectedContactName = '';
+                        }
 
                         controller.gstNoController.text =
                             selectedCustomer.gstNo;
@@ -405,7 +426,7 @@ class _SalesInsertState extends State<SalesInsert> {
                       child: Text(
                         controller.selectedCustomerId.value.isEmpty
                             ? 'Tap to select'
-                            : controller.selectedContactName,
+                            : controller.selectedCustomerName,
                       ),
                     ),
                   ),
@@ -453,61 +474,63 @@ class _SalesInsertState extends State<SalesInsert> {
                     ),
                   ),
 
-                  // 15.heightGap,
-                  // DropdownButtonFormField<String>(
-                  //   key: controller.contactDDKey,
-                  //   decoration: InputDecoration(
-                  //     filled: true,
-                  //     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
-                  //     label: RichText(
-                  //       text: TextSpan(
-                  //         text: 'Select Customer Contact',
-                  //         style: TextStyle(
-                  //           color: context.primaryColor,
-                  //           fontWeight: FontWeight.w500,
-                  //           fontSize: 15,
-                  //         ),
-                  //         children: const [
-                  //           TextSpan(
-                  //             text: '*',
-                  //             style: TextStyle(
-                  //               color: Colors.red,
-                  //               fontWeight: FontWeight.w500,
-                  //               fontSize: 15,
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       borderSide: BorderSide.none,
-                  //     ),
-                  //     enabledBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       borderSide: BorderSide.none,
-                  //     ),
-                  //     fillColor: context.primaryColor.withOpacity(.1),
-                  //   ),
-                  //   value: controller.contactList
-                  //       .any((e) => e.name == controller.selectedContactName)
-                  //       ? controller.selectedContactName
-                  //       : null,
-                  //   items: controller.contactList
-                  //       .map((e) => DropdownMenuItem<String>(
-                  //     value: e.name,
-                  //     child: Text(e.name),
-                  //   ))
-                  //       .toList(),
-                  //   onChanged: (name) {
-                  //     if (name == null || name.isEmpty) return;
-                  //     final contact = controller.contactList
-                  //         .firstWhere((n) => n.name == name, orElse: () => Contact(name: '', phone: '', email: '', department: '', designation: ''));
-                  //     controller.selectedContactName = name;
-                  //     controller.mobileNoCtrl.text = contact.phone;
-                  //     controller.emailCtrl.text = contact.email;
-                  //   },
-                  // ),
+                  15.heightGap,
+                  DropdownButtonFormField<String>(
+                    key: controller.contactDDKey,
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                      label: RichText(
+                        text: TextSpan(
+                          text: 'Select Customer Contact',
+                          style: TextStyle(
+                            color: context.primaryColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
+                          children: const [
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      fillColor: context.primaryColor.withOpacity(.1),
+                    ),
+                    value: controller.contactList
+                        .any((e) => e.name == controller.selectedContactName)
+                        ? controller.selectedContactName
+                        : null,
+                    items: controller.contactList
+                        .map((e) => DropdownMenuItem<String>(
+                      value: e.name,
+                      child: Text(e.name, style: const TextStyle(
+                        color: Colors.grey
+                      ),),
+                    ))
+                        .toList(),
+                    onChanged: (name) {
+                      if (name == null || name.isEmpty) return;
+                      final contact = controller.contactList
+                          .firstWhere((n) => n.name == name, orElse: () => Contact(name: '', phone: '', email: '', department: '', designation: ''));
+                      controller.selectedContactName = name;
+                      controller.mobileNoCtrl.text = contact.phone;
+                      controller.emailCtrl.text = contact.email;
+                    },
+                  ),
 
                   // InkWell(
                   //   onTap: () => _showContactFilterSheet(context),
@@ -675,6 +698,8 @@ class _SalesInsertState extends State<SalesInsert> {
                   //   ),
                   // ),
                   // 15.heightGap,
+
+
                   Text(
                     'Customer Address',
                     style: TextStyle(
@@ -951,6 +976,7 @@ class _SalesInsertState extends State<SalesInsert> {
                   //           fontSize: 15),
                   //     ),
                   //   ],
+
                   15.heightGap,
                   IgnorePointer(
                     child: CommonTextInput(
@@ -1481,8 +1507,25 @@ class _SalesInsertState extends State<SalesInsert> {
                       final item = serialNumberList[index];
                       final serialNo = item.serialNumber ?? '';
                       final pumpDesc = item.materialDescription ?? '';
+                      final isLinked = (item.isLinked ?? 0) == 1;
                       print('Pump Desc>>>>>: $pumpDesc');
 
+                      if (isLinked) {
+                        // Already linked/verified — show green verified icon, not selectable
+                        return ListTile(
+                          title: Text(serialNo),
+                          subtitle: pumpDesc.trim().isNotEmpty
+                              ? Text(pumpDesc)
+                              : null,
+                          trailing: const Icon(
+                            Icons.verified,
+                            color: Colors.green,
+                            size: 28,
+                          ),
+                        );
+                      }
+
+                      // Not linked — show selectable checkbox
                       return Obx(() => CheckboxListTile(
                         title: Text(serialNo),
                         subtitle: pumpDesc.trim().isNotEmpty
@@ -1526,17 +1569,11 @@ class _SalesInsertState extends State<SalesInsert> {
                             .toList(),
                       );
 
-                      final firstSelected =
-                      controller.serialNumberList
-                          .firstWhereOrNull(
-                              (s) => s.isSelected);
-
-                      if (firstSelected != null) {
-                        controller.selectedContactName =
-                            firstSelected.name;
-                      }
+                      // selectedContactName is set by the Select Customer Contact dropdown
+                      // — do NOT overwrite it here with a serial number.
 
                       Navigator.pop(context);
+
                     },
                     child: const Text(
                       'Done',

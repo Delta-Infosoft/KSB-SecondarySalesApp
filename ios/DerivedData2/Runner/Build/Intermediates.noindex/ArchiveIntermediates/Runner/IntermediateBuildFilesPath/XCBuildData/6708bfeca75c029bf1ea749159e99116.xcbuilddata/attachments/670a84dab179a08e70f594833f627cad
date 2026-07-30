@@ -1,4 +1,0 @@
-
-module Promises.Swift {
-  header "Promises-Swift.h"
-}

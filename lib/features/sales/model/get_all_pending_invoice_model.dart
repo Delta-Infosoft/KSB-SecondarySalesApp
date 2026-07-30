@@ -40,6 +40,7 @@ class GetAllPendingInvoiceData {
   String? serialNumber;
   String? invoiceNumber;
   DateTime? invoiceDate;
+  int? isLinked;
 
   GetAllPendingInvoiceData({
     this.ksbSalesInvoiceId,
@@ -49,6 +50,7 @@ class GetAllPendingInvoiceData {
     this.serialNumber,
     this.invoiceNumber,
     this.invoiceDate,
+    this.isLinked,
   });
 
   factory GetAllPendingInvoiceData.fromJson(Map<String, dynamic> json) => GetAllPendingInvoiceData(
@@ -59,6 +61,7 @@ class GetAllPendingInvoiceData {
     serialNumber: json["SerialNumber"],
     invoiceNumber: json["InvoiceNumber"],
     invoiceDate: json["InvoiceDate"] == null ? null : DateTime.parse(json["InvoiceDate"]),
+    isLinked: json["IsLinked"] ?? 0
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class GetAllPendingInvoiceData {
     "SerialNumber": serialNumber,
     "InvoiceNumber": invoiceNumber,
     "InvoiceDate": invoiceDate?.toIso8601String(),
+    "IsLinked": isLinked,
   };
 }

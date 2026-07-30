@@ -5,38 +5,38 @@
 	<string>FBLPromises</string>
 	<string>FirebaseCore</string>
 	<string>Photos</string>
-	<string>FirebaseStorage</string>
 	<string>sqflite</string>
+	<string>FirebaseStorage</string>
 	<string>FirebaseInAppMessaging</string>
 	<string>FirebaseCrashlytics</string>
 	<string>Dispatch</string>
 	<string>fluttertoast</string>
 	<string>FirebaseDatabase</string>
 	<string>open</string>
-	<string>FirebaseAppCheck</string>
 	<string>Firebase</string>
+	<string>FirebaseAppCheck</string>
 	<string>FirebaseFunctions</string>
-	<string>Promises</string>
 	<string>url</string>
+	<string>Promises</string>
 	<string>SafariServices</string>
-	<string>FirebaseMessaging</string>
 	<string>AVFoundation</string>
+	<string>FirebaseMessaging</string>
 	<string>shared</string>
 	<string>os</string>
-	<string>WatchKit</string>
 	<string>MobileCoreServices</string>
+	<string>WatchKit</string>
 	<string>MetricKit</string>
 	<string>image</string>
 	<string>FirebaseAuth</string>
 	<string>AppKit</string>
 	<string>package</string>
 	<string>Cocoa</string>
-	<string>FirebasePerformance</string>
 	<string>FirebaseSessions</string>
 	<string>PhotosUI</string>
 	<string>FirebaseCoreInternal</string>
-	<string>sqlite3</string>
 	<string>FirebaseAppDistribution</string>
+	<string>sqlite3</string>
+	<string>FirebasePerformance</string>
 	<string>FirebaseSessionsObjC</string>
 	<string>device</string>
 	<string>XCTest</string>
@@ -63,11 +63,11 @@
 	<string>UIKit</string>
 	<string>CoreTelephony</string>
 	<string>Foundation</string>
-	<string>path</string>
 	<string>Flutter</string>
+	<string>path</string>
 	<string>sys</string>
-	<string>nanopb</string>
 	<string>FirebaseFirestore</string>
+	<string>nanopb</string>
 	<string>FlutterMacOS</string>
 </array>
 </plist>
