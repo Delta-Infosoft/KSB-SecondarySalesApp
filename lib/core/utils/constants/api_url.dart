@@ -2,11 +2,11 @@ class ApiUrl {
   //dummy URLS
   // static const String baseUrl = 'http://192.168.0.98:90/ksbSecondarysalesAPI/api'; // local
 
-   static const String baseUrl =
-     'https://adapp.ksbindia.co.in/ksbsecondarysalesapi/api';   // Live Link
+   // static const String baseUrl =
+   //   'https://adapp.ksbindia.co.in/ksbsecondarysalesapi/api';   // Live Link
 
-  // static const String baseUrl =
-  //     'http://galaxy.ierp.in:90/ksbSecondarysalesAPI/api';
+  static const String baseUrl =
+      'http://galaxy.ierp.in:90/ksbSecondarysalesAPI/api';
 
   static const String loginUrl = '$baseUrl/Login/Login';
   static const String insertCustomer = '$baseUrl/Customer/Insert';
