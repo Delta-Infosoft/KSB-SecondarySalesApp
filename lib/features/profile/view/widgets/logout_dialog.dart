@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
+import 'package:ksb_secondary_sales/features/auth/model/models/user_model.dart';
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
 
 import '../../../../core/config/app_route.dart';
@@ -31,6 +32,8 @@ class LogoutDialog extends StatelessWidget {
                 LocalDb.setBool(AppConstants.isLoggedInKey,false);
                 LocalDb.setBool(AppConstants.isProductListSeenKey,false);
                 LocalDb.setString(AppConstants.userIdKey,'');
+                UserRoles.clear();
+                FormRights.clear();
                 Get.delete<LoginController>();
                 Get.offAllNamed(AppRoute.login);
               }, child: const Text('Confirm')),

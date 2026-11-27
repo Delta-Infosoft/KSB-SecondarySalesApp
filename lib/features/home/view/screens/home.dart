@@ -5,6 +5,7 @@ import 'package:ksb_secondary_sales/core/config/app_route.dart';
 import 'package:ksb_secondary_sales/core/utils/constants/app_assets.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/context_extention.dart';
 import 'package:ksb_secondary_sales/core/utils/extentions/number_extention.dart';
+import 'package:ksb_secondary_sales/features/auth/model/models/user_model.dart';
 import 'package:ksb_secondary_sales/features/customers/view/add_customers.dart';
 import 'package:ksb_secondary_sales/features/sales/view/product_selection.dart';
 import 'package:ksb_secondary_sales/features/sales/view/sales_insert.dart';
@@ -17,10 +18,88 @@ import '../../view_model/home_controller.dart';
 class Home extends GetView<HomeController> {
   const Home({super.key});
 
-
+  /// Home tiles the logged-in user has rights to (FormRights from login).
+  static List<CommonCard> _tiles(AppRights rights) => [
+        if (rights.addCustomer)
+          CommonCard(
+              onTap: () => Get.to(const AddCustomer()),
+              title: 'Register my customer',
+              icon: const Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.person, size: 35),
+                  ),
+                  Positioned(top: 0, right: 0, child: Icon(Icons.add, size: 20))
+                ],
+              )),
+        if (rights.registerProduct)
+          CommonCard(
+              onTap: () => Get.to(const ProductSelection()),
+              title: 'Register my product',
+              icon: const Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.store, size: 35),
+                  ),
+                  Positioned(
+                      top: 0, right: 0, child: Icon(Icons.add, size: 20)),
+                ],
+              )),
+        if (rights.viewCustomers)
+          CommonCard(
+              onTap: () => Get.toNamed(AppRoute.customerView),
+              title: 'View my customer',
+              icon: const Icon(Icons.groups, size: 35)),
+        if (rights.viewSalesEntries)
+          CommonCard(
+              onTap: () => Get.toNamed(AppRoute.salesView),
+              title: 'View my products',
+              icon: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.assignment, size: 35),
+              )),
+        if (rights.addSalesEntry)
+          CommonCard(
+              onTap: () {
+                final controller = Get.put(SalesInsertController());
+                controller.enableSerialDropdown();
+                Get.to(() => const SalesInsert(),
+                    arguments: {'showSerialDropdown': true});
+              },
+              title: 'Search & Register',
+              icon: const Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.store, size: 35),
+                  ),
+                  Positioned(
+                      top: 0, right: 0, child: Icon(Icons.add, size: 20)),
+                ],
+              )),
+        if (rights.viewDocuments)
+          CommonCard(
+              onTap: () => Get.toNamed(AppRoute.viewDocuments),
+              title: 'View Documents',
+              icon: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.description_rounded, size: 35),
+              )),
+        if (rights.viewCustomerApproval)
+          CommonCard(
+              onTap: () => Get.toNamed(AppRoute.customerApproval),
+              title: 'Customer Approval',
+              icon: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.how_to_reg_rounded, size: 35),
+              )),
+      ];
 
   @override
   Widget build(BuildContext context) {
+    final tiles = _tiles(AppRights.current());
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -37,122 +116,40 @@ class Home extends GetView<HomeController> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CommonCard(
-                    onTap: () {
-                      Get.to(const AddCustomer());
-                    },
-                    title: 'Register my customer',
-                    icon: const Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.person, size: 35),
-                        ),
-                        Positioned(
-                            top: 0, right: 0, child: Icon(Icons.add, size: 20))
-                      ],
-                    )),
-                10.widthGap,
-                CommonCard(
-                    onTap: () {
-                      Get.to(const ProductSelection());
-                    },
-                    title: 'Register my product',
-                    icon: const Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.store, size: 35),
-                        ),
-                        Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Icon(
-                              Icons.add,
-                              size: 20,
-                            )),
-                      ],
-                    )),
-              ],
-            ),
-            10.heightGap,
-            Row(
-              children: [
-                CommonCard(
-                    onTap: () {
-                      Get.toNamed(AppRoute.customerView);
-                    },
-                    title: 'View my customer',
-                    icon: const Icon(
-                      Icons.groups,
-                      size: 35,
-                    )),
-                10.widthGap,
-                CommonCard(
-                    onTap: () {
-                      Get.toNamed(AppRoute.salesView);
-                    },
-                    title: 'View my products',
-                    icon: const Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.assignment, size: 35),
-                        ),
-                        if (false)
-                          const Positioned(
-                              top: 0,
-                              right: 0,
-                              child: Icon(
-                                Icons.list_alt_rounded,
-                                size: 20,
-                              )),
-                      ],
-                    )),
-              ],
-            ),
-            10.heightGap,
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                width: 180,
-                child: Row(
-                  children: [
-                    CommonCard(
-                        onTap: () {
-                          final controller = Get.put(SalesInsertController());
-                          controller.enableSerialDropdown();
-                          Get.to(() => const SalesInsert(), arguments: {'showSerialDropdown': true});
-                        },
-                        title: 'Search & Register',
-                        icon: const Stack(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.store, size: 35),
-                            ),
-                            Positioned(
-                                top: 0,
-                                right: 0,
-                                child: Icon(
-                                  Icons.add,
-                                  size: 20,
-                                )),
-                          ],
-                        )),
-                  ],
+      body: tiles.isEmpty
+          ? const Center(
+              child: Padding(
+                padding: EdgeInsets.all(32),
+                child: Text(
+                  'No screens are enabled for your account.\n'
+                  'Please contact your administrator.',
+                  textAlign: TextAlign.center,
                 ),
               ),
             )
-          ],
-        ),
-      ),
+          : SingleChildScrollView(
+              // Extra bottom space so the last card clears the floating bar.
+              padding: EdgeInsets.fromLTRB(
+                  20, 20, 20, 20 + MediaQuery.paddingOf(context).bottom),
+              // Two tiles per row; a lone last tile keeps the same width.
+              child: Column(
+                children: [
+                  for (var i = 0; i < tiles.length; i += 2) ...[
+                    if (i > 0) 10.heightGap,
+                    Row(
+                      children: [
+                        tiles[i],
+                        10.widthGap,
+                        if (i + 1 < tiles.length)
+                          tiles[i + 1]
+                        else
+                          const Expanded(child: SizedBox()),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
     );
   }
 }
@@ -205,7 +202,6 @@ class CommonCard extends StatelessWidget {
 //
 //     final customer = customerFromJson(jsonString);
 
-
 // Customer customerFromJson(String str) => Customer.fromJson(json.decode(str));
 //
 // String customerToJson(Customer data) => json.encode(data.toJson());
@@ -233,7 +229,6 @@ class CommonCard extends StatelessWidget {
 //     "data": data == null ? [] : List<dynamic>.from(data!.map((x) => Map.from(x).map((k, v) => MapEntry<String, dynamic>(k, v)))),
 //   };
 // }
-
 
 class Customer {
   final String customerId;
@@ -299,9 +294,10 @@ class Customer {
     }
 
     return Customer(
-      approvalStatus: json['C4CId'] != null && json['C4CId'].toString().isNotEmpty
-          ? 'Approved'
-          : 'Pending',
+      approvalStatus:
+          json['C4CId'] != null && json['C4CId'].toString().isNotEmpty
+              ? 'Approved'
+              : 'Pending',
       customerId: json['CustomerId'] ?? '',
       customerName: json['CustomerName'] ?? 'N/A',
       gstNo: json['GSTNo'] ?? 'N/A',
@@ -324,7 +320,7 @@ class Customer {
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = {
       'CustomerId': customerId,
-      'approvalStatus':approvalStatus,
+      'approvalStatus': approvalStatus,
       'CustomerName': customerName,
       'GSTNo': gstNo,
       'AddressName': addressName,
@@ -353,8 +349,6 @@ class Customer {
     return map;
   }
 }
-
-
 
 // class Customer {
 //   final String customerId;

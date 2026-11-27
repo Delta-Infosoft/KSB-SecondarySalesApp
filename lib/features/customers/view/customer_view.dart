@@ -8,6 +8,8 @@ import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_
 import 'package:ksb_secondary_sales/features/home/view/screens/home.dart';
 
 import '../../../core/utils/constants/app_assets.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/app_refresh.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/shimmer_loaders.dart';
 
 class CustomerListScreen extends GetView<CustomerViewController> {
 
@@ -29,53 +31,62 @@ class CustomerListScreen extends GetView<CustomerViewController> {
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const ShimmerCardList(lines: 1);
         }
 
-        return RefreshIndicator(
-          onRefresh: () async {
-            await controller.getCustomerList();
-          },
-          child: Column(
-            children: [
-              15.heightGap,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildFilterButton('Approved', context),
-                  _buildFilterButton('Pending', context),
-                  _buildFilterButton('All', context),
-                ],
-              ),
-              10.heightGap,
+        return Column(
+          children: [
+            15.heightGap,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildFilterButton('Approved', context),
+                _buildFilterButton('Pending', context),
+                _buildFilterButton('All', context),
+              ],
+            ),
+            10.heightGap,
 
-              Expanded(
-                child: controller.filteredCustomers.isEmpty
-                    ? const Center(child: Text('No Record Found'))
-                    : AnimationLimiter(
-                  child: ListView.separated(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => 15.heightGap,
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    itemCount: controller.filteredCustomers.length,
-                    itemBuilder: (context, index) {
-                      final customer = controller.filteredCustomers[index];
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          verticalOffset: 50.0,
-                          child: FadeInAnimation(
-                            child: CustomerCard(customer: customer),
-                          ),
+            Expanded(
+              child: AnimationLimiter(
+                child: AppRefreshScrollView(
+                  onRefresh: () async {
+                    await controller.getCustomerList();
+                  },
+                  slivers: [
+                    if (controller.filteredCustomers.isEmpty)
+                      const SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Center(child: Text('No Record Found')),
+                      )
+                    else
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        sliver: SliverList.separated(
+                          separatorBuilder: (context, index) => 15.heightGap,
+                          itemCount: controller.filteredCustomers.length,
+                          itemBuilder: (context, index) {
+                            final customer =
+                                controller.filteredCustomers[index];
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: SlideAnimation(
+                                verticalOffset: 50.0,
+                                child: FadeInAnimation(
+                                  child: CustomerCard(customer: customer),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       }),
 

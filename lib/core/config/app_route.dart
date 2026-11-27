@@ -5,4 +5,6 @@ class AppRoute{
   static const String salesInsertRoute = '/salesInsertRoute';
   static const String customerView = '/customerView';
   static const String salesView = '/salesView';
+  static const String viewDocuments = '/viewDocuments';
+  static const String customerApproval = '/customerApproval';
 }

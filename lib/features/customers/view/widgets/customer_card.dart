@@ -179,7 +179,7 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
                       side: BorderSide(color: Colors.transparent)),
                   collapsedShape: const RoundedRectangleBorder(
                       side: BorderSide(color: Colors.transparent)),
-                  leading: const Icon(FontAwesomeIcons.user),
+                  leading: const FaIcon(FontAwesomeIcons.user),
                   title: Text(contact.name,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18)),
@@ -213,9 +213,9 @@ class CustomerDetailsScreen extends GetView<CustomerViewController> {
     );
   }
 
-  Widget _buildListTile(IconData icon, String title, String value) {
+  Widget _buildListTile(FaIconData icon, String title, String value) {
     return ListTile(
-      leading: Icon(
+      leading: FaIcon(
         icon,
         color: const Color(0xFF336699),
         size: 20,

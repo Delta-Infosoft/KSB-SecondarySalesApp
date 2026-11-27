@@ -9,7 +9,45 @@ import 'package:ksb_secondary_sales/features/sales/model/get_all_pending_invoice
 import '../../../core/utils/constants/api_url.dart';
 import '../view_model/sales_insert_controller.dart';
 
+/// Result of [SalesInsertRepository.reportMissingSerial].
+class ReportSerialResult {
+  const ReportSerialResult(this.success, this.message);
+  final bool success;
+  final String message;
+}
+
 class SalesInsertRepository {
+  /// Tells Admin / HO that [serialNo] couldn't be found, so they can add it.
+  /// Mirrors the web's "Notify Admin / HO" button (same payload/messages).
+  static Future<ReportSerialResult> reportMissingSerial(String serialNo) async {
+    final userId = LocalDb.getString(AppConstants.userIdKey);
+    try {
+      final response = await http.post(
+        Uri.parse(ApiUrl.reportMissingSerial),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'serialNo': serialNo,
+          'userId': userId.isEmpty ? null : userId,
+        }),
+      );
+      final data = jsonDecode(response.body);
+      final message = data is Map ? data['message']?.toString() ?? '' : '';
+      if (data is Map && data['isSuccessful'] == 200) {
+        return ReportSerialResult(
+          true,
+          message.isNotEmpty
+              ? message
+              : 'Admin and HO have been notified. You will be told when the '
+                  'Serial No is added.',
+        );
+      }
+      return ReportSerialResult(
+          false, message.isNotEmpty ? message : 'Unable to notify Admin / HO.');
+    } catch (e) {
+      return const ReportSerialResult(false, 'Unable to notify Admin / HO.');
+    }
+  }
+
   static Future<List> getAddressFromPinCode(String pinCode) async {
     try {
       final response = await http

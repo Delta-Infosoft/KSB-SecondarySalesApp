@@ -9,6 +9,7 @@ import '../../../../core/utils/constants/app_assets.dart';
 import '../../../../core/utils/widgets/tap_to_remove_keyboard_widget.dart';
 import '../../view_model/profile_controller.dart';
 import '../widgets/logout_dialog.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/shimmer_loaders.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -33,23 +34,26 @@ class _ProfileState extends State<Profile> {
           title: Row(
             children: [
               const Expanded(child: Text('Profile')),
-              SvgPicture.asset(AppAssets.ksbLogo,height: 30,),
-              
+              SvgPicture.asset(
+                AppAssets.ksbLogo,
+                height: 30,
+              ),
             ],
           ),
         ),
         body: Obx(
           () {
             if (controller.isLoading.value) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const ShimmerDetailList();
             } else if (controller.userData == null) {
               return const Center(
                 child: Text('No Record Found'),
               );
             }
             return SingleChildScrollView(
+              // Keeps the last rows clear of the floating glass bar.
+              padding: EdgeInsets.only(
+                  bottom: 16 + MediaQuery.paddingOf(context).bottom),
               child: Column(
                 children: [
                   // 15.heightGap,
@@ -60,12 +64,12 @@ class _ProfileState extends State<Profile> {
                   //   ),
                   // ),
                   // 30.heightGap,
-              
+
                   ListTile(
                       onTap: () {},
                       title: const Text('Customer Code'),
-                      subtitle: Text('${controller.userData?['UserName'] ?? 'N/A'}'
-                      ),
+                      subtitle:
+                          Text('${controller.userData?['UserName'] ?? 'N/A'}'),
                       trailing: const Icon(Icons.person)),
                   ListTile(
                     onTap: () {},
@@ -75,20 +79,20 @@ class _ProfileState extends State<Profile> {
                   ),
                   ListTile(
                     onTap: () {},
-                    title: Text('Customer Name: ${controller.userData?['FirstName'] ?? ''} ${controller.userData?['LastName'] ?? ''}'
-                    ),
+                    title: Text(
+                        'Customer Name: ${controller.userData?['FirstName'] ?? ''} ${controller.userData?['LastName'] ?? ''}'),
                     // Text(
                     //   'Customer Name: ${controller.userData?['CustomerName']?.toString().isNotEmpty == true ? controller.userData!['CustomerName'] : 'N/A'}',
                     // ),
                   ),
-              
+
                   ListTile(
                     onTap: () {},
                     title: Text(
                       'Email Id: ${controller.userData?['EmailId']?.toString().isNotEmpty == true ? controller.userData!['EmailId'] : 'N/A'}',
                     ),
                   ),
-              
+
                   ListTile(
                       onTap: () {
                         Get.dialog(const LogoutDialog());

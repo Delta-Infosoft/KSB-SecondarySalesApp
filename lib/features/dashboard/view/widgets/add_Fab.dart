@@ -15,13 +15,17 @@ class AddFab extends StatelessWidget {
       closedShape: const CircleBorder(),
       // openShape: const CircleBorder(),
       openBuilder: (context, action) {
-      return ProductSelection();
-    }, closedBuilder: (context, action) {
-      return FloatingActionButton(
-        shape: const CircleBorder(),
-        onPressed: (){
-          action.call();
-        },child: const Icon(Icons.add),);
-    },);
+        return ProductSelection();
+      },
+      closedBuilder: (context, action) {
+        return FloatingActionButton(
+          shape: const CircleBorder(),
+          onPressed: () {
+            action.call();
+          },
+          child: const Icon(Icons.add),
+        );
+      },
+    );
   }
 }

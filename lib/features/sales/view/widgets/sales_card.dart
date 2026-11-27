@@ -139,9 +139,9 @@ class SalesEntryDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(IconData icon, String title, String value) {
+  Widget _buildListTile(FaIconData icon, String title, String value) {
     return ListTile(
-      leading: Icon(icon,
+      leading: FaIcon(icon,
           color: const Color(0xFF336699),
           size: 20), // Use your primary color for icons
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -174,7 +174,7 @@ class SalesEntryDetailsScreen extends StatelessWidget {
               side: BorderSide(color: Colors.transparent)),
           collapsedShape: const RoundedRectangleBorder(
               side: BorderSide(color: Colors.transparent)),
-          leading: const Icon(
+          leading: const FaIcon(
             FontAwesomeIcons.boxOpen,
             size: 20,
           ),

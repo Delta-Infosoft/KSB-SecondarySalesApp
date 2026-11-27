@@ -11,6 +11,8 @@ import 'package:ksb_secondary_sales/features/sales/view/widgets/sales_card.dart'
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_view_controller.dart';
 
 import '../../../core/utils/constants/app_assets.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/app_refresh.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/shimmer_loaders.dart';
 
 class SalesListView extends GetView<SalesViewController> {
   const SalesListView({Key? key}) : super(key: key);
@@ -51,7 +53,7 @@ class SalesListView extends GetView<SalesViewController> {
       body: Obx(
             () {
           if (controller.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
+            return const ShimmerCardList(lines: 2);
           } else if (controller.salesList.isEmpty) {
             return const Center(child: Text('No Record Found'));
           }
@@ -146,29 +148,33 @@ class SalesListView extends GetView<SalesViewController> {
               ),
 
               Expanded(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    await controller.getSalesData();
-                  },
-                  child: AnimationLimiter(
-                    child: ListView.separated(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      separatorBuilder: (context, index) => 15.heightGap,
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      itemCount: controller.filteredSalesList.length,
-                      itemBuilder: (context, index) {
-                        final data = controller.salesList[index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 375),
-                          child: SlideAnimation(
-                            verticalOffset: 50.0,
-                            child: FadeInAnimation(child: SalesCard(data: data)),
-                          ),
-                        );
-                      },
-                    ),
+                child: AnimationLimiter(
+                  child: AppRefreshScrollView(
+                    onRefresh: () async {
+                      await controller.getSalesData();
+                    },
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        sliver: SliverList.separated(
+                          separatorBuilder: (context, index) => 15.heightGap,
+                          itemCount: controller.filteredSalesList.length,
+                          itemBuilder: (context, index) {
+                            final data = controller.salesList[index];
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: SlideAnimation(
+                                verticalOffset: 50.0,
+                                child:
+                                    FadeInAnimation(child: SalesCard(data: data)),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

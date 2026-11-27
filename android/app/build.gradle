@@ -41,6 +41,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -100,4 +101,8 @@ configurations.all {
         force 'com.google.android.gms:play-services-measurement-impl:23.0.0'
         force 'com.google.android.gms:play-services-measurement-api:23.0.0'
     }
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 }

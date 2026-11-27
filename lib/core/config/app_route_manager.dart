@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
 import 'package:ksb_secondary_sales/core/config/app_route.dart';
+import 'package:ksb_secondary_sales/features/analytics/view_model/analytics_controller.dart';
+import 'package:ksb_secondary_sales/features/customer_approval/view/customer_approval_list.dart';
+import 'package:ksb_secondary_sales/features/customer_approval/view_model/customer_approval_controller.dart';
 import 'package:ksb_secondary_sales/features/auth/view_model/login_controller.dart';
 import 'package:ksb_secondary_sales/features/customers/view/customer_view.dart';
 import 'package:ksb_secondary_sales/features/customers/view_model/customer_view_controller.dart';
 import 'package:ksb_secondary_sales/features/dashboard/view/dashboard.dart';
 import 'package:ksb_secondary_sales/features/dashboard/view_model/dashboard_controller.dart';
+import 'package:ksb_secondary_sales/features/documents/view/view_documents.dart';
+import 'package:ksb_secondary_sales/features/documents/view_model/documents_controller.dart';
 import 'package:ksb_secondary_sales/features/home/view_model/home_controller.dart';
 import 'package:ksb_secondary_sales/features/profile/view_model/profile_controller.dart';
 import 'package:ksb_secondary_sales/features/sales/view/sales_insert.dart';
@@ -42,6 +47,22 @@ class AppRouteManager {
           },
         )),
     GetPage(
+        name: AppRoute.viewDocuments,
+        page: () => const ViewDocuments(),
+        binding: BindingsBuilder(
+          () {
+            Get.lazyPut(() => DocumentsController());
+          },
+        )),
+    GetPage(
+        name: AppRoute.customerApproval,
+        page: () => const CustomerApprovalList(),
+        binding: BindingsBuilder(
+          () {
+            Get.lazyPut(() => CustomerApprovalController());
+          },
+        )),
+    GetPage(
         name: AppRoute.login,
         page: () => const Login(),
         binding: BindingsBuilder(
@@ -63,6 +84,7 @@ class AppRouteManager {
             Get.lazyPut(() => DashboardController());
             Get.lazyPut(() => ProfileController());
             Get.lazyPut(() => HomeController());
+            Get.lazyPut(() => AnalyticsController());
           },
         )),
   ];

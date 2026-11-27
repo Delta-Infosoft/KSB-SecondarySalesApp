@@ -22,6 +22,7 @@ import '../../../core/utils/common_services/validator.dart';
 import '../../../core/utils/constants/api_url.dart';
 import '../../../core/utils/constants/app_constants.dart';
 import '../model/sales_insert_reposiotory.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/shimmer_loaders.dart';
 
 class SalesInsert extends StatefulWidget {
   const SalesInsert({super.key});
@@ -1346,6 +1347,10 @@ class _SalesInsertState extends State<SalesInsert> {
     final RxBool hasSearched = false.obs;
     final RxList<GetAllPendingInvoiceData> serialNumberList =
         <GetAllPendingInvoiceData>[].obs;
+    // "Serial No not found" → Notify Admin / HO (same as web).
+    final RxString searchedSerial = ''.obs;
+    final RxBool isReporting = false.obs;
+    final RxBool reported = false.obs;
 
     final selectedSerials = controller.serialNumberList
         .where((s) => s.isSelected)
@@ -1355,6 +1360,8 @@ class _SalesInsertState extends State<SalesInsert> {
 
     /// 🔍 API Call
     Future<void> _searchSerials() async {
+      // iOS number pad has no Return/Done key, so close the keyboard here.
+      FocusManager.instance.primaryFocus?.unfocus();
       final searchText = searchController.text.trim();
 
       if (searchText.isEmpty) {
@@ -1371,6 +1378,8 @@ class _SalesInsertState extends State<SalesInsert> {
       try {
         isLoading.value = true;
         hasSearched.value = true;
+        searchedSerial.value = searchText;
+        reported.value = false;
 
         print("Calling Serial API with search text...");
 
@@ -1396,6 +1405,25 @@ class _SalesInsertState extends State<SalesInsert> {
       }
     }
 
+
+    /// 📣 Serial not found: tell Admin / HO so they can add it.
+    Future<void> _notifyAdmin() async {
+      if (searchedSerial.value.isEmpty || isReporting.value) return;
+      isReporting.value = true;
+      final result =
+          await SalesInsertRepository.reportMissingSerial(searchedSerial.value);
+      isReporting.value = false;
+      if (result.success) reported.value = true;
+      Fluttertoast.showToast(
+        msg: result.success
+            ? 'Admin / HO informed. ${result.message}'
+            : result.message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: result.success ? Colors.green.shade700 : Colors.red,
+        textColor: Colors.white,
+      );
+    }
 
     showModalBottomSheet(
       context: context,
@@ -1429,6 +1457,9 @@ class _SalesInsertState extends State<SalesInsert> {
                       textInputAction: TextInputAction.search,
                       keyboardType: TextInputType.number,
                       onSubmitted: (_) => _searchSerials(),
+                      // Tap anywhere outside the field to hide the keyboard.
+                      onTapOutside: (_) =>
+                          FocusManager.instance.primaryFocus?.unfocus(),
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
                         hintText: 'Enter serial number',
@@ -1467,8 +1498,12 @@ class _SalesInsertState extends State<SalesInsert> {
                 if (isLoading.value) {
                   return const SizedBox(
                     height: 300,
-                    child: Center(
-                      child: CircularProgressIndicator(),
+                    child: ShimmerCardList(
+                      itemCount: 4,
+                      lines: 1,
+                      showAvatar: false,
+                      spacing: 10,
+                      padding: EdgeInsets.zero,
                     ),
                   );
                 }
@@ -1487,13 +1522,75 @@ class _SalesInsertState extends State<SalesInsert> {
                 }
 
                 if (serialNumberList.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     height: 300,
                     child: Center(
-                      child: Text(
-                        'No serial numbers found',
-                        style:
-                        TextStyle(fontSize: 16, color: Colors.grey),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.search_off_rounded,
+                              size: 44, color: Colors.grey),
+                          const SizedBox(height: 10),
+                          Text.rich(
+                            TextSpan(
+                              text: 'Serial No not found: ',
+                              children: [
+                                TextSpan(
+                                  text: searchedSerial.value,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
+                          ),
+                          const SizedBox(height: 16),
+                          if (reported.value)
+                            const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.check_circle_rounded,
+                                    color: Colors.green, size: 20),
+                                SizedBox(width: 6),
+                                Text(
+                                  'Admin / HO informed',
+                                  style: TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            )
+                          else
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: context.primaryColor,
+                                foregroundColor: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                ),
+                              ),
+                              onPressed:
+                                  isReporting.value ? null : _notifyAdmin,
+                              icon: isReporting.value
+                                  ? const SizedBox(
+                                      width: 16,
+                                      height: 16,
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          color: Colors.white),
+                                    )
+                                  : const Icon(
+                                      Icons.notifications_active_rounded,
+                                      size: 18),
+                              label: Text(isReporting.value
+                                  ? 'Notifying…'
+                                  : 'Notify Admin / HO'),
+                            ),
+                        ],
                       ),
                     ),
                   );
@@ -1502,6 +1599,8 @@ class _SalesInsertState extends State<SalesInsert> {
                 return SizedBox(
                   height: 300,
                   child: ListView.builder(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
                     itemCount: serialNumberList.length,
                     itemBuilder: (context, index) {
                       final item = serialNumberList[index];
@@ -3408,7 +3507,8 @@ class _SalesInsertState extends State<SalesInsert> {
                   Expanded(
                     child: Obx(() {
                       if (controller.isCustomerLoading.value) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const ShimmerCardList(
+                            lines: 1, padding: EdgeInsets.zero);
                       }
 
                       final query = searchQuery.toLowerCase();

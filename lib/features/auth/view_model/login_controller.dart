@@ -11,7 +11,7 @@ import 'package:ksb_secondary_sales/core/utils/common_services/local_db.dart';
 import 'package:ksb_secondary_sales/core/utils/constants/api_url.dart';
 import 'package:ksb_secondary_sales/features/auth/model/models/terms_condition_model.dart';
 import 'package:ksb_secondary_sales/features/auth/view/widgets/otp_verification_dialog.dart';
-import 'package:open_file_plus/open_file_plus.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pinput/pinput.dart';
 import 'package:unique_identifier/unique_identifier.dart';
@@ -144,20 +144,28 @@ class LoginController extends GetxController {
 
       await getImeiAndCheck(userNameCtrl.text);
 
-      String? userId = await LoginRepository.loginWithUserNameAndPass(
+      final UserModel? user = await LoginRepository.loginWithUserNameAndPass(
         userNameCtrl.text,
         passCtrl.text,
         isTermsConditionAccepted.value,
       );
-      print('PAssword >>>>${passCtrl.text}');
 
-      if (userId == null) {
+      if (user == null) {
         isLoading.value = false;
         return;
       }
 
       // Save login data
-      LocalDb.setString(AppConstants.userIdKey, userId);
+      LocalDb.setString(AppConstants.userIdKey, user.id);
+      // Role flags (IsAdmin, IsASCCoordinator, ...) decide what the
+      // dashboard shows; read them back with UserRoles.load().
+      await user.roles.save();
+      // Per-screen rights (FormRights) decide which Home tiles / tabs show.
+      if (user.formRights != null) {
+        await user.formRights!.save();
+      } else {
+        await FormRights.clear();
+      }
       LocalDb.setBool(AppConstants.isLoggedInKey, true);
       LocalDb.setString(AppConstants.userNameKey, userNameCtrl.text);
 
@@ -250,7 +258,7 @@ class LoginController extends GetxController {
           final file = File('${dir.path}/terms_and_conditions.pdf');
           await file.writeAsBytes(bytes);
 
-          final result = await OpenFile.open(file.path);
+          final result = await OpenFilex.open(file.path);
           debugPrint('Open result: ${result.message}');
         } else {
           Get.snackbar('Error', 'No PDF data found');

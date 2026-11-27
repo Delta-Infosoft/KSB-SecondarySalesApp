@@ -10,11 +10,13 @@ import '../../../../core/utils/common_services/helper.dart';
 import '../../../../core/utils/common_services/local_db.dart';
 import '../../../../core/utils/constants/api_url.dart';
 import '../../../../core/utils/constants/app_constants.dart';
+import '../../../../service/fcm_service.dart';
 import '../models/user_model.dart';
 
 class LoginRepository {
 
-  static Future<String?> loginWithUserNameAndPass(
+  /// Returns the logged-in user (with role flags), or null if login failed.
+  static Future<UserModel?> loginWithUserNameAndPass(
       String userName,
       String pass,
       bool termsAndCondition,
@@ -31,12 +33,15 @@ class LoginRepository {
         return null;
       }
 
+      // Device push token, so the server can send notifications to this user.
+      final fcmId = await FCMService.getToken();
+
       final response = await http.post(
         Uri.parse(ApiUrl.loginUrl),
         body: {
           'UserName': userName,
           'Password': pass,
-          'FCMId': '',
+          'FCMId': fcmId,
           'isTermsCondition': termsAndCondition.toString() ?? '',
         },
       );
@@ -55,7 +60,10 @@ class LoginRepository {
 
       final data = jsonDecode(response.body);
       if (data['isSuccessful'] == 200) {
-        return data['data'][0]['UserId'];
+        final user = UserModel.fromJson(
+            Map<String, dynamic>.from(data['data'][0] as Map));
+        debugPrint('Logged in ${user.userName}: ${user.roles}');
+        return user;
       }
 
       Fluttertoast.showToast(msg: data['message'] ?? '');

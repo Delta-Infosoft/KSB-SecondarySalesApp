@@ -14,6 +14,8 @@ import 'package:ksb_secondary_sales/features/sales/view/widgets/product_filter_b
 import 'package:ksb_secondary_sales/features/sales/view_model/sales_insert_controller.dart';
 
 import '../../../core/utils/constants/app_assets.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/app_refresh.dart';
+import 'package:ksb_secondary_sales/core/utils/widgets/shimmer_loaders.dart';
 
 class ProductSelection extends StatefulWidget {
   const ProductSelection({super.key});
@@ -87,7 +89,7 @@ class _ProductSelectionState extends State<ProductSelection> {
                         borderRadius: BorderRadius.circular(25),
                         borderSide:
                             const BorderSide(color: Colors.transparent)),
-                    prefixIcon: const Icon(FontAwesomeIcons.search,
+                    prefixIcon: const FaIcon(FontAwesomeIcons.search,
                         size: 20, color: Colors.grey),
                     suffixIcon: IconButton(
                         onPressed: () async {
@@ -96,7 +98,7 @@ class _ProductSelectionState extends State<ProductSelection> {
                             isScrollControlled: true,
                           );
                         },
-                        icon: const Icon(
+                        icon: const FaIcon(
                           FontAwesomeIcons.filter,
                           size: 20,
                         )),
@@ -173,82 +175,73 @@ class _ProductSelectionState extends State<ProductSelection> {
                 Obx(() => Expanded(
                       child: () {
                         if (controller.isProductLoading.value) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const ShimmerCardList(
+                              showAvatar: false,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15));
                         }
                         if (controller.searchProducts.isEmpty) {
-                          return Stack(
-                            children: [
-                              RefreshIndicator(
-                                onRefresh: () async {
-                                  await controller.getProductList();
-                                },
-                                child: SingleChildScrollView(
-                                  child: SizedBox(
-                                    height: context.screenHeight,
-                                    width: context.screenWidth,
-                                  ),
-                                ),
+                          return AppRefreshScrollView(
+                            onRefresh: () async {
+                              await controller.getProductList();
+                            },
+                            slivers: const [
+                              SliverFillRemaining(
+                                hasScrollBody: false,
+                                child: Center(child: Text('No Record Found')),
                               ),
-                              const Center(child: Text('No Record Found')),
                             ],
                           );
                         }
 
-                        return Column(
-                          children: [
-                            Expanded(
-                              child: RefreshIndicator(
-                                onRefresh: () async {
-                                  await controller.getProductList();
-                                },
-                                child: AnimationLimiter(
-                                  child: Scrollbar(
-                                    child: ListView.separated(
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 15),
-                                      itemCount:
-                                          controller.searchProducts.length,
-                                      itemBuilder: (context, index) {
-                                        final product =
-                                            controller.searchProducts[index];
-                                        if (!controller.isProductListSeen &&
-                                            index == 0) {
-                                          return ProductCard(product, index);
-                                        }
-                                        return AnimationConfiguration
-                                            .staggeredList(
-                                          position: index,
-                                          duration:
-                                              const Duration(milliseconds: 375),
-                                          child: SlideAnimation(
-                                            verticalOffset: 50.0,
-                                            child: FadeInAnimation(
-                                              child:
-                                                  ProductCard(product, index),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      separatorBuilder: (context, index) =>
-                                          AnimationConfiguration.staggeredList(
+                        return AnimationLimiter(
+                          child: Scrollbar(
+                            child: AppRefreshScrollView(
+                              onRefresh: () async {
+                                await controller.getProductList();
+                              },
+                              slivers: [
+                                SliverPadding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 15),
+                                  sliver: SliverList.separated(
+                                    itemCount: controller.searchProducts.length,
+                                    itemBuilder: (context, index) {
+                                      final product =
+                                          controller.searchProducts[index];
+                                      if (!controller.isProductListSeen &&
+                                          index == 0) {
+                                        return ProductCard(product, index);
+                                      }
+                                      return AnimationConfiguration
+                                          .staggeredList(
                                         position: index,
                                         duration:
                                             const Duration(milliseconds: 375),
-                                        child: const SlideAnimation(
+                                        child: SlideAnimation(
                                           verticalOffset: 50.0,
-                                          child:
-                                              FadeInAnimation(child: Divider()),
+                                          child: FadeInAnimation(
+                                            child: ProductCard(product, index),
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration:
+                                          const Duration(milliseconds: 375),
+                                      child: const SlideAnimation(
+                                        verticalOffset: 50.0,
+                                        child:
+                                            FadeInAnimation(child: Divider()),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         );
                       }(),
                     )),
@@ -440,7 +433,9 @@ class _ProductSelectionState extends State<ProductSelection> {
 
   Widget buildProductList() {
     if (controller.isProductLoading.value) {
-      return const Center(child: CircularProgressIndicator());
+      return const ShimmerCardList(
+          showAvatar: false,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15));
     }
     if (controller.searchProducts.isEmpty) {
       return Stack(

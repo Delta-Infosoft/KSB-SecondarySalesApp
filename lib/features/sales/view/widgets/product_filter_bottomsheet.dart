@@ -390,7 +390,7 @@ class SelectedItemWidget extends StatelessWidget {
                         onTap: () {
                           onEditPress();
                         },
-                        child: const Icon(
+                        child: const FaIcon(
                           FontAwesomeIcons.edit,
                           size: 19,
                         ))
